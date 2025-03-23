@@ -1,0 +1,128 @@
+#projects {
+    padding: 4rem 2rem;
+    background-color: var(--dark-gray);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#projects h2 {
+    color: var(--electric-blue);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.about-proyects {
+    color: #d1d1d1;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 1rem;
+}
+
+/* Scrollbar styling */
+.projects-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.projects-grid::-webkit-scrollbar-track {
+    background: #2e2e2e;
+}
+
+.projects-grid::-webkit-scrollbar-thumb {
+    background: var(--electric-blue);
+    border-radius: 4px;
+}
+
+.project-card {
+    background: linear-gradient(145deg, #252525, #1f1f1f);
+    border-radius: 12px;
+    padding: 1.8rem;
+    border: 1px solid rgba(42, 99, 235, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(42, 99, 235, 0) 0%,
+        rgba(42, 99, 235, 0.1) 50%,
+        rgba(42, 99, 235, 0) 100%
+    );
+    transition: left 0.6s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(42, 99, 235, 0.3);
+    box-shadow: 0 6px 24px rgba(42, 99, 235, 0.15),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.project-card:hover::before {
+    left: 100%;
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.project-info h3 {
+    color: var(--electric-blue);
+    margin-bottom: 0.5rem;
+    margin-top: 0rem;
+    font-size: 1.4rem;
+}
+
+.project-info p {
+    color: #d1d1d1;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+}
+
+.project-info strong {
+    color: var(--electric-blue);
+}
+
+/* Diseño para pantallas medianas/grandes */
+@media (min-width: 768px) {
+    #projects {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 6rem 10%;
+    }
+    
+    #projects > div:first-child {
+        width: 40%;
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+    }
+    
+    .projects-grid {
+        width: 55%;
+        max-height: 80vh;
+    }
+}

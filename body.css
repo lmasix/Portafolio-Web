@@ -1,0 +1,60 @@
+:root {
+    --electric-blue: #2A63EB;
+    --dark-gray: #1B1A1C;
+    --white: #ffffff;
+}
+
+body {
+    margin: 0;
+    background-color: var(--dark-gray);
+    font-family: Arial, sans-serif;
+    color: var(--white);
+}
+
+.hero {
+    height: 50vh;
+    padding-top: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+/* Eliminar el .overlay */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    background-color: var(--dark-gray); /* Fondo estático */
+    z-index: -1;
+}
+
+.hero h1, .hero h2 {
+    z-index: 2; /* Asegurar que el texto esté sobre el canvas */
+}
+/* Estilos del título */
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--electric-blue), var(--neon-green));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.7); /* Efecto de resplandor */
+}
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+

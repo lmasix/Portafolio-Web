@@ -1,0 +1,109 @@
+/* Sección Sobre Mí */
+.sobremi {
+    padding: 5vh;
+    
+}
+
+#about h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3vh;
+    color: var(--electric-blue);
+}
+
+.about-text {
+    font-size: 1.2rem;
+    color: #d1d1d1;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Contenedor de las tarjetas */
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+/* Tarjetas de habilidades */
+.skill-card {
+    background: rgba(42, 99, 235, 0.1);
+    border: 1px solid var(--electric-blue);
+    border-radius: 10px;
+    margin: 1rem;
+    transition: transform 0.3s;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+}
+/* Tarjetas de habilidad */
+.skill-card {
+    background-color: #1A1A1A;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    width: 250px;
+}
+
+.skill-card:hover {
+    transform: scale(1.05);
+}
+
+/* Iconos */
+.skill-card i {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: var(--neon-green);
+}
+
+/* Títulos de las habilidades */
+.skill-card h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Barra de progreso */
+.skill-level {
+    width: 100%;
+    background-color: #333;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    height: 10px;
+    border-radius: 10px;
+    background-color: var(--electric-blue);
+    transition: width 0.5s ease-in-out;
+}
+
+/* Colores personalizados */
+:root {
+    --electric-blue: #2A63EB;
+    --neon-green: #00FF88;
+}
+
+/* Asegúrate de que los enlaces (a) tengan el mismo estilo que las tarjetas */
+.skill-card {
+    background-color: #1A1A1A;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    width: 250px;
+    display: inline-block;  /* Asegura que el enlace se comporta como un bloque */
+    text-decoration: none; /* Elimina el subrayado */
+}
+
+/* Efecto de hover */
+.skill-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    background-color: #333;  /* Cambia el color al pasar el cursor */
+}
