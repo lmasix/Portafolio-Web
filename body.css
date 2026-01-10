@@ -52,10 +52,13 @@ canvas {
     
     .projects-grid {
         grid-template-columns: 1fr;
-        padding-top: 5px;
     }
 }
 
+.proyects-grid {
+    padding-top: 10px;
+    padding-right: 0px;
+}
 
 
 
