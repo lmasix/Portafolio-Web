@@ -1,6 +1,6 @@
 #projects {
     padding: 4rem 2rem;
-    background-color: var(--dark-gray);
+    /* background-color: var(--dark-gray); Eliminado para ver el canvas */
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -49,7 +49,7 @@
     padding: 1.8rem;
     border: 1px solid rgba(42, 99, 235, 0.15);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
-                inset 0 2px 4px rgba(255, 255, 255, 0.05);
+        inset 0 2px 4px rgba(255, 255, 255, 0.05);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
@@ -62,12 +62,10 @@
     left: -100%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(
-        to right,
-        rgba(42, 99, 235, 0) 0%,
-        rgba(42, 99, 235, 0.1) 50%,
-        rgba(42, 99, 235, 0) 100%
-    );
+    background: linear-gradient(to right,
+            rgba(42, 99, 235, 0) 0%,
+            rgba(42, 99, 235, 0.1) 50%,
+            rgba(42, 99, 235, 0) 100%);
     transition: left 0.6s ease;
 }
 
@@ -75,7 +73,7 @@
     transform: translateY(-5px);
     border-color: rgba(42, 99, 235, 0.3);
     box-shadow: 0 6px 24px rgba(42, 99, 235, 0.15),
-                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+        inset 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
 .project-card:hover::before {
@@ -114,14 +112,14 @@
         justify-content: space-between;
         padding: 6rem 10%;
     }
-    
-    #projects > div:first-child {
+
+    #projects>div:first-child {
         width: 40%;
         position: sticky;
         top: 100px;
         height: fit-content;
     }
-    
+
     .projects-grid {
         width: 55%;
         max-height: 80vh;

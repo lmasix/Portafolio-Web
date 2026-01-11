@@ -1,49 +1,64 @@
 .footer {
-position: relative;
-color: white;
-padding: 2.5rem 1.5rem;
-background: linear-gradient(0deg, #1d44a079, var(--dark-gray));
-background-size: 100% 200%;
-animation: waveAnimation 10s infinite alternate ease-in-out;
+    position: relative;
+    color: white;
+    padding: 2.5rem 1.5rem;
+    background: linear-gradient(0deg, #1d44a079, transparent);
+    /* Cambiado a transparent */
+    background-size: 100% 200%;
+    animation: waveAnimation 10s infinite alternate ease-in-out;
 }
 
 .footer-container {
-max-width: 1200px;
-margin: auto;
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-gap: 1.5rem;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
 }
 
 .footer h3 {
-font-size: 1.2rem;
-margin-bottom: 1rem;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
 }
+
 .footer p {
     color: rgb(177, 177, 177);
 }
+
 .footer ul {
-list-style: none;
-padding: 0;
-padding-left: 0.1vw;
+    list-style: none;
+    padding: 0;
+    padding-left: 0.1vw;
 }
+
 .footer ul li {
     padding-bottom: 2.2vh;
 }
+
 .footer ul li a {
-text-decoration: none;
-color: rgb(177, 177, 177);
-transition: color 0.3s;
+    text-decoration: none;
+    color: rgb(177, 177, 177);
+    transition: color 0.3s;
 }
 
 .footer ul li a:hover {
-color: var(--electric-blue);
+    color: var(--electric-blue);
 }
+
 .frase {
     font-style: italic;
 }
+
 @keyframes waveAnimation {
-0% { background-position: 0% 0%; }
-50% { background-position: 0% 15%; }
-100% { background-position: 0% 0%; }
+    0% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 0% 15%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
 }

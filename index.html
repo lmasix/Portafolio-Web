@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="keywords" content="ingeniero civil eléctrico, control y convertidores, automatización con IA">
     <title>Maximiliano Andaur Henriquez</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="body.css">
     <link rel="stylesheet" href="sobremi.css">
     <link rel="stylesheet" href="footer.css">
     <link rel="stylesheet" href="proyectos.css">
 </head>
+
 <body>
+    <canvas id="circuitCanvas"></canvas>
     <header>
         <nav>
             <div class="logo">
-                <img src="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100" alt="Logo">
+                <img src="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100"
+                    alt="Logo">
             </div>
 
             <ul class="nav-links">
                 <li><a href="#home">Inicio</a></li>
                 <li><a href="#about">Sobre Mí</a></li>
                 <li><a href="#projects">Proyectos</a></li>
-                <li><a href="#innovation">Innovación</a></li>
+                <li><a href="#innovation">I + D</a></li>
                 <li><a href="#contact">Contacto</a></li>
             </ul>
             <!-- Botón hamburguesa -->
@@ -34,53 +43,62 @@
         </nav>
         <script src="header.js"></script>
     </header>
-    
 
-    <section id="home" class="hero">
-        <canvas id="circuitCanvas"></canvas>
-        <div>
-            <h2 class="tagline">Maximiliano Andaur Henriquez</h2>
-            <h1>Ingeniería Eléctrica Óptima</h1>
-        </div>
-        <script src="hero.js"></script>
-    </section>
+    <div class="hero-about-container">
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2 class="tagline">Maximiliano Alejandro Andaur Henriquez</h2>
+                <h1>Ingeniería Eléctrica: Control Avanzado y Sistemas Energéticos.</h1>
+            </div>
+            <script src="hero.js"></script>
+        </section>
 
 
-    <section id="about" class="sobremi">
-        <h2>Sobre Mí</h2>
-        <p class="about-text">
-            Soy un apasionado por la ciencia, inovación y tecnologías. Mi enfoque principal es la electrónica de potencia, sistemas IA con el control automatico, buscando siempre mejorar la eficiencia de los sistemas mediante el uso de herramientas avanzadas de optimización y actuales herramientas de IA.
-        </p>
-        <div class="skills-container">
-            <!-- Tarjetas de habilidades con enlaces -->
-            <a href="habilidad-electronica.html" class="skill-card">
-                <i class="fas fa-bolt"></i>
-                <h3>Electrónica de Potencia</h3>
-            </a>
-            <a href="habilidad-automatizacion.html" class="skill-card">
-                <i class="fas fa-cogs"></i>
-                <h3>Control de Procesos y Automatización</h3>
-            </a>
-            <a href="habilidad-ia.html" class="skill-card">
-                <i class="fas fa-robot"></i>
-                <h3>Desarrollo en IA</h3>
-            </a>
-            <a href="habilidad-programacion.html" class="skill-card">
-                <i class="fab fa-python"></i>
-                <h3>Programación y desarrollo</h3>
-            </a>
-            <a href="habilidad-diseno.html" class="skill-card">
-                <i class="fas fa-file-alt"></i>
-                <h3>Diseño y Modelado</h3>
-            </a>
-        </div>        
-    </section>
+        <section id="about" class="sobremi">
+            <h2>Sobre Mí</h2>
+            <p class="about-text">
+                Soy estudiante de Ingeniería Civil Eléctrica en la Universidad de Concepción, apasionado por la
+                convergencia entre la potencia, el control avanzado y la innovación tecnológica. Mi formación se ha
+                centrado en resolver problemas complejos mediante el uso de herramientas de Optimización e Inteligencia
+                Artificial aplicadas a sistemas eléctricos.Mi experiencia abarca desde el diseño de proyectos de
+                infraestructura a gran escala como: plantas fotovoltaicas industriales, sistemas de bombeo y alumbrado
+                eficiente, hasta la investigación de vanguardia en electrónica de potencia. Actualmente, desarrollo mi
+                memoria de título en el control de convertidores multinivel (CHB y T-Type) utilizando estrategias de
+                control predictivo (<span class="math_word">MFPC</span>) y control por caída virtual (<span
+                    class="math_word">dVoc</span>) para aplicaciones Grid-Forming.
+            </p>
+            <div class="skills-container">
+                <!-- Tarjetas de habilidades con enlaces -->
+                <a href="habilidad-electronica.html" class="skill-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Electrónica de Potencia</h3>
+                </a>
+                <a href="habilidad-automatizacion.html" class="skill-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Control de Procesos y Automatización</h3>
+                </a>
+                <a href="habilidad-ia.html" class="skill-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Desarrollo en IA</h3>
+                </a>
+                <a href="habilidad-programacion.html" class="skill-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Programación y desarrollo</h3>
+                </a>
+                <a href="habilidad-diseno.html" class="skill-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Diseño y Modelado</h3>
+                </a>
+            </div>
+        </section>
+    </div>
 
     <section id="projects">
         <div>
             <h2>Proyectos Destacados</h2>
             <p class="about-proyects">
-                Aquí encontrarás algunos de los proyectos en los que he trabajado, aplicando técnicas avanzadas de control, IA y SCADA para la optimización de sistemas eléctricos.
+                Aquí encontrarás algunos de los proyectos en los que he trabajado, aplicando técnicas avanzadas de
+                control, IA y SCADA para la optimización de sistemas eléctricos.
             </p>
         </div>
         <div class="projects-grid">
@@ -102,46 +120,47 @@
             </div>
         </div>
     </section>
-    
+
     <footer class="footer">
         <div class="footer-container">
-          <!-- Navegación -->
-          <div>
-            <h3>Navegación</h3>
-            <ul>
-              <li><a href="#">Inicio</a></li>
-              <li><a href="#">Sobre mí</a></li>
-              <li><a href="#">Proyectos</a></li>
-              <li><a href="#">Innovación</a></li>
-              <li><a href="#">Contacto</a></li>
-            </ul>
-          </div>
-          
-          <!-- Recursos y Enlaces -->
-          <div>
-            <h3>Recursos</h3>
-            <ul>
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Google Scholar</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Descargar CV</a></li>
-            </ul>
-          </div>
-        <!-- Información Personal o Profesional -->
+            <!-- Navegación -->
+            <div>
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Sobre mí</a></li>
+                    <li><a href="#">Proyectos</a></li>
+                    <li><a href="#">Innovación</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+
+            <!-- Recursos y Enlaces -->
+            <div>
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">Google Scholar</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Descargar CV</a></li>
+                </ul>
+            </div>
+            <!-- Información Personal o Profesional -->
             <div>
                 <h3>Información</h3>
                 <p>Localidad: Concepción, Chile</p>
                 <p>Correo: maxi8451@gmail.com</p>
                 <p>Idiomas: Español, Inglés</p>
             </div>
-          <!-- Detalles Extras -->
-          <div>
-            <h3>Detalles</h3>
-            <p><span class="frase">“La excelencia no es un acto, sino un hábito”</span></p>
-            <p>Última actualización: Marzo 2025</p>
-          </div>
+            <!-- Detalles Extras -->
+            <div>
+                <h3>Detalles</h3>
+                <p><span class="frase">“La excelencia no es un acto, sino un hábito”</span></p>
+                <p>Última actualización: Marzo 2025</p>
+            </div>
         </div>
-      </footer>
-      
+    </footer>
+
 </body>
+
 </html>
