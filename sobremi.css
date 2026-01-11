@@ -1,7 +1,7 @@
 /* Sección Sobre Mí */
 .sobremi {
     padding: 5vh;
-    
+
 }
 
 #about h2 {
@@ -37,6 +37,7 @@
 .skill-card:hover {
     transform: translateY(-5px);
 }
+
 /* Tarjetas de habilidad */
 .skill-card {
     background-color: #1A1A1A;
@@ -97,13 +98,70 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
     width: 250px;
-    display: inline-block;  /* Asegura que el enlace se comporta como un bloque */
-    text-decoration: none; /* Elimina el subrayado */
+    display: inline-block;
+    /* Asegura que el enlace se comporta como un bloque */
+    text-decoration: none;
+    /* Elimina el subrayado */
 }
 
 /* Efecto de hover */
 .skill-card:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    background-color: #333;  /* Cambia el color al pasar el cursor */
+    background-color: #333;
+}
+
+/* Sección de Contribuciones */
+.contributions {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--electric-blue);
+    border-radius: 0 10px 10px 0;
+}
+
+.contributions h3 {
+    color: var(--electric-blue);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+}
+
+.contributions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contributions li {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+}
+
+.contributions li::before {
+    content: '▹';
+    /* Triangulito */
+    color: var(--neon-green);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.2rem;
+}
+
+.contributions li strong {
+    color: white;
+    font-weight: bold;
+}
+
+.objective-text {
+    margin-top: 25px;
+    font-style: italic;
+    color: #b0c4de;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 15px;
 }

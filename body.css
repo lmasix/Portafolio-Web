@@ -8,7 +8,7 @@
 body {
     margin: 0;
     background-color: var(--dark-gray);
-    font-family: Arial, sans-serif;
+    font-family: 'Outfit', sans-serif;
     color: var(--white);
     overflow-x: hidden;
 }
