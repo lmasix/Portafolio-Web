@@ -1,25 +1,23 @@
 /* Header existente */
 header {
     background: rgba(22, 22, 24, 0.8);
-    /* Fondo más sólido pero translúcido */
-    padding: 10px 40px;
+    padding: 8px 30px;
+    /* Reduced padding */
     width: 90%;
-    /* Design flotante */
     max-width: 1200px;
     position: fixed;
-    top: 20px;
+    top: 15px;
+    /* Reduced top margin */
     left: 50%;
     transform: translateX(-50%);
     overflow: visible;
     backdrop-filter: blur(20px);
-    /* Más blur */
     z-index: 1000;
     display: flex;
-    /* Asegurar display flex */
     align-items: center;
     justify-content: space-between;
-    border-radius: 50px;
-    /* Bordes redondeados estilo píldora */
+    border-radius: 40px;
+    /* Slightly reduced radius */
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
@@ -28,6 +26,9 @@ header {
 .logo img {
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+    height: 40px;
+    /* Limit logo height */
+    width: auto;
 }
 
 /* Navegación */
@@ -191,7 +192,8 @@ nav {
         flex-direction: column;
         align-items: center;
         /* Centrar items */
-        padding: 40px 0;
+        padding: 20px 0;
+        /* Reduced padding */
         /* Más padding vertical */
         opacity: 0;
         visibility: hidden;
@@ -224,8 +226,10 @@ nav {
 
     .nav-links a {
         display: block;
-        padding: 15px 0;
-        font-size: 1.5rem;
+        padding: 10px 0;
+        /* Reduced items padding */
+        font-size: 1.2rem;
+        /* Reduced font size */
         /* Letras más grandes */
         text-transform: uppercase;
         letter-spacing: 2px;
@@ -234,10 +238,16 @@ nav {
         transition: all 0.3s ease;
     }
 
+    /* Disable desktop underline on mobile */
+    .nav-links a::after {
+        display: none;
+    }
+
     .nav-links a:hover {
         background: transparent;
         color: #00FF88;
-        transform: scale(1.1);
+        transform: scale(1.05);
+        /* Slightly reduced scale */
         text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
     }
 
