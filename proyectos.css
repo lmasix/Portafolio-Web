@@ -25,7 +25,8 @@
     gap: 2rem;
     max-height: 70vh;
     overflow-y: auto;
-    padding-right: 1rem;
+    padding-top: 10px;
+    padding-right: 0px;
 }
 
 /* Scrollbar styling */
