@@ -6,17 +6,17 @@ let isMobile = window.innerWidth < 768;
 
 // Configuración de rayos
 let particles = [];
-const particleCount = 5;
-const maxJumps = 5;
-const flashProbability = 0.02;
+const particleCount = 3; // Menos rayos para no distraer
+const maxJumps = 3;
+const flashProbability = 0.001; // Destellos muy raros
 const colorPalette = ['#2A63EB', '#4B8AFF', '#00F7FF'];
 
 class LightningParticle {
     constructor() {
         this.reset(true);
         this.velocity = {
-            x: (Math.random() - 0.5) * 10,
-            y: (Math.random() - 0.5) * 10
+            x: (Math.random() - 0.5) * 2, // Velocidad inicial reducida
+            y: (Math.random() - 0.5) * 2
         };
     }
 
@@ -60,10 +60,10 @@ class LightningParticle {
         }
 
         // Actualizar posición con variaciones eléctricas
-        // Velocidad más lenta en celular
-        const speedFactor = isMobile ? 0.05 : 0.15;
-        this.pos.x += (dx * speedFactor) + (Math.random() - 0.5) * 3;
-        this.pos.y += (dy * speedFactor) + (Math.random() - 0.5) * 3;
+        // Velocidad más lenta y suave para no distraer
+        const speedFactor = isMobile ? 0.02 : 0.05;
+        this.pos.x += (dx * speedFactor) + (Math.random() - 0.5) * 1;
+        this.pos.y += (dy * speedFactor) + (Math.random() - 0.5) * 1;
 
         // Registrar trayectoria
         this.path.push({ ...this.pos });
@@ -83,11 +83,11 @@ class LightningParticle {
 
         // Ajustes para celular: más tenue y delgado
         if (isMobile) {
-            ctx.globalAlpha = 0.4;
-            ctx.shadowBlur = 5;
+            ctx.globalAlpha = 0.2;
+            ctx.shadowBlur = 3;
         } else {
-            ctx.globalAlpha = 1.0;
-            ctx.shadowBlur = 15;
+            ctx.globalAlpha = 0.5; // Mucho más transparente en desktop también
+            ctx.shadowBlur = 10;
         }
 
         // Dibujar línea principal con efecto de brillo

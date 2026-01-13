@@ -21,6 +21,7 @@
 
 <body>
     <canvas id="circuitCanvas"></canvas>
+    <canvas id="cursorCanvas"></canvas>
     <header>
         <nav>
             <div class="logo">
@@ -30,9 +31,8 @@
 
             <ul class="nav-links">
                 <li><a href="#home">Inicio</a></li>
-                <li><a href="#about">Sobre Mí</a></li>
-                <li><a href="#projects">Proyectos</a></li>
                 <li><a href="#innovation">I + D</a></li>
+                <li><a href="#projects">Proyectos</a></li>
                 <li><a href="#contact">Contacto</a></li>
             </ul>
             <!-- Botón hamburguesa -->
@@ -95,27 +95,27 @@
         <h2>Habilidades Técnicas</h2>
         <div class="skills-container">
             <!-- Tarjetas de habilidades con enlaces -->
-            <a href="habilidad-electronica.html" class="skill-card">
+            <a href="proyectos-potencia.html" class="skill-card">
                 <i class="fas fa-bolt"></i>
                 <h3>Simulación</h3>
                 <p>Matlab, PLECS, Simulink, ETAP</p>
             </a>
-            <a href="habilidad-programacion.html" class="skill-card">
+            <a href="ia-y-algoritmos.html" class="skill-card">
                 <i class="fas fa-robot"></i>
                 <h3>Programación</h3>
                 <p>C++ (Control y optimización), Python (IA, automatización, data analysis, web)</p>
             </a>
-            <a href="habilidad-diseno.html" class="skill-card">
+            <a href="proyectos-renovables.html" class="skill-card">
                 <i class="fas fa-file-alt"></i>
                 <h3>Diseño y Planos</h3>
                 <p>AutoCAD, DIALux</p>
             </a>
-            <a href="habilidad-idioma.html" class="skill-card">
+            <a href="#about" class="skill-card">
                 <i class="fas fa-language"></i>
                 <h3>Idioma</h3>
                 <p>Ingles C1, español Nativo</p>
             </a>
-            <a href="habilidad-automatizacion.html" class="skill-card">
+            <a href="proyectos-automatizacion.html" class="skill-card">
                 <i class="fas fa-cogs"></i>
                 <h3>Control de Procesos y Automatización</h3>
                 <p>Rslogix, ladder, HMI, SCADA</p>
@@ -125,7 +125,7 @@
 
     <section id="projects">
         <div>
-            <h2>Áreas de Expertise y Proyectos</h2>
+            <h2>Áreas de Expertiz y Proyectos</h2>
             <hr>
             <p class="about-proyects">
                 Esta sección presenta la convergencia entre el rigor del <b>control avanzado</b> y la ejecución de
@@ -137,22 +137,27 @@
             </p>
         </div>
         <div class="projects-grid">
-            <div class="project-card">
+            <a href="proyectos-renovables.html" class="project-card" style="text-decoration: none;">
                 <div class="project-info">
                     <h3>Energías Renovables e Infraestructura</h3>
                 </div>
-            </div>
+            </a>
 
-            <div class="project-card">
+            <a href="proyectos-potencia.html" class="project-card" style="text-decoration: none;">
                 <div class="project-info">
                     <h3>Electrónica de Potencia y Control</h3>
                 </div>
-            </div>
-            <div class="project-card">
+            </a>
+            <a href="ia-y-algoritmos.html" class="project-card" style="text-decoration: none;">
                 <div class="project-info">
                     <h3>Inteligencia Artificial y Optimización</h3>
                 </div>
-            </div>
+            </a>
+            <a href="proyectos-automatizacion.html" class="project-card" style="text-decoration: none;">
+                <div class="project-info">
+                    <h3>Automatización y Control Industrial</h3>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -163,9 +168,8 @@
                 <h3>Navegación</h3>
                 <ul>
                     <li><a href="#home">Inicio</a></li>
-                    <li><a href="#about">Sobre mí</a></li>
-                    <li><a href="#projects">Proyectos</a></li>
                     <li><a href="#innovation">I + D</a></li>
+                    <li><a href="#projects">Proyectos</a></li>
                     <li><a href="#contact">Contacto</a></li>
                 </ul>
             </div>
@@ -203,6 +207,7 @@
         </div>
     </footer>
 
+    <script src="cursor.js"></script>
 </body>
 
 </html>

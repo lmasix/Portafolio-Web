@@ -20,15 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Smooth scroll
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                nav.classList.remove('nav-active');
-                hamburger.setAttribute('aria-expanded', 'false');
+            const href = link.getAttribute('href');
+            
+            // Solo aplicar smooth scroll si es un enlace interno (empieza con #)
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    nav.classList.remove('nav-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
             }
         });
     });

@@ -1,0 +1,141 @@
+/* Estilos específicos para las páginas de detalle de proyectos */
+
+.project-detail-container {
+    padding-top: 120px;
+    /* Espacio para el header fijo */
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 80px;
+}
+
+.project-hero {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 0 20px;
+}
+
+.project-hero h1 {
+    font-size: 3rem;
+    color: var(--electric-blue);
+    margin-bottom: 10px;
+    font-family: 'Rajdhani', sans-serif;
+    text-shadow: 0 0 20px rgba(42, 99, 235, 0.4);
+}
+
+.project-hero .subtitle {
+    font-size: 1.2rem;
+    color: #b0c4de;
+    font-style: italic;
+}
+
+/* Lista de proyectos */
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+.project-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 4px solid var(--electric-blue);
+}
+
+.project-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.project-content h2 {
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.tech-stack {
+    color: var(--neon-green);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tech-stack i {
+    font-size: 1.1em;
+}
+
+.project-content p {
+    color: #d1d1d1;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    font-family: 'Outfit', sans-serif;
+}
+
+.project-content ul {
+    list-style: none;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+.project-content ul li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+.project-content ul li::before {
+    content: '▹';
+    color: var(--electric-blue);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Botón de volver */
+.back-link {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 12px 30px;
+    background: transparent;
+    border: 1px solid var(--electric-blue);
+    color: var(--electric-blue);
+    text-decoration: none;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.btn-back:hover {
+    background: var(--electric-blue);
+    color: white;
+    box-shadow: 0 0 15px rgba(42, 99, 235, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .project-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .project-item {
+        padding: 20px;
+    }
+}

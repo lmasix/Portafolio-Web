@@ -66,6 +66,12 @@ canvas {
     z-index: -1;
 }
 
+#cursorCanvas {
+    background-color: transparent;
+    z-index: 9999;
+    pointer-events: none;
+}
+
 .hero h1,
 .hero h2 {
     z-index: 2;

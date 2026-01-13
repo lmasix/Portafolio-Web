@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos de Electrónica de Potencia - Maximiliano Andaur</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="header.css?v=2.0">
+    <link rel="stylesheet" href="body.css?v=2.0">
+    <link rel="stylesheet" href="footer.css?v=2.0">
+    <link rel="stylesheet" href="proyecto-detalle.css?v=1.0">
+</head>
+
+<body>
+    <canvas id="circuitCanvas"></canvas>
+
+    <!-- Reutilizamos el header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100"
+                        alt="Logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Inicio</a></li>
+                <li><a href="index.html#projects">Proyectos</a></li>
+                <li><a href="index.html#contact">Contacto</a></li>
+            </ul>
+            <button class="hamburger" aria-label="Abrir menú">
+                <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+            </button>
+        </nav>
+        <script src="header.js?v=2.0"></script>
+    </header>
+
+    <main class="project-detail-container">
+        <section class="project-hero">
+            <h1>Electrónica de Potencia y Control</h1>
+            <p class="subtitle">Control predictivo, convertidores multinivel y estabilidad de redes</p>
+        </section>
+
+        <section class="project-list">
+            <!-- Proyecto 1 -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Control Predictivo (MFPC) para Convertidores Grid-Forming</h2>
+                    <p class="tech-stack"><i class="fas fa-microchip"></i> Modulated Model Predictive Control (MFPC) |
+                        Inversores T-Type | Grid-Forming</p>
+                    <p>
+                        Desarrollo de una estrategia de control predictivo modulado para inversores <strong>Neutrals
+                            Point Clamped (NPC) T-Type</strong> en aplicaciones <em>Grid-Forming</em>.
+                        El objetivo es mejorar la respuesta dinámica ante perturbaciones en la red y garantizar una
+                        inyección de potencia estable con baja distorsión armónica (THD).
+                    </p>
+                    <ul>
+                        <li>Implementación en simulaciones de alta fidelidad (PLECS/Matlab).</li>
+                        <li>Reducción del error de seguimiento de corriente en un 15% comparado con PI clásicos.</li>
+                        <li>Validación de robustez ante cambios de carga y fallas en la red.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Proyecto 2 -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Control por Caída Virtual (dVoc) en Microredes</h2>
+                    <p class="tech-stack"><i class="fas fa-network-wired"></i> Dispatchable Virtual Oscillator Control
+                        (dVoc) | Microgrids | Estabilidad</p>
+                    <p>
+                        Investigación sobre el control de oscilador virtual despachable para la sincronización
+                        automática de convertidores en microredes aisladas.
+                        Esta técnica permite compartir carga activa y reactiva sin comunicaciones rápidas, imitando la
+                        dinámica de generadores síncronos pero con respuesta casi instantánea.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Proyecto 3 -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Diseño de Filtros LCL para Inversores Solares</h2>
+                    <p class="tech-stack"><i class="fas fa-sun"></i> Filtros Pasivos | Calidad de Energía | Diseño
+                        Magnético</p>
+                    <p>
+                        Cálculo y diseño optimizado de filtros LCL para la conexión a red de inversores fotovoltaicos de
+                        50kW.
+                        Se priorizó la minimización de pérdidas en el núcleo magnético y el cumplimiento de normativas
+                        de inyección de armónicos (IEEE 519).
+                    </p>
+                </div>
+            </article>
+        </section>
+
+        <div class="back-link">
+            <a href="index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Volver a Proyectos</a>
+        </div>
+    </main>
+
+    <script src="hero.js?v=2.0"></script>
+</body>
+
+</html>
