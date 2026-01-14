@@ -101,7 +101,7 @@ function drawCursor() {
     cCtx.strokeStyle = config.arcColor;
     cCtx.lineWidth = 1.5;
     cCtx.shadowColor = config.arcColor;
-    cCtx.shadowBlur = 10;
+    cCtx.shadowBlur = 5;
     cCtx.stroke();
 
     // Draw Nodes (Phases)
@@ -114,7 +114,7 @@ function drawCursor() {
         cCtx.arc(x, y, 3, 0, Math.PI * 2);
         cCtx.fillStyle = config.phaseColor;
         cCtx.shadowColor = config.phaseColor;
-        cCtx.shadowBlur = 15;
+        cCtx.shadowBlur = 8;
         cCtx.fill();
 
         // Inner white core

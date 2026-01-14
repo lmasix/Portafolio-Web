@@ -1,13 +1,14 @@
 /* Sección Sobre Mí */
 .sobremi {
     padding: 5vh;
-
 }
 
 #about h2 {
     font-size: 2.5rem;
     margin-bottom: 3vh;
     color: var(--electric-blue);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
 }
 
 .about-text {
@@ -17,116 +18,123 @@
     line-height: 1.6;
 }
 
-/* Contenedor de las tarjetas */
+/* Contenedor de las tarjetas de habilidades */
+.skills-section {
+    padding: 80px 5vw;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+}
+
+.skills-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: var(--electric-blue);
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
 .skills-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-/* Tarjetas de habilidades */
+/* Tarjetas de habilidades modernas */
 .skill-card {
-    background: rgba(42, 99, 235, 0.1);
-    border: 1px solid var(--electric-blue);
-    border-radius: 10px;
-    margin: 1rem;
-    transition: transform 0.3s;
-}
-
-.skill-card:hover {
-    transform: translateY(-5px);
-}
-
-/* Tarjetas de habilidad */
-.skill-card {
-    background-color: #1A1A1A;
-    color: white;
+    background: #1a1a1c;
+    /* Optimización: Evitar lag de procesamiento de blur */
+    border: 1px solid rgba(42, 99, 235, 0.2);
+    border-radius: 15px;
+    padding: 30px 20px;
     text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-    width: 250px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(42, 99, 235, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .skill-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-10px);
+    border-color: var(--electric-blue);
+    background: rgba(42, 99, 235, 0.1);
+    box-shadow: 0 15px 40px rgba(42, 99, 235, 0.2);
+}
+
+.skill-card:hover::before {
+    opacity: 1;
 }
 
 /* Iconos */
 .skill-card i {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
     color: var(--neon-green);
+    filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.3));
+    transition: transform 0.4s ease;
 }
 
-/* Títulos de las habilidades */
+.skill-card:hover i {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Títulos y texto */
 .skill-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin: 10px 0;
-    font-weight: bold;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
 }
 
-/* Barra de progreso */
-.skill-level {
-    width: 100%;
-    background-color: #333;
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
-.progress-bar {
-    height: 10px;
-    border-radius: 10px;
-    background-color: var(--electric-blue);
-    transition: width 0.5s ease-in-out;
-}
-
-/* Colores personalizados */
-:root {
-    --electric-blue: #2A63EB;
-    --neon-green: #00FF88;
-}
-
-/* Asegúrate de que los enlaces (a) tengan el mismo estilo que las tarjetas */
-.skill-card {
-    background-color: #1A1A1A;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-    width: 250px;
-    display: inline-block;
-    /* Asegura que el enlace se comporta como un bloque */
-    text-decoration: none;
-    /* Elimina el subrayado */
-}
-
-/* Efecto de hover */
-.skill-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    background-color: #333;
+.skill-card p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.4;
+    margin-top: 5px;
 }
 
 /* Sección de Contribuciones */
 .contributions {
     margin-top: 30px;
     margin-bottom: 40px;
-    padding: 25px;
-    background: rgba(255, 255, 255, 0.03);
-    border-left: 3px solid var(--electric-blue);
-    border-radius: 0 10px 10px 0;
+    padding: 30px;
+    background: rgba(42, 99, 235, 0.05);
+    border-left: 4px solid var(--electric-blue);
+    border-radius: 0 15px 15px 0;
 }
 
 .contributions h3 {
     color: var(--electric-blue);
     font-size: 1.8rem;
-    margin-bottom: 20px;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
+    margin-bottom: 25px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
 }
 
 .contributions ul {
@@ -135,50 +143,36 @@
 }
 
 .contributions li {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     font-size: 1.1rem;
     color: #e0e0e0;
-    padding-left: 20px;
+    padding-left: 25px;
     position: relative;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .contributions li::before {
-    content: '▹';
-    /* Triangulito */
+    content: '→';
     color: var(--neon-green);
     position: absolute;
     left: 0;
     top: 0;
-    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .contributions li strong {
     color: white;
-    font-weight: bold;
+    font-weight: 600;
 }
 
-.objective-text {
-    margin-top: 25px;
-    font-style: italic;
-    color: #b0c4de;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 15px;
-}
+/* Responsive */
+@media (max-width: 768px) {
+    .skills-container {
+        grid-template-columns: 1fr;
+    }
 
-/* Nueva Sección de Skills separada */
-.skills-section {
-    padding: 5vh 5vw;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.skills-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    color: var(--electric-blue);
-    font-family: 'Outfit', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    #about h2,
+    .skills-section h2 {
+        font-size: 2rem;
+    }
 }

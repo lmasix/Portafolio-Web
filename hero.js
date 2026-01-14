@@ -87,7 +87,7 @@ class LightningParticle {
             ctx.shadowBlur = 3;
         } else {
             ctx.globalAlpha = 0.5; // Mucho más transparente en desktop también
-            ctx.shadowBlur = 10;
+            ctx.shadowBlur = 5;
         }
 
         // Dibujar línea principal con efecto de brillo

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', (e) => {
             const href = link.getAttribute('href');
-            
+
             // Solo aplicar smooth scroll si es un enlace interno (empieza con #)
             if (href.startsWith('#')) {
                 e.preventDefault();
@@ -37,4 +37,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Logo Modal Logic (Premium Lightbox)
+    const logoImg = document.querySelector('.logo img');
+    if (logoImg) {
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'logo-modal';
+        modal.innerHTML = `<img src="${logoImg.src}" alt="Profile Picture Enlarged">`;
+        document.body.appendChild(modal);
+
+        logoImg.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.classList.add('active');
+            document.body.classList.add('no-scroll');
+        });
+
+        modal.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
+    }
 });
