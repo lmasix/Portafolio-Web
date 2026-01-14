@@ -1,0 +1,370 @@
+/* Header existente */
+header {
+    background: #161618;
+    /* Color sólido para máximo rendimiento */
+    padding: 10px 30px;
+    /* Adjusted padding for larger logo */
+    width: 90%;
+    max-width: 1200px;
+    position: fixed;
+    top: 15px;
+    /* Reduced top margin */
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: visible;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 40px;
+    /* Slightly reduced radius */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Logo */
+.logo img {
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+    height: 65px;
+    /* Tamaño profesional para destacar la identidad */
+    width: auto;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.8);
+}
+
+/* Navegación */
+nav {
+    display: flex;
+    justify-content: space-between;
+    /* Mantiene logo a la izq y hamburguesa a la derecha si existe */
+    align-items: center;
+    width: 100%;
+    position: relative;
+    /* Necesario para el posicionamiento absoluto de los links */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+
+    /* Centrado absoluto en Desktop */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    white-space: nowrap;
+}
+
+.nav-links li.lang-selector {
+    margin-left: 20px;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lang-selector a {
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.lang-selector a:hover,
+.lang-selector a.active {
+    color: var(--neon-green);
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.lang-selector span {
+    color: rgba(255, 255, 255, 0.2);
+    user-select: none;
+}
+
+.nav-links li {
+    display: inline-block;
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    /* Fuente moderna y limpia */
+    font-size: 1.15em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    /* Un poco más de espaciado */
+    padding: 5px 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect: Underline animado */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #00FF88;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px #00FF88;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Estilos del header existentes... */
+
+/* Estilos para el menú hamburguesa */
+.hamburger {
+    display: none;
+    /* Oculto en desktop */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 5%;
+    z-index: 1000;
+}
+
+.hamburger-box {
+    width: 30px;
+    height: 24px;
+    display: inline-block;
+    position: relative;
+}
+
+.hamburger-inner {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease;
+}
+
+.hamburger-inner::before {
+    top: -8px;
+}
+
+.hamburger-inner::after {
+    top: 8px;
+}
+
+/* Estilos cuando el menú está abierto */
+.nav-active .hamburger-inner {
+    background-color: transparent;
+}
+
+.nav-active .hamburger-inner::before {
+    transform: translateY(8px) rotate(45deg);
+    background-color: #00FF88;
+}
+
+.nav-active .hamburger-inner::after {
+    transform: translateY(-8px) rotate(-45deg);
+    background-color: #00FF88;
+}
+
+
+/* Menú hamburguesa - mantén los estilos anteriores del botón */
+/* Menú desplegable */
+/* Menú desplegable eliminado (duplicado) */
+
+@media (max-width: 768px) {
+    header {
+        width: 92%;
+        /* Ligeramente más ancho en móvil */
+        padding: 10px 20px;
+        border-radius: 20px;
+        /* Menos redondeado en móvil */
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        /* Justo debajo del header */
+        left: 0;
+        width: 100%;
+        margin-top: 10px;
+        /* Un pequeño espacio */
+        background: #0f0f10;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        /* Coincidir con el estilo flotante */
+        /* Fondo casi sólido y oscuro */
+        flex-direction: column;
+        align-items: center;
+        /* Centrar items */
+        padding: 20px 0;
+        /* Reduced padding */
+        /* Más padding vertical */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        border-bottom: 2px solid #00FF88;
+        /* Detalle de estilo */
+    }
+
+    .nav-active .nav-links {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .nav-links li {
+        width: 100%;
+        /* Ocupar todo el ancho para facilitar click */
+        text-align: center;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+    }
+
+    .nav-active .nav-links li {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 10px 0;
+        /* Reduced items padding */
+        font-size: 1.2rem;
+        /* Reduced font size */
+        /* Letras más grandes */
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 300;
+        /* Estilo más elegante */
+        transition: all 0.3s ease;
+    }
+
+    /* Disable desktop underline on mobile */
+    .nav-links a::after {
+        display: none;
+    }
+
+    .nav-links a:hover {
+        background: transparent;
+        color: #00FF88;
+        transform: scale(1.05);
+        /* Slightly reduced scale */
+        text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
+
+/* Retraso para la animación de los items */
+.nav-links li:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.nav-links li:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.nav-links li:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.nav-links li:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.nav-links li:nth-child(5) {
+    transition-delay: 0.5s;
+}
+
+.nav-links li:nth-child(6) {
+    transition-delay: 0.6s;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+/* Logo Modal (Premium Lightbox) */
+.logo-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 12, 0.98);
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.logo-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.logo-modal img {
+    max-width: 90vw;
+    max-height: 80vh;
+    width: 400px;
+    /* Tamaño específico para resaltar */
+    height: 400px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--electric-blue);
+    box-shadow: 0 0 60px rgba(42, 99, 235, 0.3);
+    transform: scale(0.7);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.logo-modal.active img {
+    transform: scale(1);
+}
+
+@media (max-width: 768px) {
+    .logo-modal img {
+        width: 280px;
+        height: 280px;
+    }
+}

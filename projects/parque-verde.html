@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+        href="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100">
+    <title>Energías Renovables e Infraestructura - Maximiliano Andaur</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/header.css?v=2.0">
+    <link rel="stylesheet" href="../assets/css/body.css?v=2.0">
+    <link rel="stylesheet" href="../assets/css/footer.css?v=2.0">
+    <link rel="stylesheet" href="../assets/css/proyecto-detalle.css?v=1.0">
+</head>
+
+<body>
+    <canvas id="circuitCanvas"></canvas>
+    <canvas id="cursorCanvas"></canvas>
+
+    <!-- Reutilizamos el header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGi5OVtd5miVA/profile-displayphoto-scale_400_400/B4DZu5iMsJJwAg-/0/1768344309194?e=1770249600&v=beta&t=FHRpoujXpl39whPUhOJR6SKoGfRJhvbh8-o3JXYhAn4"
+                        alt="Logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#home">Inicio</a></li>
+                <li><a href="../index.html#projects">Proyectos</a></li>
+                <li><a href="../index.html#contact">Contacto</a></li>
+            </ul>
+            <button class="hamburger" aria-label="Abrir menú">
+                <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+            </button>
+        </nav>
+        <script src="../assets/js/header.js?v=2.0"></script>
+    </header>
+
+    <main class="project-detail-container">
+        <section class="project-hero">
+            <h1>Energías Renovables e Infraestructura</h1>
+            <p class="subtitle">Gestión, diseño y ejecución de proyectos de alto impacto</p>
+        </section>
+
+        <section class="project-list">
+            <!-- Proyecto Principal -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Parque Urbano Verde - Quirihue</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-drafting-compass"></i> AutoCAD |
+                        <i class="fas fa-solar-panel"></i> PVsyst |
+                        <i class="fas fa-lightbulb"></i> DIALux |
+                        <i class="fas fa-battery-full"></i> BESS
+                    </p>
+                    <p>
+                        Diseño integral de la ingeniería eléctrica para un gran Parque Urbano en la comuna de Quirihue.
+                        Este proyecto se centra en la sostenibilidad y la autonomía energética, integrando generación
+                        renovable y almacenamiento avanzado.
+                    </p>
+
+                    <h3><i class="fas fa-list-ul" style="color: var(--neon-green); font-size: 0.8em;"></i> Detalles
+                        Técnicos</h3>
+                    <ul>
+                        <li><strong>Sistema Fotovoltaico:</strong> Diseño de un arreglo de <strong>281 kWp</strong> para
+                            cubrir la demanda energética del parque.</li>
+                        <li><strong>Almacenamiento (BESS):</strong> Dimensionamiento de un sistema de baterías para
+                            respaldo y gestión de demanda.</li>
+                        <li><strong>Alumbrado Eficiente:</strong> Planificación luminotécnica y eléctrica para
+                            garantizar seguridad y eficiencia.</li>
+                    </ul>
+
+                    <div
+                        style="margin-top: 20px; padding: 15px; background: rgba(0, 255, 136, 0.1); border-left: 4px solid var(--neon-green); border-radius: 5px;">
+                        <h4 style="color: var(--neon-green); margin: 0 0 5px 0; font-family: 'Rajdhani', sans-serif;"><i
+                                class="fas fa-award"></i> Logro Destacado</h4>
+                        <p style="margin: 0; font-size: 0.95rem;">
+                            Recibí <strong>Honores Especiales</strong> por parte de mi tutor en el programa "Prácticas
+                            con Impacto" debido a la excelencia técnica y capacidad de gestión demostrada durante este
+                            proyecto.
+                        </p>
+                    </div>
+
+                    <h3><i class="fas fa-images"
+                            style="color: var(--electric-blue); font-size: 0.8em; margin-top: 25px;"></i> Galería de
+                        Planos (AutoCAD)</h3>
+                    <p style="font-style: italic; font-size: 0.9rem; margin-bottom: 15px;">Muestra del trabajo técnico
+                        de diseño y planimetría:</p>
+
+                    <!-- Placeholder para Galería -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div
+                            style="background: rgba(255,255,255,0.05); padding: 40px 10px; text-align: center; border-radius: 8px; border: 1px dashed rgba(255,255,255,0.2);">
+                            <i class="far fa-file-image" style="font-size: 2rem; color: #aaa; margin-bottom: 10px;"></i>
+                            <p>Diagrama Unilineal General</p>
+                        </div>
+                        <div
+                            style="background: rgba(255,255,255,0.05); padding: 40px 10px; text-align: center; border-radius: 8px; border: 1px dashed rgba(255,255,255,0.2);">
+                            <i class="far fa-map" style="font-size: 2rem; color: #aaa; margin-bottom: 10px;"></i>
+                            <p>Emplazamiento de Paneles</p>
+                        </div>
+                        <div
+                            style="background: rgba(255,255,255,0.05); padding: 40px 10px; text-align: center; border-radius: 8px; border: 1px dashed rgba(255,255,255,0.2);">
+                            <i class="fas fa-network-wired"
+                                style="font-size: 2rem; color: #aaa; margin-bottom: 10px;"></i>
+                            <p>Detalle de Canalizaciones</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <div class="back-link">
+            <a href="../index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Volver a Proyectos</a>
+        </div>
+    </main>
+
+    <script src="../assets/js/hero.js?v=2.0"></script>
+    <script src="../assets/js/cursor.js"></script>
+</body>
+
+</html>

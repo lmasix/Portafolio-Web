@@ -1,79 +1,76 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon"
         href="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100">
-    <title>Automatización y Control Industrial - Maximiliano Andaur</title>
+    <title>Industrielle Automatisierung & Steuerung - Maximiliano Andaur</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="header.css?v=2.0">
-    <link rel="stylesheet" href="body.css?v=2.0">
-    <link rel="stylesheet" href="footer.css?v=2.0">
-    <link rel="stylesheet" href="proyecto-detalle.css?v=1.0">
+    <link rel="stylesheet" href="../../assets/css/header.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/body.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/footer.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/proyecto-detalle.css?v=1.0">
 </head>
 
 <body>
     <canvas id="circuitCanvas"></canvas>
     <canvas id="cursorCanvas"></canvas>
 
-    <!-- Reutilizamos el header -->
     <header>
         <nav>
             <div class="logo">
-                <a href="index.html">
+                <a href="../index.html">
                     <img src="https://media.licdn.com/dms/image/v2/D4D03AQGi5OVtd5miVA/profile-displayphoto-scale_400_400/B4DZu5iMsJJwAg-/0/1768344309194?e=1770249600&v=beta&t=FHRpoujXpl39whPUhOJR6SKoGfRJhvbh8-o3JXYhAn4"
                         alt="Logo">
                 </a>
             </div>
             <ul class="nav-links">
-                <li><a href="index.html#home">Inicio</a></li>
-                <li><a href="index.html#innovation">I + D</a></li>
-                <li><a href="index.html#projects">Proyectos</a></li>
-                <li><a href="index.html#contact">Contacto</a></li>
+                <li><a href="../index.html#home">Startseite</a></li>
+                <li><a href="../index.html#innovation">F + E</a></li>
+                <li><a href="../index.html#projects">Projekte</a></li>
+                <li><a href="../index.html#contact">Kontakt</a></li>
             </ul>
-            <button class="hamburger" aria-label="Abrir menú">
+            <button class="hamburger" aria-label="Menü öffnen">
                 <span class="hamburger-box"><span class="hamburger-inner"></span></span>
             </button>
         </nav>
-        <script src="header.js?v=2.0"></script>
+        <script src="../../assets/js/header.js?v=2.0"></script>
     </header>
 
     <main class="project-detail-container">
         <section class="project-hero">
-            <h1>Automatización y Control Industrial</h1>
-            <p class="subtitle">Integración de sistemas SCADA, PLC y HMIs para la industria 4.0</p>
+            <h1>Industrielle Automatisierung & Steuerung</h1>
+            <p class="subtitle">Integration von SCADA-Systemen, SPS und HMIs für Industrie 4.0</p>
         </section>
 
         <section class="project-list">
 
-            <!-- Proyecto PLC -->
+            <!-- PLC -->
             <article class="project-item">
                 <div class="project-content">
-                    <h2>Programación de PLCs (Allen Bradley / Siemens)</h2>
+                    <h2>SPS-Programmierung (Allen Bradley / Siemens)</h2>
                     <p class="tech-stack">
                         <i class="fas fa-microchip"></i> RSLogix 5000 |
-                        <i class="fas fa-project-diagram"></i> Ladder Logic |
-                        <i class="fas fa-industry"></i> Automatización
+                        <i class="fas fa-project-diagram"></i> Kontaktplan (Ladder) |
+                        <i class="fas fa-industry"></i> Automatisierung
                     </p>
                     <p>
-                        Diseño y programación de lógica de control para procesos industriales secuenciales.
-                        Experiencia en la implementación de rutinas de seguridad, control PID discreto y gestión de
-                        alarmas.
+                        Design und Programmierung der Steuerungslogik für sequentielle Industrieprozesse.
+                        Erfahrung in der Implementierung von Sicherheitsroutinen, diskretem PID-Regelung und
+                        Alarmmanagement.
                     </p>
                     <ul>
-                        <li>Desarrollo de lógica escalera (Ladder) estructurada y comentada.</li>
-                        <li>Configuración de comunicación industrial (Ethernet/IP, Modbus).</li>
-                        <li>Simulación y validación de procesos antes de la puesta en marcha.</li>
+                        <li>Entwicklung von strukturiertem und kommentiertem Kontaktplan (Ladder Logic).</li>
+                        <li>Konfiguration industrieller Kommunikation (Ethernet/IP, Modbus).</li>
+                        <li>Simulation und Validierung von Prozessen vor der Inbetriebnahme.</li>
                     </ul>
 
-                    <!-- Placeholder Visual de Ladder -->
                     <div style="margin-top: 20px; background: #fff; padding: 10px; border-radius: 5px; opacity: 0.9;">
-                        <!-- Dibujo simple con CSS para simular Ladder -->
                         <div
                             style="font-family: monospace; color: #000; font-weight: bold; border-left: 2px solid #000; border-right: 2px solid #000; padding: 10px; position: relative;">
                             <div
@@ -84,41 +81,41 @@
                             </div>
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <span>|--[ SENSOR ]-------------</span>
-                                <span style="border: 1px solid #000; padding: 2px 5px;">( VÁLVULA )</span>
+                                <span style="border: 1px solid #000; padding: 2px 5px;">( VENTIL )</span>
                                 <span>--|</span>
                             </div>
                         </div>
                         <p style="text-align: center; color: #333; margin: 5px 0 0 0; font-size: 0.8rem;">
-                            *Representación esquemática de lógica Ladder</p>
+                            *Schematische Darstellung der Ladder-Logik</p>
                     </div>
                 </div>
             </article>
 
-            <!-- Proyecto HMI/SCADA (Actualizado) -->
+            <!-- HMI/SCADA -->
             <article class="project-item">
                 <div class="project-content">
-                    <h2>Sistemas HMI, SCADA y Control de Procesos</h2>
+                    <h2>HMI, SCADA-Systeme & Prozesssteuerung</h2>
                     <p class="tech-stack">
                         <i class="fas fa-desktop"></i> FactoryTalk View / OPC |
                         <i class="fas fa-cogs"></i> RSLogix / Matlab |
-                        <i class="fas fa-industry"></i> Automatización
+                        <i class="fas fa-industry"></i> Automatisierung
                     </p>
                     <p>
-                        Implementación integral de un sistema de control para 4 estanques interconectados, cumpliendo
-                        normativas estándares.
-                        Integración completa desde el controlador (Ladder/RSLogix) hasta la supervisión (FactoryTalk
-                        View),
-                        utilizando Matlab/Simulink vía OPC para co-simulación de la planta física.
+                        Ganzheitliche Implementierung eines Steuerungssystems für 4 miteinander verbundene Behälter
+                        unter
+                        Einhaltung von Normvorgaben. Vollständige Integration von der Steuerung (Ladder/RSLogix) bis
+                        zur Visualisierung (FactoryTalk View), unter Nutzung von Matlab/Simulink über OPC für die
+                        Co-Simulation der physischen Anlage.
                     </p>
                     <ul>
-                        <li>Desarrollo de lógica de control secuencial y regulatorio (PID) en PLC 5000.</li>
-                        <li>Interfaz HMI avanzada con gestión de alarmas y tendencias en tiempo real.</li>
-                        <li>Comunicación OPC para validación de modelos dinámicos (Digital Twin).</li>
+                        <li>Entwicklung sequentieller und regulatorischer Steuerungslogik (PID) in SPS 5000.</li>
+                        <li>Erweiterte HMI-Schnittstelle mit Alarmmanagement und Trends in Echtzeit.</li>
+                        <li>OPC-Kommunikation zur Validierung dynamischer Modelle (Digital Twin).</li>
                     </ul>
 
-                    <h3 style="margin-top: 30px;"><i class="fab fa-youtube" style="color: #FF0000;"></i> Demostración:
-                        Control de Nivel de 4 Tanques</h3>
-                    <p style="margin-bottom: 15px;">Simulación HIL (Hardware-in-the-Loop) virtualizada:</p>
+                    <h3 style="margin-top: 30px;"><i class="fab fa-youtube" style="color: #FF0000;"></i> Demo:
+                        Füllstandsregelung von 4 Tanks</h3>
+                    <p style="margin-bottom: 15px;">Virtualisierte Hardware-in-the-Loop (HIL) Simulation:</p>
 
                     <div
                         style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 10px; background: #000; border: 1px solid #333;">
@@ -131,28 +128,28 @@
                 </div>
             </article>
 
-            <!-- Nuevo Proyecto: Robotica -->
+            <!-- Robotics -->
             <article class="project-item">
                 <div class="project-content">
-                    <h2>Modelado y Control de Brazo Robótico</h2>
+                    <h2>Modellierung und Steuerung eines Roboterarms</h2>
                     <p class="tech-stack">
-                        <i class="fas fa-robot"></i> Robótica |
+                        <i class="fas fa-robot"></i> Robotik |
                         <i class="fas fa-cube"></i> SolidWorks |
                         <i class="fas fa-calculator"></i> Matlab / Simscape
                     </p>
                     <p>
-                        Diseño mecatrónico completo de un manipulador robótico. El proceso abarcó desde el modelado CAD
-                        en SolidWorks
-                        hasta la importación en Simscape Multibody para simulación física.
+                        Vollständiges mechatronisches Design eines Roboter-Manipulators. Der Prozess reichte von der
+                        CAD-Modellierung in SolidWorks bis zum Import in Simscape Multibody für die physikalische
+                        Simulation.
                     </p>
                     <ul>
-                        <li>Resolución matemática de cinemática directa e inversa.</li>
-                        <li>Diseño de controladores de trayectoria en Matlab/Simulink.</li>
-                        <li>Validación mecánica y visualización 3D integrada.</li>
+                        <li>Mathematische Lösung der Vorwärts- und Rückwärtskinematik.</li>
+                        <li>Entwurf von Trajektorienreglern in Matlab/Simulink.</li>
+                        <li>Mechanische Validierung und integrierte 3D-Visualisierung.</li>
                     </ul>
 
-                    <h3 style="margin-top: 30px;"><i class="fab fa-youtube" style="color: #FF0000;"></i> Demostración:
-                        Simulación Cinemática</h3>
+                    <h3 style="margin-top: 30px;"><i class="fab fa-youtube" style="color: #FF0000;"></i> Demo:
+                        Kinematische Simulation</h3>
 
                     <div
                         style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 10px; background: #000; border: 1px solid #333;">
@@ -168,12 +165,12 @@
         </section>
 
         <div class="back-link">
-            <a href="index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Volver a Proyectos</a>
+            <a href="../index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Zurück zu Projekten</a>
         </div>
     </main>
 
-    <script src="hero.js?v=2.0"></script>
-    <script src="cursor.js"></script>
+    <script src="../../assets/js/hero.js?v=2.0"></script>
+    <script src="../../assets/js/cursor.js"></script>
 </body>
 
 </html>

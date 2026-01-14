@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+        href="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100">
+    <title>Industrial Automation & Control - Maximiliano Andaur</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/header.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/body.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/footer.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/proyecto-detalle.css?v=1.0">
+</head>
+
+<body>
+    <canvas id="circuitCanvas"></canvas>
+    <canvas id="cursorCanvas"></canvas>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGi5OVtd5miVA/profile-displayphoto-scale_400_400/B4DZu5iMsJJwAg-/0/1768344309194?e=1770249600&v=beta&t=FHRpoujXpl39whPUhOJR6SKoGfRJhvbh8-o3JXYhAn4"
+                        alt="Logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#home">Home</a></li>
+                <li><a href="../index.html#innovation">R + D</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <button class="hamburger" aria-label="Open menu">
+                <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+            </button>
+        </nav>
+        <script src="../../assets/js/header.js?v=2.0"></script>
+    </header>
+
+    <main class="project-detail-container">
+        <section class="project-hero">
+            <h1>Industrial Automation & Control</h1>
+            <p class="subtitle">Integration of SCADA systems, PLC, and HMIs for Industry 4.0</p>
+        </section>
+
+        <section class="project-list">
+
+            <!-- PLC Project -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>PLC Programming (Allen Bradley / Siemens)</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-microchip"></i> RSLogix 5000 |
+                        <i class="fas fa-project-diagram"></i> Ladder Logic |
+                        <i class="fas fa-industry"></i> Automation
+                    </p>
+                    <p>
+                        Design and programming of control logic for sequential industrial processes.
+                        Experience in implementing safety routines, discrete PID control, and alarm management.
+                    </p>
+                    <ul>
+                        <li>Development of structured and documented Ladder Logic.</li>
+                        <li>Industrial communication configuration (Ethernet/IP, Modbus).</li>
+                        <li>Process simulation and validation before deployment.</li>
+                    </ul>
+
+                    <div style="margin-top: 20px; background: #fff; padding: 10px; border-radius: 5px; opacity: 0.9;">
+                        <div
+                            style="font-family: monospace; color: #000; font-weight: bold; border-left: 2px solid #000; border-right: 2px solid #000; padding: 10px; position: relative;">
+                            <div
+                                style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                                <span>|--[ START ]--[ STOP ]--</span>
+                                <span style="border: 1px solid #000; padding: 2px 5px;">( MOTOR )</span>
+                                <span>--|</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span>|--[ SENSOR ]-------------</span>
+                                <span style="border: 1px solid #000; padding: 2px 5px;">( VALVE )</span>
+                                <span>--|</span>
+                            </div>
+                        </div>
+                        <p style="text-align: center; color: #333; margin: 5px 0 0 0; font-size: 0.8rem;">
+                            *Schematic representation of Ladder Logic</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- HMI/SCADA Project -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>HMI, SCADA Systems & Process Control</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-desktop"></i> FactoryTalk View / OPC |
+                        <i class="fas fa-cogs"></i> RSLogix / Matlab |
+                        <i class="fas fa-industry"></i> Automation
+                    </p>
+                    <p>
+                        Integral implementation of a control system for 4 interconnected tanks, complying with standard
+                        regulations. Full integration from the controller (Ladder/RSLogix) to supervision (FactoryTalk
+                        View),
+                        using Matlab/Simulink via OPC for co-simulation of the physical plant.
+                    </p>
+                    <ul>
+                        <li>Sequential and regulatory control logic (PID) development in PLC 5000.</li>
+                        <li>Advanced HMI interface with real-time alarm and trend management.</li>
+                        <li>OPC communication for dynamic model validation (Digital Twin).</li>
+                    </ul>
+
+                    <h3 style="margin-top: 30px;"><i class="fab fa-youtube" style="color: #FF0000;"></i> Demo: 4 Tank
+                        Level Control</h3>
+                    <p style="margin-bottom: 15px;">Virtualized Hardware-in-the-Loop (HIL) simulation:</p>
+
+                    <div
+                        style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 10px; background: #000; border: 1px solid #333;">
+                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;"
+                            src="https://www.youtube.com/embed/UrUnwfdLxPI"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Robotics Project -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Robotic Arm Modeling & Control</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-robot"></i> Robotics |
+                        <i class="fas fa-cube"></i> SolidWorks |
+                        <i class="fas fa-calculator"></i> Matlab / Simscape
+                    </p>
+                    <p>
+                        Complete mechatronic design of a robotic manipulator. The process covered everything from
+                        CAD modeling in SolidWorks to importation into Simscape Multibody for physical simulation.
+                    </p>
+                    <ul>
+                        <li>Mathematical resolution of forward and inverse kinematics.</li>
+                        <li>Trajectory controller design in Matlab/Simulink.</li>
+                        <li>Mechanical validation and integrated 3D visualization.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 30px;"><i class="fab fa-youtube" style="color: #FF0000;"></i> Demo: Kinematic
+                        Simulation</h3>
+
+                    <div
+                        style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 10px; background: #000; border: 1px solid #333;">
+                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;"
+                            src="https://www.youtube.com/embed/OnYt09YW5oQ"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <div class="back-link">
+            <a href="../index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+        </div>
+    </main>
+
+    <script src="../../assets/js/hero.js?v=2.0"></script>
+    <script src="../../assets/js/cursor.js"></script>
+</body>
+
+</html>

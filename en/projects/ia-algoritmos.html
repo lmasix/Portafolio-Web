@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+        href="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100">
+    <title>AI & Optimization Algorithms - Maximiliano Andaur</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/header.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/body.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/footer.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/proyecto-detalle.css?v=1.0">
+</head>
+
+<body>
+    <canvas id="circuitCanvas"></canvas>
+    <canvas id="cursorCanvas"></canvas>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGi5OVtd5miVA/profile-displayphoto-scale_400_400/B4DZu5iMsJJwAg-/0/1768344309194?e=1770249600&v=beta&t=FHRpoujXpl39whPUhOJR6SKoGfRJhvbh8-o3JXYhAn4"
+                        alt="Logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#home">Home</a></li>
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+            <button class="hamburger" aria-label="Open menu">
+                <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+            </button>
+        </nav>
+        <script src="../../assets/js/header.js?v=2.0"></script>
+    </header>
+
+    <main class="project-detail-container">
+        <section class="project-hero">
+            <h1>Artificial Intelligence & Optimization</h1>
+            <p class="subtitle">Evolutionary Algorithms, Machine Learning, and Adaptive Control</p>
+        </section>
+
+        <section class="project-list">
+
+            <!-- TA AI -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Teaching Assistant: AI in Electrical Power Systems</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-chalkboard-teacher"></i> Teaching |
+                        <i class="fas fa-brain"></i> Genetic Algorithms |
+                        <i class="fas fa-network-wired"></i> Neural Networks
+                    </p>
+                    <p>
+                        As a teaching assistant for this course, I was responsible for teaching and guiding students in
+                        implementing metaheuristic optimization algorithms applied to power systems problems.
+                        The practical approach included programming from scratch:
+                    </p>
+                    <ul>
+                        <li><strong>Genetic Algorithms (GA):</strong> Global optimization based on biological evolution.
+                        </li>
+                        <li><strong>Simulated Annealing:</strong> Probabilistic methods for escaping local optima.</li>
+                        <li><strong>Tabu Search:</strong> Memory strategies for combinatorial optimization.</li>
+                        <li><strong>Neuro-Fuzzy Systems (ANFIS):</strong> Integration of fuzzy logic and neural networks
+                            for modeling.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 30px;"><i class="fab fa-youtube" style="color: #FF0000;"></i> Featured
+                        Resource: Simulated Annealing</h3>
+                    <p style="margin-bottom: 15px;">Video tutorial created for the class on implementing Simulated
+                        Annealing:</p>
+
+                    <div
+                        style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 10px; background: #000; border: 1px solid #333;">
+                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;"
+                            src="https://www.youtube.com/embed/oiCENp0Uctk" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </article>
+
+            <!-- RLS-DCD in Thesis -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Real-Time Optimization: RLS-DCD</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-tachometer-alt"></i> Adaptive Control |
+                        <i class="fas fa-code"></i> C++ / Python
+                    </p>
+                    <p>
+                        In the context of my graduation thesis on <strong>MFPC (Modulated Model Predictive
+                            Control)</strong>,
+                        I implemented online system identification algorithms. The main challenge was computational
+                        efficiency for real-time operation.
+                    </p>
+                    <p>
+                        The <strong>RLS-DCD (Recursive Least Squares with Dichotomous Coordinate Descent)</strong>
+                        algorithm
+                        was used. Unlike traditional RLS which requires matrix inversion (costly O(N³)), DCD solves
+                        the linear system through multiplication-free iterative methods, ideal for implementation in
+                        DSPs and FPGAs.
+                    </p>
+
+                    <div
+                        style="background: #1e1e1e; padding: 15px; border-radius: 5px; border-left: 3px solid var(--electric-blue); font-family: 'Courier New', monospace; font-size: 0.9em; margin-top: 15px; color: #d4d4d4;">
+                        <span style="color: #6a9955;">// Conceptual parameter update example</span><br>
+                        <span style="color: #569cd6;">void</span> <span style="color: #dcdcaa;">updateRLS_DCD</span>()
+                        {<br>
+                        &nbsp;&nbsp;<span style="color: #6a9955;">// 1. Calculate prediction error</span><br>
+                        &nbsp;&nbsp;<span style="color: #9cdcfe;">error</span> = <span
+                            style="color: #9cdcfe;">measured_y</span> - <span
+                            style="color: #dcdcaa;">predict</span>(<span style="color: #9cdcfe;">theta</span>, <span
+                            style="color: #9cdcfe;">phi</span>);<br><br>
+                        &nbsp;&nbsp;<span style="color: #6a9955;">// 2. Update parameters bit by bit (DCD)</span><br>
+                        &nbsp;&nbsp;<span style="color: #c586c0;">for</span> (<span style="color: #569cd6;">int</span> i
+                        = 0; i < <span style="color: #9cdcfe;">N_ITER</span>; i++) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #dcdcaa;">bitUpdate</span>(<span
+                                style="color: #9cdcfe;">theta</span>, <span style="color: #9cdcfe;">residual</span>);
+                            <span style="color: #6a9955;">// No multiplications</span><br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                    </div>
+                </div>
+            </article>
+
+            <!-- Repositories -->
+            <article class="project-item" style="border-left-color: #fff;">
+                <div class="project-content">
+                    <h2><i class="fab fa-github"></i> Code Repositories</h2>
+                    <p>
+                        Collection of implementations of the algorithms studied and developed.
+                    </p>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+                        <a href="https://github.com/lmasix?tab=repositories" target="_blank"
+                            style="text-decoration: none; background: #333; color: white; padding: 10px 20px; border-radius: 5px; display: inline-flex; align-items: center; gap: 10px; transition: background 0.3s;">
+                            <i class="fas fa-code-branch"></i> Bio-inspired Algorithms
+                        </a>
+                        <a href="https://github.com/lmasix?tab=repositories" target="_blank"
+                            style="text-decoration: none; background: #333; color: white; padding: 10px 20px; border-radius: 5px; display: inline-flex; align-items: center; gap: 10px; transition: background 0.3s;">
+                            <i class="fas fa-rocket"></i> RLS-DCD Optimization
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <div class="back-link">
+            <a href="../index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+        </div>
+    </main>
+
+    <script src="../../assets/js/hero.js?v=2.0"></script>
+    <script src="../../assets/js/cursor.js"></script>
+</body>
+
+</html>

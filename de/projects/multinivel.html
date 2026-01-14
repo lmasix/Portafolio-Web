@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon"
+        href="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100">
+    <title>Leistungselektronik & Regelungsprojekte - Maximiliano Andaur</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/header.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/body.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/footer.css?v=2.0">
+    <link rel="stylesheet" href="../../assets/css/proyecto-detalle.css?v=1.0">
+</head>
+
+<body>
+    <canvas id="circuitCanvas"></canvas>
+    <canvas id="cursorCanvas"></canvas>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGi5OVtd5miVA/profile-displayphoto-scale_400_400/B4DZu5iMsJJwAg-/0/1768344309194?e=1770249600&v=beta&t=FHRpoujXpl39whPUhOJR6SKoGfRJhvbh8-o3JXYhAn4"
+                        alt="Logo">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html#home">Startseite</a></li>
+                <li><a href="../index.html#projects">Projekte</a></li>
+                <li><a href="../index.html#contact">Kontakt</a></li>
+            </ul>
+            <button class="hamburger" aria-label="Menü öffnen">
+                <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+            </button>
+        </nav>
+        <script src="../../assets/js/header.js?v=2.0"></script>
+    </header>
+
+    <main class="project-detail-container">
+        <section class="project-hero">
+            <h1>Leistungselektronik & Regelung</h1>
+            <p class="subtitle">Prädiktive Regelung, Multilevel-Umrichter und Netzstabilität</p>
+        </section>
+
+        <section class="project-list">
+            <!-- Projekt 1 -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Prädiktive Regelung (MFPC) für Grid-Forming Umrichter</h2>
+                    <p class="tech-stack"><i class="fas fa-microchip"></i> Modulated Model Predictive Control (MFPC) |
+                        T-Type Inverter | Grid-Forming</p>
+                    <p>
+                        Entwicklung einer modulierten prädiktiven Regelungsstrategie für <strong>Neutral Point Clamped
+                            (NPC) T-Type</strong>
+                        Inverter in <em>Grid-Forming</em> Anwendungen. Ziel ist es, die dynamische Reaktion auf
+                        Netzstörungen zu verbessern
+                        und eine stabile Leistungseinspeisung mit geringem Klirrfaktor (THD) zu gewährleisten.
+                    </p>
+                    <ul>
+                        <li>Implementierung in High-Fidelity-Simulationen (PLECS/Matlab).</li>
+                        <li>Reduzierung des Stromverfolgungsfehlers um 15 % im Vergleich zu klassischen PI-Reglern.</li>
+                        <li>Validierung der Robustheit gegen Laständerungen und Netzfehler.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Projekt 2 -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Dispatchable Virtual Oscillator Control (dVoc) in Microgrids</h2>
+                    <p class="tech-stack"><i class="fas fa-network-wired"></i> Dispatchable Virtual Oscillator Control
+                        (dVoc) | Microgrids | Stabilität</p>
+                    <p>
+                        Forschung zur dispatchable Virtual Oscillator Control für die automatische Synchronisation von
+                        Umrichtern
+                        in isolierten Inselnetzen. Diese Technik ermöglicht die Wirk- und Blindleistungsaufteilung ohne
+                        schnelle Kommunikation und imitiert die Dynamik von Synchrongeneratoren mit nahezu sofortiger
+                        Reaktion.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Projekt 3 -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>LCL-Filter-Design für Solar-Inverter</h2>
+                    <p class="tech-stack"><i class="fas fa-sun"></i> Passive Filter | Energiequalität | Magnetisches
+                        Design</p>
+                    <p>
+                        Berechnung und optimiertes Design von LCL-Filtern für 50-kW-Photovoltaik-Netzanschluss-Inverter.
+                        Priorität lag auf der Minimierung von Magnetkernverlusten und der Einhaltung von Vorschriften
+                        zur
+                        Oberschwingungseinspeisung (IEEE 519).
+                    </p>
+                </div>
+            </article>
+        </section>
+
+        <div class="back-link">
+            <a href="../index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Zurück zu Projekten</a>
+        </div>
+    </main>
+
+    <script src="../../assets/js/hero.js?v=2.0"></script>
+    <script src="../../assets/js/cursor.js"></script>
+</body>
+
+</html>

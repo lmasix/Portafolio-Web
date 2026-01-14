@@ -14,12 +14,12 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="header.css?v=2.0">
-    <link rel="stylesheet" href="body.css?v=2.0">
-    <link rel="stylesheet" href="sobremi.css?v=2.0">
-    <link rel="stylesheet" href="footer.css?v=2.0">
-    <link rel="stylesheet" href="contact.css?v=1.0">
-    <link rel="stylesheet" href="proyectos.css?v=2.0">
+    <link rel="stylesheet" href="assets/css/header.css?v=2.0">
+    <link rel="stylesheet" href="assets/css/body.css?v=2.0">
+    <link rel="stylesheet" href="assets/css/sobremi.css?v=2.0">
+    <link rel="stylesheet" href="assets/css/footer.css?v=2.0">
+    <link rel="stylesheet" href="assets/css/contact.css?v=1.0">
+    <link rel="stylesheet" href="assets/css/proyectos.css?v=2.0">
 </head>
 
 <body>
@@ -34,9 +34,14 @@
 
             <ul class="nav-links">
                 <li><a href="#home">Inicio</a></li>
-                <li><a href="proyectos-potencia.html">I + D</a></li>
+                <li><a href="projects/multinivel.html">I + D</a></li>
                 <li><a href="#projects">Proyectos</a></li>
                 <li><a href="#contact">Contacto</a></li>
+                <li class="lang-selector">
+                    <a href="index.html" class="active">ES</a> |
+                    <a href="en/index.html">EN</a> |
+                    <a href="de/index.html">DE</a>
+                </li>
             </ul>
             <!-- Botón hamburguesa -->
             <button class="hamburger" aria-label="Abrir menú">
@@ -45,7 +50,7 @@
                 </span>
             </button>
         </nav>
-        <script src="header.js?v=2.0"></script>
+        <script src="assets/js/header.js?v=2.0"></script>
     </header>
 
     <div class="hero-about-container">
@@ -54,7 +59,7 @@
                 <h2 class="tagline">Maximiliano Alejandro Andaur Henriquez</h2>
                 <h1>Ingeniería Eléctrica: Control Avanzado y Sistemas Energéticos.</h1>
             </div>
-            <script src="hero.js?v=2.0"></script>
+            <script src="assets/js/hero.js?v=2.0"></script>
         </section>
 
 
@@ -98,17 +103,17 @@
         <h2>Habilidades Técnicas</h2>
         <div class="skills-container">
             <!-- Tarjetas de habilidades con enlaces -->
-            <a href="proyectos-potencia.html" class="skill-card">
+            <a href="projects/multinivel.html" class="skill-card">
                 <i class="fas fa-bolt"></i>
                 <h3>Simulación</h3>
                 <p>Matlab, PLECS, Simulink, ETAP</p>
             </a>
-            <a href="ia-y-algoritmos.html" class="skill-card">
+            <a href="projects/ia-algoritmos.html" class="skill-card">
                 <i class="fas fa-robot"></i>
                 <h3>Programación</h3>
                 <p>C++ (Control y optimización), Python (IA, automatización, data analysis, web)</p>
             </a>
-            <a href="proyectos-renovables.html" class="skill-card">
+            <a href="projects/parque-verde.html" class="skill-card">
                 <i class="fas fa-file-alt"></i>
                 <h3>Diseño y Planos</h3>
                 <p>AutoCAD, DIALux</p>
@@ -118,7 +123,7 @@
                 <h3>Idioma</h3>
                 <p>Ingles C1, español Nativo</p>
             </a>
-            <a href="proyectos-automatizacion.html" class="skill-card">
+            <a href="projects/automatizacion.html" class="skill-card">
                 <i class="fas fa-cogs"></i>
                 <h3>Control de Procesos y Automatización</h3>
                 <p>Rslogix, ladder, HMI, SCADA</p>
@@ -136,7 +141,7 @@
             </p>
         </div>
         <div class="projects-grid">
-            <a href="proyectos-renovables.html" class="project-card">
+            <a href="projects/parque-verde.html" class="project-card">
                 <div class="project-info">
                     <span class="card-category">Infraestructura</span>
                     <h3>Energías Renovables e Infraestructura</h3>
@@ -150,7 +155,7 @@
                 </div>
             </a>
 
-            <a href="proyectos-potencia.html" class="project-card">
+            <a href="projects/multinivel.html" class="project-card">
                 <div class="project-info">
                     <span class="card-category">Investigación</span>
                     <h3>Electrónica de Potencia y Control Avanzado</h3>
@@ -164,7 +169,7 @@
                 </div>
             </a>
 
-            <a href="ia-y-algoritmos.html" class="project-card">
+            <a href="projects/ia-algoritmos.html" class="project-card">
                 <div class="project-info">
                     <span class="card-category">Software</span>
                     <h3>Inteligencia Artificial y Optimización</h3>
@@ -178,7 +183,7 @@
                 </div>
             </a>
 
-            <a href="proyectos-automatizacion.html" class="project-card">
+            <a href="projects/automatizacion.html" class="project-card">
                 <div class="project-info">
                     <span class="card-category">Industria 4.0</span>
                     <h3>Automatización y Control Industrial</h3>
@@ -199,9 +204,10 @@
         <div class="contact-container">
             <!-- Columna Izquierda: Información -->
             <div class="contact-info">
-                <h2>Hablemos de <span>Innovación</span></h2>
-                <p>¿Tienes un proyecto en mente o buscas un ingeniero especializado en control y automatización? Estoy
-                    disponible para nuevas colaboraciones y desafíos técnicos.</p>
+                <h2>Hablemos de <span>Ingeniería</span></h2>
+                <p>¿Buscas un ingeniero para abordar desafíos en potencia, infraestructura o nuevas tecnologías?
+                    Estoy disponible para colaborar en proyectos que requieran soluciones técnicas de alto impacto y
+                    eficiencia.</p>
 
                 <div class="contact-methods">
                     <div class="method-item">
@@ -260,7 +266,7 @@
                 <h3>Navegación</h3>
                 <ul>
                     <li><a href="#home">Inicio</a></li>
-                    <li><a href="Proyectos-potencia.html">I + D</a></li>
+                    <li><a href="projects/multinivel.html">I + D</a></li>
                     <li><a href="#projects">Proyectos</a></li>
                 </ul>
             </div>
@@ -299,7 +305,7 @@
         </div>
     </footer>
 
-    <script src="cursor.js"></script>
+    <script src="assets/js/cursor.js"></script>
 </body>
 
 </html>
