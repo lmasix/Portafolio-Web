@@ -49,52 +49,85 @@
         </section>
 
         <section class="project-list">
-            <!-- Proyecto 1 -->
-            <article class="project-item">
-                <div class="project-content">
-                    <h2>Control Predictivo (MFPC) para Convertidores Grid-Forming</h2>
-                    <p class="tech-stack"><i class="fas fa-microchip"></i> Model Free Predictive Control (MFPC) |
-                        Inversores T-Type | Grid-Forming</p>
-                    <p>
-                        Desarrollo de una estrategia de <strong></strong>control predictivo libre de modelo (MFPC)</strong> para inversores <strong>Neutrals
-                            Point Clamped (NPC) T-Type</strong> en aplicaciones <em>Grid-Forming</em>.
-                        El objetivo es mejorar la respuesta dinámica ante perturbaciones en la red y garantizar una
-                        inyección de potencia estable con baja distorsión armónica (THD).
-                    </p>
-                    <ul>
-                        <li>Implementación en simulaciones de alta fidelidad (PLECS/Matlab).</li>
-                        <li>Reducción del error de seguimiento de corriente en un 15% comparado con PI clásicos.</li>
-                        <li>Validación de robustez ante cambios de carga y fallas en la red.</li>
-                    </ul>
-                </div>
-            </article>
-
-            <!-- Proyecto 2 -->
-            <article class="project-item">
-                <div class="project-content">
-                    <h2>Control por Caída Virtual (dVoc) en Microredes</h2>
-                    <p class="tech-stack"><i class="fas fa-network-wired"></i> Dispatchable Virtual Oscillator Control
-                        (dVoc) | Microgrids | Estabilidad</p>
-                    <p>
-                        Investigación sobre el control de oscilador virtual despachable para la sincronización
-                        automática de convertidores en microredes aisladas.
-                        Esta técnica permite compartir carga activa y reactiva sin comunicaciones rápidas, imitando la
-                        dinámica de generadores síncronos pero con respuesta casi instantánea.
-                    </p>
-                </div>
-            </article>
-
-            <!-- Proyecto 3 -->
+            <!-- Proyecto 1: Diseño de Filtros LCL -->
             <article class="project-item">
                 <div class="project-content">
                     <h2>Diseño de Filtros LCL para Inversores Solares</h2>
                     <p class="tech-stack"><i class="fas fa-sun"></i> Filtros Pasivos | Calidad de Energía | Diseño
                         Magnético</p>
+
+                    <img src="../assets/img/projects/electronica-de-potencia/FiltroLCL.png"
+                        alt="Esquema estructural del Filtro LCL" class="project-image-hero dark-bg-image">
+
                     <p>
                         Cálculo y diseño optimizado de filtros LCL para la conexión a red de inversores fotovoltaicos de
-                        50kW.
+                        20kW.
+                        Esta imagen representa el esquema estructural y sirve como base técnica para los parámetros de
+                        diseño (<span class="math_word">L<sub>1</sub></span>, <span
+                            class="math_word">L<sub>2</sub></span>, <span class="math_word">C</span>).
                         Se priorizó la minimización de pérdidas en el núcleo magnético y el cumplimiento de normativas
                         de inyección de armónicos (IEEE 519).
+                    </p>
+                </div>
+            </article>
+
+            <!-- Proyecto 2: Control Predictivo (MFPC) -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Control Predictivo (MFPC) para Convertidores Grid-Forming</h2>
+                    <p class="tech-stack"><i class="fas fa-microchip"></i> Model Free Predictive Control (MFPC) |
+                        Inversores T-Type | Grid-Forming</p>
+
+                    <div class="image-grid">
+                        <div class="image-card">
+                            <img src="../assets/img/projects/electronica-de-potencia/MFPC Seguimiento.png"
+                                alt="MFPC Seguimiento Carga Lineal">
+                            <p class="image-caption">Carga Lineal</p>
+                        </div>
+                        <div class="image-card">
+                            <img src="../assets/img/projects/electronica-de-potencia/MFPC Seguimiento-NoLinealCharge.png"
+                                alt="MFPC Seguimiento Carga No Lineal">
+                            <p class="image-caption">Carga No Lineal</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Comparativa de seguimiento de tensión en el condensador: Nótese la estabilidad del algoritmo
+                        <span class="math_word">MFPC</span> incluso ante la distorsión por cargas no lineales.
+                        A pesar del ruido en la señal medida, el seguimiento de la referencia es impecable, demostrando
+                        la robustez del control ante condiciones críticas.
+                    </p>
+                    <ul>
+                        <li>Implementación en simulaciones de alta fidelidad (PLECS).</li>
+                        <li>Reducción del error de seguimiento de voltaje comparado con PI clásicos.</li>
+                        <li>Validación de robustez ante cambios de carga y fallas en la red.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Proyecto 3: Control por Caída Virtual (dVoc) -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>Control por Caída Virtual (dVoc) en Microredes</h2>
+                    <p class="tech-stack"><i class="fas fa-network-wired"></i> Dispatchable Virtual Oscillator Control
+                        (dVoc) | Microgrids | Estabilidad</p>
+
+                    <div class="image-card full-width-image">
+                        <div class="zoom-container">
+                            <img src="../assets/img/projects/electronica-de-potencia/dVoc_working.png"
+                                alt="Gráfica de transitorios dVoc">
+                        </div>
+                        <p class="image-caption">Respuesta frente a transitorios (evento crítico en <span
+                                class="math_word">t = 0.5s</span>). Las
+                            sub-gráficas muestran la respuesta simultánea de corriente, frecuencia, ángulo, error y
+                            potencia.</p>
+                    </div>
+
+                    <p>
+                        Investigación sobre el control de oscilador virtual despachable para la sincronización
+                        automática de convertidores en microredes aisladas.
+                        Esta técnica permite compartir carga activa y reactiva sin comunicaciones rápidas, imitando la
+                        dinámica de generadores síncronos pero con respuesta casi instantánea.
                     </p>
                 </div>
             </article>

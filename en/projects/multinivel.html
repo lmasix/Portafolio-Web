@@ -48,18 +48,53 @@
         </section>
 
         <section class="project-list">
-            <!-- Project 1 -->
+            <!-- Project 1: LCL Filter Design -->
+            <article class="project-item">
+                <div class="project-content">
+                    <h2>LCL Filter Design for Solar Inverters</h2>
+                    <p class="tech-stack"><i class="fas fa-sun"></i> Passive Filters | Power Quality | Magnetic Design
+                    </p>
+
+                    <img src="../../assets/img/projects/electronica-de-potencia/FiltroLCL.png"
+                        alt="Structural schematic of the LCL Filter" class="project-image-hero dark-bg-image">
+
+                    <p>
+                        Calculation and optimized design of LCL filters for 50kW photovoltaic grid-connection inverters.
+                        This image represents the structural schematic and serves as the technical basis for the design
+                        parameters (<span class="math_word">L<sub>1</sub></span>, <span
+                            class="math_word">L<sub>2</sub></span>, <span class="math_word">C</span>).
+                        Priority was given to minimizing magnetic core losses and complying with harmonic injection
+                        regulations (IEEE 519).
+                    </p>
+                </div>
+            </article>
+
+            <!-- Project 2: Predictive Control (MFPC) -->
             <article class="project-item">
                 <div class="project-content">
                     <h2>Predictive Control (MFPC) for Grid-Forming Converters</h2>
                     <p class="tech-stack"><i class="fas fa-microchip"></i> Model Free Predictive Control (MFPC) |
                         T-Type Inverters | Grid-Forming</p>
+
+                    <div class="image-grid">
+                        <div class="image-card">
+                            <img src="../../assets/img/projects/electronica-de-potencia/MFPC Seguimiento.png"
+                                alt="MFPC Tracking Linear Load">
+                            <p class="image-caption">Linear Load</p>
+                        </div>
+                        <div class="image-card">
+                            <img src="../../assets/img/projects/electronica-de-potencia/MFPC Seguimiento-NoLinealCharge.png"
+                                alt="MFPC Tracking Non-Linear Load">
+                            <p class="image-caption">Non-Linear Load</p>
+                        </div>
+                    </div>
+
                     <p>
-                        Development of a <strong>model-free predictive control (MFPC)</strong> strategy for
-                        <strong>Neutral Point Clamped (NPC)
-                            T-Type</strong>
-                        inverters in <em>Grid-Forming</em> applications. The goal is to improve dynamic response to grid
-                        disturbances and ensure stable power injection with low total harmonic distortion (THD).
+                        Comparison of capacitor voltage tracking: Note the stability of the <span
+                            class="math_word">MFPC</span> algorithm even under
+                        distortion from non-linear loads.
+                        Despite the noise in the measured signal (green/red in the upper part), reference tracking
+                        (lower part) is flawless, demonstrating control robustness under critical conditions.
                     </p>
                     <ul>
                         <li>Implementation in high-fidelity simulations (PLECS/Matlab).</li>
@@ -69,31 +104,28 @@
                 </div>
             </article>
 
-            <!-- Project 2 -->
+            <!-- Project 3: Virtual Oscillator Control (dVoc) -->
             <article class="project-item">
                 <div class="project-content">
                     <h2>Dispatchable Virtual Oscillator Control (dVoc) in Microgrids</h2>
                     <p class="tech-stack"><i class="fas fa-network-wired"></i> Dispatchable Virtual Oscillator Control
                         (dVoc) | Microgrids | Stability</p>
+
+                    <div class="image-card full-width-image">
+                        <div class="zoom-container">
+                            <img src="../../assets/img/projects/electronica-de-potencia/dVoc_working.png"
+                                alt="dVoc transient response">
+                        </div>
+                        <p class="image-caption">Response to transients (critical event at <span class="math_word">t =
+                                0.5s</span>). The subplots
+                            show the simultaneous response of current, frequency, angle, error, and power.</p>
+                    </div>
+
                     <p>
                         Research on dispatchable virtual oscillator control for automatic synchronization of converters
                         in isolated microgrids. This technique allows for active and reactive load sharing without
                         fast communications, mimicking synchronous generator dynamics but with near-instantaneous
                         response.
-                    </p>
-                </div>
-            </article>
-
-            <!-- Project 3 -->
-            <article class="project-item">
-                <div class="project-content">
-                    <h2>LCL Filter Design for Solar Inverters</h2>
-                    <p class="tech-stack"><i class="fas fa-sun"></i> Passive Filters | Power Quality | Magnetic Design
-                    </p>
-                    <p>
-                        Calculation and optimized design of LCL filters for 50kW photovoltaic grid-connection inverters.
-                        Priority was given to minimizing magnetic core losses and complying with harmonic injection
-                        regulations (IEEE 519).
                     </p>
                 </div>
             </article>
