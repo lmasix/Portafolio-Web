@@ -27,8 +27,9 @@ header {
     border-radius: 50%;
     box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
     height: 65px;
-    /* Tamaño profesional para destacar la identidad */
-    width: auto;
+    width: 65px;
+    object-fit: cover;
+    aspect-ratio: 1/1;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
