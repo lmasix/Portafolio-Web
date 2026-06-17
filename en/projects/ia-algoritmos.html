@@ -15,6 +15,73 @@
     <link rel="stylesheet" href="../../assets/css/body.css?v=2.0">
     <link rel="stylesheet" href="../../assets/css/footer.css?v=2.0">
     <link rel="stylesheet" href="../../assets/css/proyecto-detalle.css?v=1.0">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.2.1/math.all.js"></script>
+    <style>
+        .visualizer-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group label {
+            font-size: 0.85rem;
+            color: #b0c4de;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .control-group input {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: white;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 900px) {
+            .charts-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            #mseChart {
+                grid-column: span 2;
+            }
+        }
+
+        .chart-box {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 10px;
+            height: 500px;
+            border: 1px solid #333;
+        }
+
+        .math-symbol {
+            font-family: 'serif';
+            font-style: italic;
+            color: var(--neon-green);
+        }
+    </style>
 </head>
 
 <body>
@@ -25,7 +92,7 @@
         <nav>
             <div class="logo">
                 <a href="../index.html">
-                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGi5OVtd5miVA/profile-displayphoto-scale_400_400/B4DZu5iMsJJwAg-/0/1768344309194?e=1770249600&v=beta&t=FHRpoujXpl39whPUhOJR6SKoGfRJhvbh8-o3JXYhAn4"
+                    <img src="../../assets/img/yo.png"
                         alt="Logo">
                 </a>
             </div>
@@ -128,6 +195,44 @@
                             &nbsp;&nbsp;}<br>
                             }
                     </div>
+
+                    <!-- Visualizador Interactivo -->
+                    <div class="visualizer-overlay">
+                        <div class="controls-grid">
+                            <div class="control-group">
+                                <label>Forgetting Factor (<span class="math-symbol">&lambda;</span>)</label>
+                                <input type="range" id="param-lambda" min="0.9" max="1.0" step="0.001" value="0.99">
+                                <span id="val-lambda">0.99</span>
+                            </div>
+                            <div class="control-group">
+                                <label>Simul. Speed</label>
+                                <input type="range" id="param-speed" min="1" max="100" value="10">
+                                <span id="val-speed">10 Hz</span>
+                            </div>
+                            <div class="control-group">
+                                <label>Detailed DCD Mode</label>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <input type="checkbox" id="param-step-mode">
+                                    <span style="font-size:0.7em; color:#888;">(Slow and exhaustive)</span>
+                                </div>
+                            </div>
+                            <div class="control-group" style="flex-direction: row; align-items: center; gap: 15px;">
+                                <button id="btn-pause" class="btn-back"
+                                    style="padding: 5px 15px; font-size: 0.8rem;">Start</button>
+                                <button id="btn-reset" class="btn-back"
+                                    style="padding: 5px 15px; font-size: 0.8rem;">Reset</button>
+                            </div>
+                        </div>
+
+                        <div class="charts-container">
+                            <div id="stateSpaceChart" class="chart-box"></div>
+                            <div id="trackingChart" class="chart-box"></div>
+                            <div id="mseChart" class="chart-box" style="height: 300px;"></div>
+                        </div>
+                        <div id="dcd-status"
+                            style="margin-top:10px; font-family:'Rajdhani'; color:var(--neon-green); font-size:0.9rem; height:1.2em;">
+                        </div>
+                    </div>
                 </div>
             </article>
 
@@ -160,6 +265,262 @@
 
     <script src="../../assets/js/hero.js?v=2.0"></script>
     <script src="../../assets/js/cursor.js"></script>
+    <script src="../../assets/js/rls-dcd-engine.js"></script>
+    <script>
+        // Simulation Framework
+        let engine, generator;
+        let mseHistory = [];
+        let weightPath = { w1: [], w2: [] };
+        let currentTargetW = [0.5, -0.3];
+        const MAX_SAMPLES_TRACKING = 100;
+        const MAX_SAMPLES_MSE = 500;
+        const MAX_PATH_POINTS = 100;
+
+        let simulationRunning = false;
+        let animationFrameId;
+        let lastTimestamp = 0;
+        let currentDcdSteps = null; // Iterator for detailed mode
+
+        function initSimulation() {
+            engine = new RLSDCD(2, 0.99, 8, 4); // Mb=8, Nu=4 for balance
+            generator = new SignalGenerator();
+            mseHistory = [];
+            weightPath = { w1: [0], w2: [0] };
+            currentDcdSteps = null;
+
+            const darkLayout = {
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                font: { color: '#b0c4de', family: 'Rajdhani' },
+                margin: { t: 40, b: 80, l: 60, r: 20 },
+                xaxis: { gridcolor: '#333', zeroline: false },
+                yaxis: { gridcolor: '#333', zeroline: false },
+                legend: {
+                    orientation: 'h',
+                    yanchor: 'top',
+                    y: -0.2,
+                    xanchor: 'center',
+                    x: 0.5
+                }
+            };
+
+            // State Space with Start selection, Target marker and Trial arrow
+            Plotly.newPlot('stateSpaceChart', [{
+                z: generateErrorSurface(),
+                x: Array.from({ length: 41 }, (_, i) => -1 + i * 0.05),
+                y: Array.from({ length: 41 }, (_, i) => -1 + i * 0.05),
+                type: 'contour', colorscale: 'Viridis', showscale: false,
+                contours: { coloring: 'heatmap' }, opacity: 0.6
+            }, {
+                x: weightPath.w1, y: weightPath.w2, mode: 'lines+markers',
+                marker: { size: 4, color: '#00f2ff' }, line: { color: '#00f2ff', width: 2 },
+                name: 'Trajectory w'
+            }, {
+                x: [weightPath.w1[0]], y: [weightPath.w2[0]], mode: 'markers',
+                marker: { size: 12, symbol: 'star', color: '#39ff14' },
+                name: 'Selection Start'
+            }, {
+                x: [0.5], y: [-0.3], mode: 'markers',
+                marker: { size: 10, symbol: 'cross', color: '#ff00ff' },
+                name: 'Real Target'
+            }, {
+                x: [0, 0], y: [0, 0], mode: 'lines',
+                line: { color: 'rgba(255,165,0,0.8)', dash: 'dot', width: 2 },
+                name: 'DCD Attempt', showlegend: false
+            }], {
+                ...darkLayout, title: 'State Space (Internal DCD)',
+                xaxis: { range: [-1, 1], title: 'w1' }, yaxis: { range: [-1, 1], title: 'w2' }
+            });
+
+            Plotly.newPlot('trackingChart', [{
+                y: [], name: 'Desired d(n)', line: { color: '#888', dash: 'dot', width: 1 }
+            }, {
+                y: [], name: 'Filter y_hat(n)', line: { color: '#00f2ff', width: 2 }
+            }], {
+                ...darkLayout, title: 'Temporal Tracking',
+                yaxis: { range: [-2, 2] }
+            });
+
+            Plotly.newPlot('mseChart', [{
+                y: [], mode: 'lines', line: { color: '#39ff14', width: 1.5 }, name: 'MSE'
+            }], {
+                ...darkLayout, title: 'Performance (MSE)',
+                yaxis: { type: 'log', title: 'Mean Squared Error' },
+                height: 400
+            });
+
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            animationFrameId = requestAnimationFrame(updateLoop);
+        }
+
+        function generateErrorSurface() {
+            const size = 41;
+            const surface = Array.from({ length: size }, () => new Array(size));
+            for (let i = 0; i < size; i++) {
+                for (let j = 0; j < size; j++) {
+                    const w1 = -1 + j * 0.05;
+                    const w2 = -1 + i * 0.05;
+                    surface[i][j] = Math.pow(currentTargetW[0] - w1, 2) + Math.pow(currentTargetW[1] - w2, 2);
+                }
+            }
+            return surface;
+        }
+
+        function updateLoop(timestamp) {
+            if (!simulationRunning) {
+                animationFrameId = requestAnimationFrame(updateLoop);
+                return;
+            }
+
+            const speed = parseInt(document.getElementById('param-speed').value);
+            const interval = 1000 / speed;
+            const stepMode = document.getElementById('param-step-mode').checked;
+
+            if (timestamp - lastTimestamp > (stepMode ? 200 : interval)) {
+                lastTimestamp = timestamp;
+
+                if (stepMode) {
+                    executeDcdStep();
+                } else {
+                    executeFullRLSStep();
+                }
+            }
+
+            animationFrameId = requestAnimationFrame(updateLoop);
+        }
+
+        function executeFullRLSStep() {
+            const noise = 0.05;
+            const { x, d } = generator.next(noise);
+            const y_hat = engine.update(x, d);
+            const mse = Math.pow(d - y_hat, 2);
+
+            updateTraceData(d, y_hat, mse);
+
+            // Hide trial arrow in fast mode
+            Plotly.restyle('stateSpaceChart', { 'visible': [true, true, true, true, false] }, [0, 1, 2, 3, 4]);
+            document.getElementById('dcd-status').textContent = "Continuous Mode";
+        }
+
+        function executeDcdStep() {
+            if (!currentDcdSteps) {
+                const noise = 0.05;
+                const { x, d } = generator.next(noise);
+
+                for (let i = 0; i < engine.N; i++) {
+                    for (let j = 0; j < engine.N; j++) {
+                        engine.R[i][j] = engine.lambda * engine.R[i][j] + x[i] * x[j];
+                    }
+                    engine.p[i] = engine.lambda * engine.p[i] + x[i] * d;
+                }
+
+                currentDcdSteps = engine.dcdStepGenerator();
+                currentDcdSteps._lastD = d;
+                currentDcdSteps._lastX = x;
+            }
+
+            const { value: stepData, done } = currentDcdSteps.next();
+
+            if (done) {
+                let y_hat = 0;
+                for (let i = 0; i < engine.N; i++) y_hat += engine.w[i] * currentDcdSteps._lastX[i];
+                const mse = Math.pow(currentDcdSteps._lastD - y_hat, 2);
+
+                updateTraceData(currentDcdSteps._lastD, y_hat, mse);
+                currentDcdSteps = null;
+                return;
+            }
+
+            document.getElementById('dcd-status').textContent = stepData.action;
+
+            const arrowData = { x: [], y: [], color: 'rgba(255,255,255,0.2)' };
+            if (stepData.type === 'trial' || stepData.type === 'accept') {
+                const startW = stepData.w;
+                const trialW = stepData.type === 'trial' ? stepData.w_trial : stepData.w;
+
+                if (stepData.type === 'trial') {
+                    arrowData.x = [startW[0], trialW[0]];
+                    arrowData.y = [startW[1], trialW[1]];
+                    arrowData.color = 'rgba(255,165,0,0.8)';
+                } else if (stepData.type === 'accept') {
+                    weightPath.w1.push(stepData.w[0]);
+                    weightPath.w2.push(stepData.w[1]);
+                    if (weightPath.w1.length > MAX_PATH_POINTS) {
+                        weightPath.w1.shift(); weightPath.w2.shift();
+                    }
+                    arrowData.color = 'rgba(0,255,0,0.5)';
+                }
+            }
+
+            Plotly.restyle('stateSpaceChart', {
+                x: [undefined, weightPath.w1, undefined, undefined, arrowData.x],
+                y: [undefined, weightPath.w2, undefined, undefined, arrowData.y],
+                'line.color': [undefined, undefined, undefined, undefined, arrowData.color],
+                'visible': [true, true, true, true, stepData.type === 'trial']
+            }, [0, 1, 2, 3, 4]);
+        }
+
+        function updateTraceData(d, y_hat, mse) {
+            Plotly.extendTraces('trackingChart', { y: [[d], [y_hat]] }, [0, 1], MAX_SAMPLES_TRACKING);
+            Plotly.extendTraces('mseChart', { y: [[mse]] }, [0], MAX_SAMPLES_MSE);
+
+            if (!document.getElementById('param-step-mode').checked) {
+                weightPath.w1.push(engine.w[0]);
+                weightPath.w2.push(engine.w[1]);
+                if (weightPath.w1.length > MAX_PATH_POINTS) {
+                    weightPath.w1.shift(); weightPath.w2.shift();
+                }
+                Plotly.restyle('stateSpaceChart', {
+                    x: [undefined, weightPath.w1], y: [undefined, weightPath.w2],
+                }, [0, 1]);
+            }
+        }
+
+        // Control handlers
+        document.getElementById('param-lambda').addEventListener('input', (e) => {
+            document.getElementById('val-lambda').textContent = e.target.value;
+            engine.lambda = parseFloat(e.target.value);
+        });
+
+        document.getElementById('param-speed').addEventListener('input', (e) => {
+            document.getElementById('val-speed').textContent = e.target.value + " Hz";
+        });
+
+        document.getElementById('btn-pause').addEventListener('click', (e) => {
+            simulationRunning = !simulationRunning;
+            e.target.textContent = simulationRunning ? "Pause" : "Resume";
+        });
+
+        document.getElementById('btn-reset').addEventListener('click', initSimulation);
+
+        // Start
+        initSimulation();
+
+        // Interactive Weight/Target Setting
+        document.getElementById('stateSpaceChart').on('plotly_click', (data) => {
+            if (data.points && data.points.length > 0) {
+                const pt = data.points[0];
+
+                // 1. Move the Filter Weights to the click point (The starting point)
+                engine.w[0] = pt.x;
+                engine.w[1] = pt.y;
+
+                // 2. Clear convergence state and path
+                currentDcdSteps = null;
+                weightPath.w1 = [engine.w[0]];
+                weightPath.w2 = [engine.w[1]];
+
+                // 3. Move the the Star (which indicates current selection/start)
+                // We update the Star trace (Trace 2) and leave the Goal trace (Trace 3) alone
+                Plotly.restyle('stateSpaceChart', {
+                    x: [undefined, weightPath.w1, [pt.x]],
+                    y: [undefined, weightPath.w2, [pt.y]]
+                }, [0, 1, 2]);
+
+                document.getElementById('dcd-status').textContent = `Starting from [${pt.x.toFixed(2)}, ${pt.y.toFixed(2)}]. Convergiendo al Real Target (cruz)...`;
+            }
+        });
+    </script>
 </body>
 
 </html>
