@@ -41,7 +41,7 @@
 
     .skills-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
         gap: 24px;
         max-width: 1320px;
         margin: 0 auto;
@@ -49,6 +49,7 @@
 
     .skill-card {
         contain: layout style;
+        min-width: 0;
         background-color: var(--surface-card);
         background-image: var(--biotech-card-bg);
         background-repeat: var(--biotech-bg-repeat);
@@ -240,6 +241,20 @@
         #about h2,
         .skills-section h2 {
             font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .sobremi {
+            padding: 1.25rem 1rem;
+        }
+
+        .contributions {
+            padding: 18px 16px;
+        }
+
+        .skills-section {
+            padding: 48px 1rem;
         }
     }
 }

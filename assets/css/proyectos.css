@@ -29,6 +29,11 @@
         border-left-color: var(--lantern-orange);
     }
 
+    .id-showcase-content,
+    .id-figure {
+        min-width: 0;
+    }
+
     .id-badge {
         display: inline-block;
         color: var(--wood-warm);
@@ -146,13 +151,14 @@
 
     .projects-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
         gap: 28px;
         width: 100%;
     }
 
     .project-card {
         contain: layout style;
+        min-width: 0;
         background-color: var(--surface-card);
         background-image: var(--biotech-card-bg);
         background-repeat: var(--biotech-bg-repeat);
@@ -437,6 +443,30 @@
         .id-research-section,
         #projects {
             padding: 60px 1.25rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .id-research-section,
+        #projects {
+            padding: 48px 1rem;
+        }
+
+        .id-showcase-card {
+            padding: 18px 16px;
+            gap: 22px;
+        }
+
+        .project-figure img {
+            height: 190px;
+        }
+
+        .project-info {
+            padding: 20px 18px 22px;
+        }
+
+        .card-metrics {
+            grid-template-columns: 1fr;
         }
     }
 }

@@ -57,13 +57,14 @@
     /* KPI metric grid */
     .kpi-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
         gap: 16px;
         margin: 24px 0 36px;
     }
 
     .kpi-card {
         contain: layout style;
+        min-width: 0;
         position: relative;
         overflow: hidden;
         background-color: var(--surface-card);
@@ -161,6 +162,7 @@
 
     .project-item {
         contain: layout style;
+        min-width: 0;
         position: relative;
         background-color: var(--surface-card);
         background-image: var(--biotech-card-bg);
@@ -590,13 +592,14 @@
     /* Roadmap timeline */
     .roadmap-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
         gap: 16px;
         margin: 20px 0;
     }
 
     .roadmap-step {
         contain: layout style;
+        min-width: 0;
         position: relative;
         overflow: hidden;
         background-color: var(--parchment-solid);
@@ -953,7 +956,7 @@
 
     .controls-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
         gap: 16px;
         margin-bottom: 18px;
         align-items: end;
@@ -1066,7 +1069,7 @@
 
     .visualizer-metrics {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
         gap: 12px;
         margin-bottom: 18px;
     }
@@ -1250,6 +1253,32 @@
         .image-grid {
             grid-template-columns: 1fr;
             gap: 18px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .project-detail-container {
+            padding-top: 96px;
+            padding-inline: 14px;
+            padding-bottom: 56px;
+        }
+
+        .project-item {
+            padding: 18px 16px;
+        }
+
+        .visualizer-overlay {
+            padding: 16px 14px;
+        }
+
+        .chart-box {
+            height: 240px;
+        }
+
+        .formula-box {
+            padding: 14px 12px;
+            font-size: 0.95rem;
+            line-height: 1.85;
         }
     }
 }

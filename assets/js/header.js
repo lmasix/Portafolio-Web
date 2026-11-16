@@ -3,7 +3,158 @@
  */
 
 const THEME_STORAGE_KEY = 'maxandaur_theme';
+const AVATAR_IDX_KEY = 'maxandaur_avatar_idx';
+const AVATAR_TS_KEY = 'maxandaur_avatar_ts';
+const AVATAR_ROTATE_MS = 25000;
+const PROFILE_PHOTOS = [
+    {
+        thumb: '/assets/img/yo-thumb.webp',
+        full: '/assets/img/yo.webp',
+        w: 600,
+        h: 663,
+        fw: 1200,
+        fh: 1326
+    },
+    {
+        thumb: '/assets/img/yo-2.webp',
+        full: '/assets/img/yo-2.webp',
+        w: 400,
+        h: 400,
+        fw: 400,
+        fh: 400
+    }
+];
+
 let headerListenersBound = false;
+let activeAvatarIndex = 0;
+
+function readAvatarState() {
+    try {
+        const idx = parseInt(window.localStorage.getItem(AVATAR_IDX_KEY) || '0', 10);
+        const ts = parseInt(window.localStorage.getItem(AVATAR_TS_KEY) || '0', 10);
+        return {
+            idx: Number.isFinite(idx) && idx >= 0 && idx < PROFILE_PHOTOS.length ? idx : 0,
+            ts: Number.isFinite(ts) && ts > 0 ? ts : Date.now()
+        };
+    } catch {
+        return { idx: 0, ts: Date.now() };
+    }
+}
+
+function saveAvatarState(idx, ts) {
+    try {
+        window.localStorage.setItem(AVATAR_IDX_KEY, String(idx));
+        window.localStorage.setItem(AVATAR_TS_KEY, String(ts));
+    } catch {
+        // Ignore storage errors in restricted browsing contexts
+    }
+}
+
+function applyAvatarPhoto(idx, avatarImg, dialogImg, animate = false) {
+    const photo = PROFILE_PHOTOS[idx] || PROFILE_PHOTOS[0];
+    activeAvatarIndex = idx;
+
+    const commitSwap = () => {
+        if (avatarImg && avatarImg.getAttribute('src') !== photo.thumb) {
+            avatarImg.width = photo.w;
+            avatarImg.height = photo.h;
+            avatarImg.src = photo.thumb;
+        }
+        if (dialogImg && dialogImg.getAttribute('src') !== photo.full) {
+            dialogImg.width = photo.fw;
+            dialogImg.height = photo.fh;
+            dialogImg.src = photo.full;
+        }
+    };
+
+    if (!animate || !avatarImg) {
+        commitSwap();
+        return;
+    }
+
+    avatarImg.classList.add('is-fading');
+    window.setTimeout(() => {
+        commitSwap();
+        if (typeof avatarImg.decode === 'function') {
+            avatarImg.decode().catch(() => {}).finally(() => {
+                avatarImg.classList.remove('is-fading');
+            });
+        } else {
+            avatarImg.classList.remove('is-fading');
+        }
+    }, 180);
+}
+
+function initAvatarRotation() {
+    const avatarImg = document.querySelector('.avatar-btn img');
+    const dialogImg = document.querySelector('#profileDialog img');
+    if (!avatarImg || PROFILE_PHOTOS.length < 2) return;
+
+    const now = Date.now();
+    const state = readAvatarState();
+    let idx = state.idx;
+    let lastTs = state.ts;
+
+    if (now - lastTs >= AVATAR_ROTATE_MS) {
+        idx = (idx + 1) % PROFILE_PHOTOS.length;
+        lastTs = now;
+    }
+    saveAvatarState(idx, lastTs);
+    applyAvatarPhoto(idx, avatarImg, dialogImg, false);
+
+    // Preload alternate avatar lazily after initial render so LCP is unaffected
+    const preloadNext = () => {
+        const nextPhoto = PROFILE_PHOTOS[(idx + 1) % PROFILE_PHOTOS.length];
+        const loader = new Image();
+        loader.decoding = 'async';
+        loader.src = nextPhoto.thumb;
+    };
+
+    if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(preloadNext, { timeout: 2500 });
+    } else {
+        window.setTimeout(preloadNext, 1500);
+    }
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reducedMotion.matches) return;
+
+    let rotateTimer = null;
+
+    const clearRotateTimer = () => {
+        if (rotateTimer !== null) {
+            window.clearTimeout(rotateTimer);
+            rotateTimer = null;
+        }
+    };
+
+    const scheduleNext = (delay) => {
+        clearRotateTimer();
+        if (document.hidden) return;
+        rotateTimer = window.setTimeout(() => {
+            rotateTimer = null;
+            if (document.hidden) return;
+            const nextIdx = (activeAvatarIndex + 1) % PROFILE_PHOTOS.length;
+            const stamp = Date.now();
+            saveAvatarState(nextIdx, stamp);
+            applyAvatarPhoto(nextIdx, avatarImg, dialogImg, true);
+            scheduleNext(AVATAR_ROTATE_MS);
+        }, Math.max(250, delay));
+    };
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            clearRotateTimer();
+        } else {
+            const elapsed = Date.now() - readAvatarState().ts;
+            const remaining = Math.max(250, AVATAR_ROTATE_MS - elapsed);
+            scheduleNext(remaining);
+        }
+    });
+
+    const elapsed = Math.max(0, Date.now() - lastTs);
+    scheduleNext(Math.max(1000, AVATAR_ROTATE_MS - elapsed));
+}
 
 function readStoredTheme() {
     try {
@@ -144,6 +295,13 @@ export function initHeader() {
             const dialogId = openTrigger.getAttribute('data-open-dialog');
             const dialog = dialogId ? document.getElementById(dialogId) : null;
             if (dialog && typeof dialog.showModal === 'function' && !dialog.open) {
+                const dialogImg = dialog.querySelector('img');
+                const activePhoto = PROFILE_PHOTOS[activeAvatarIndex] || PROFILE_PHOTOS[0];
+                if (dialogImg && dialogImg.getAttribute('src') !== activePhoto.full) {
+                    dialogImg.width = activePhoto.fw;
+                    dialogImg.height = activePhoto.fh;
+                    dialogImg.src = activePhoto.full;
+                }
                 dialog.showModal();
             }
             return;
@@ -208,6 +366,7 @@ export function initHeader() {
 
 function bootstrap() {
     initHeader();
+    initAvatarRotation();
     initRevealObserver();
 }
 

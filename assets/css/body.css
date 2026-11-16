@@ -360,7 +360,7 @@
 
     .hero {
         flex: 1 1 420px;
-        min-width: 300px;
+        min-width: min(300px, 100%);
         padding: 2rem 2.5rem;
         display: flex;
         flex-direction: column;
@@ -380,7 +380,7 @@
 
     .sobremi {
         flex: 1.15 1 460px;
-        min-width: 300px;
+        min-width: min(300px, 100%);
     }
 
     .hero h1,
@@ -467,7 +467,15 @@
     @media (max-width: 900px) {
         .hero-about-container {
             flex-direction: column;
+            min-height: auto;
             padding-top: 96px;
+        }
+
+        .hero,
+        .sobremi {
+            flex: 1 1 auto;
+            width: 100%;
+            min-width: 0;
         }
 
         .hero-content {
@@ -476,6 +484,23 @@
 
         .hero {
             padding: 1.5rem 1.25rem;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .hero {
+            padding: 1.25rem 1rem;
+        }
+
+        .hero-cta {
+            width: 100%;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 0.7rem 1.15rem;
+            font-size: 0.92rem;
+            max-width: 100%;
         }
     }
 }
