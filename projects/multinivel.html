@@ -4,141 +4,879 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Vitrina I + D: Control Grid-Forming no lineal (dVOC) y predictivo sin modelo previo (CCS-MFPC + RLS-DCD) aplicado a inversores multinivel NPC de 3 niveles en microrredes.">
+    <meta name="keywords"
+        content="inversor multinivel NPC, Grid-Forming, dVOC, CCS-MFPC, RLS-DCD, filtro LCL, microrredes, PLECS, CHIL OPAL-RT Typhoon HIL, Maximiliano Andaur">
     <link rel="icon"
         href="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100">
-    <title>Proyectos de Electrónica de Potencia - Maximiliano Andaur</title>
+    <title>Microrredes Grid-Forming y Control Adaptativo Multinivel (I + D) - Maximiliano Andaur</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/header.css?v=2.0">
-    <link rel="stylesheet" href="../assets/css/body.css?v=2.0">
-    <link rel="stylesheet" href="../assets/css/footer.css?v=2.0">
-    <link rel="stylesheet" href="../assets/css/proyecto-detalle.css?v=1.0">
+    <script>try{if(localStorage.getItem('maxandaur_theme')==='night')document.documentElement.setAttribute('data-theme','night');}catch(e){}</script>
+    <link rel="stylesheet" href="/assets/css/body.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/proyecto-detalle.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <script type="module" src="/assets/js/header.js" defer></script>
+    <script type="module" src="/assets/js/hero.js" defer></script>
+    <script type="module" src="/assets/js/cursor.js" defer></script>
 </head>
 
 <body>
+    <div class="header-sentinel" aria-hidden="true"></div>
     <canvas id="circuitCanvas"></canvas>
     <canvas id="cursorCanvas"></canvas>
 
-    <!-- Reutilizamos el header -->
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="../index.html">
-                    <img src="../assets/img/yo.png" alt="Logo">
-                </a>
+    <header class="site-header">
+        <nav aria-label="Navegación principal">
+            <div class="logo-group">
+                <button type="button" class="avatar-btn" data-open-dialog="profileDialog"
+                    aria-label="Ampliar foto de perfil">
+                    <img src="/assets/img/yo-thumb.webp" alt="Maximiliano Andaur Henriquez" width="600" height="663"
+                        loading="lazy" decoding="async">
+                </button>
+                <a href="/index.html" class="brand-home">Max Andaur</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="../index.html#home">Inicio</a></li>
-                <li><a href="../index.html#projects">Proyectos</a></li>
-                <li><a href="../index.html#contact">Contacto</a></li>
+
+            <ul class="nav-links" id="primaryNav">
+                <li><a href="/#hero">Inicio</a></li>
+                <li><a href="/#about">Sobre mí</a></li>
+                <li><a href="/#id-research">I + D</a></li>
+                <li><a href="/#projects">Proyectos</a></li>
+                <li><a href="/#contact">Contacto</a></li>
             </ul>
-            <button class="hamburger" aria-label="Abrir menú">
+
+            <div class="header-controls">
+                <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-pressed="false" title="Cambiar entre modo dia y modo noche"><i class="fas fa-moon" aria-hidden="true"></i><span class="theme-toggle-label">Modo: Dia</span></button>
+                <button type="button" class="cursor-toggle-btn" id="cursorToggleBtn" aria-pressed="true" title="Activar o desactivar animacion del puntero"><i class="fas fa-leaf" aria-hidden="true"></i><span class="cursor-toggle-label">Puntero: ON</span></button>
+            </div>
+
+            <!-- Selector de idioma reservado para futura activacion
+            <div class="lang-selector">
+                <a href="#es" class="active">ES</a>
+                <span>|</span>
+                <a href="#en">EN</a>
+                <span>|</span>
+                <a href="#de">DE</a>
+            </div>
+            -->
+
+            <button type="button" class="hamburger" aria-label="Abrir menú" aria-expanded="false"
+                aria-controls="primaryNav">
                 <span class="hamburger-box"><span class="hamburger-inner"></span></span>
             </button>
         </nav>
-        <script src="../assets/js/header.js?v=2.0"></script>
     </header>
+
+    <dialog id="profileDialog" class="profile-dialog" aria-labelledby="profileDialogTitle">
+        <div class="profile-dialog-content">
+            <button type="button" class="dialog-close-btn" data-close-dialog aria-label="Cerrar ventana">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <img src="/assets/img/yo.webp" alt="Maximiliano Andaur Henriquez - Ingeniero Civil Eléctrico" width="1200"
+                height="1326" loading="lazy" decoding="async">
+            <p id="profileDialogTitle" class="profile-dialog-caption">Maximiliano Andaur Henriquez — Ingeniero Civil
+                Eléctrico (UdeC)</p>
+        </div>
+    </dialog>
 
     <main class="project-detail-container">
         <section class="project-hero">
-            <h1>Electrónica de Potencia y Control Grid-Forming</h1>
-            <p class="subtitle">Control predictivo, convertidores multinivel y estabilidad de redes</p>
+            <span class="project-badge">I + D · Memoria de Título UdeC · Paper y CHIL</span>
+            <h1>Microrredes sin Inercia: Control Inteligente y Convertidores Multinivel</h1>
+            <p class="subtitle">
+                Al reemplazar turbinas síncronas por energía solar y baterías, la red pierde su inercia mecánica. Aquí
+                mostramos cómo inversores multinivel <em>Formadores de Red (Grid-Forming)</em> se sincronizan sin
+                comunicación rápida y aprenden la dinámica del circuito en línea.
+            </p>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <span class="kpi-value">&lt; 1 ms</span>
+                    <span class="kpi-label">Aprendizaje RLS-DCD</span>
+                    <span class="kpi-detail">Identificación ARX en línea de <span class="math-inline"><var>O</var>(<var>N</var><sup>3</sup>)</span> a <span class="math-inline"><var>O</var>(<var>N</var>)</span> · <span class="math-inline"><var>M</var> = 8</span> bits</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">&le; 0.325%</span>
+                    <span class="kpi-label">Calidad de Onda <span class="math-inline"><span class="math-rm">THD</span><sub><var>V</var></sub></span></span>
+                    <span class="kpi-detail">En isla con carga no lineal (IEEE 519 exige &lt; 5%)</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">&lt; 0.10 s</span>
+                    <span class="kpi-label">Sincronización Suave FSM</span>
+                    <span class="kpi-detail">INIT &rarr; MATCH &rarr; SYNC &rarr; GFM con error <span class="math-inline">&lt; 10<sup>&minus;4</sup></span></span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">15 ms / 8 ms</span>
+                    <span class="kpi-label">Resiliencia y Protección</span>
+                    <span class="kpi-detail">Recuperación ante cambios &plusmn;50% LCL y límite ASM</span>
+                </div>
+            </div>
         </section>
 
         <section class="project-list">
-            <!-- Proyecto 1: Diseño de Filtros LCL -->
-            <article class="project-item">
+            <!-- Seccion 1: Desafio y arquitectura jerarquica -->
+            <article class="project-item reveal">
                 <div class="project-content">
-                    <h2>Diseño de Filtros LCL para Inversores Solares</h2>
-                    <p class="tech-stack"><i class="fas fa-sun"></i> Filtros Pasivos | Calidad de Energía | Diseño
-                        Magnético</p>
-
-                    <img src="../assets/img/projects/electronica-de-potencia/FiltroLCL.png"
-                        alt="Esquema estructural del Filtro LCL" class="project-image-hero dark-bg-image">
-
-                    <p>
-                        Cálculo y diseño optimizado de filtros LCL para la conexión a red de inversores fotovoltaicos de
-                        20kW.
-                        Esta imagen representa el esquema estructural y sirve como base técnica para los parámetros de
-                        diseño (<span class="math_word">L<sub>1</sub></span>, <span
-                            class="math_word">L<sub>2</sub></span>, <span class="math_word">C</span>).
-                        Se priorizó la minimización de pérdidas en el núcleo magnético y el cumplimiento de normativas
-                        de inyección de armónicos (IEEE 519).
+                    <h2>1. El Desafío y la Arquitectura Jerárquica</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-microchip" aria-hidden="true"></i> Control dVOC + CCS-MFPC |
+                        <i class="fas fa-wave-square" aria-hidden="true"></i> Desacoplamiento 4188&times; |
+                        <i class="fas fa-network-wired" aria-hidden="true"></i> Plug-and-Play
                     </p>
-                </div>
-            </article>
 
-            <!-- Proyecto 2: Control Predictivo (MFPC) -->
-            <article class="project-item">
-                <div class="project-content">
-                    <h2>Control Predictivo (MFPC) para Convertidores Grid-Forming</h2>
-                    <p class="tech-stack"><i class="fas fa-microchip"></i> Model Free Predictive Control (MFPC) |
-                        Inversores T-Type | Grid-Forming</p>
-
-                    <div class="image-grid">
-                        <div class="image-card">
-                            <img src="../assets/img/projects/electronica-de-potencia/MFPC Seguimiento.png"
-                                alt="MFPC Seguimiento Carga Lineal">
-                            <p class="image-caption">Carga Lineal</p>
-                        </div>
-                        <div class="image-card">
-                            <img src="../assets/img/projects/electronica-de-potencia/MFPC Seguimiento-NoLinealCharge.png"
-                                alt="MFPC Seguimiento Carga No Lineal">
-                            <p class="image-caption">Carga No Lineal</p>
-                        </div>
+                    <div class="callout-box callout-box--green">
+                        <h4><i class="fas fa-lightbulb" aria-hidden="true"></i> La idea central: orquesta sin director
+                        </h4>
+                        <p>
+                            Un inversor convencional (<em>Grid-Following</em>) solo sigue la onda existente. Nuestra
+                            arquitectura convierte cada unidad en un <em>metrónomo activo (dVOC)</em> que acuerda
+                            frecuencia y tensión escuchando el nodo común, mientras su lazo rápido
+                            (<em>CCS-MFPC + RLS-DCD</em>) aprende el filtro LCL en microsegundos sin modelo previo.
+                        </p>
                     </div>
 
                     <p>
-                        Comparativa de seguimiento de tensión en el condensador: Nótese la estabilidad del algoritmo
-                        <span class="math_word">MFPC</span> incluso ante la distorsión por cargas no lineales.
-                        A pesar del ruido en la señal medida, el seguimiento de la referencia es impecable, demostrando
-                        la robustez del control ante condiciones críticas.
+                        Investigación de Memoria de Título en Ingeniería Civil Eléctrica (UdeC, Junio 2026; Prof. guía
+                        Dr. José R. Espinoza C.), titulada <em>"Formadores de red no lineales aplicados a Inversores
+                            Multinivel en Microrredes"</em>, hoy en transición hacia artículo científico y validación
+                        <em>CHIL</em>.
                     </p>
+
                     <ul>
-                        <li>Implementación en simulaciones de alta fidelidad (PLECS).</li>
-                        <li>Reducción del error de seguimiento de voltaje comparado con PI clásicos.</li>
-                        <li>Validación de robustez ante cambios de carga y fallas en la red.</li>
+                        <li><em>Lazo externo dVOC (~4.77 Hz):</em> fija amplitud y frecuencia nominal (<span class="math-inline">30 rad/s</span>).</li>
+                        <li><em>Lazo interno CCS-MFPC (25 &mu;s):</em> regula la tensión del capacitor a <span class="math-inline">40 kHz</span> (<span class="math-inline">125.66 &times; 10<sup>3</sup> rad/s</span>).</li>
+                        <li><em>Separación espectral 4188&times;:</em> evita interferencias entre el despacho lento y los reflejos rápidos.</li>
                     </ul>
+
+                    <figure class="figure-card figure-featured">
+                        <img class="tech-diagram" src="/assets/img/id/arquitectura-control-jerarquico.webp"
+                            alt="Cadena completa del inversor Grid-Forming multinivel NPC-3LVL desde el bus DC partido hasta el punto de acople común"
+                            width="1200" height="203" loading="lazy" decoding="async">
+                        <figcaption class="figure-caption">
+                            1. Cadena por unidad: bus DC partido (<span class="math-inline">700 V</span>), inversor <em>NPC-3LVL</em>,
+                            filtro LCL, interruptor estático, línea <span class="math-inline"><var>Z</var><sub><span class="math-rm">inv</span></sub></span> y nodo <span class="math-inline"><span class="math-rm">pcc</span>(1)</span>.
+                        </figcaption>
+                    </figure>
+
+                    <div class="figure-grid">
+                        <figure class="figure-card">
+                            <img class="tech-diagram" src="/assets/img/id/microrred-esquema-general.webp"
+                                alt="Esquema general de la microrred AC de 380 V y 50 Hz con dos inversores Grid-Forming NPC-3LVL, red externa y banco de cargas"
+                                width="1200" height="724" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                2. Microrred (<span class="math-inline">380 <var>V</var><sub><span class="math-rm">LL</span></sub> / 50 Hz</span>): unidades NPC de <span class="math-inline">50 kW</span> y
+                                <span class="math-inline">30 kW</span>, línea <span class="math-inline"><var>Z</var><sub><span class="math-rm">lin1</span></sub></span> (450 m), red a 800 m y cargas mixtas.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img class="tech-diagram" src="/assets/img/id/esquema-lazos-control.webp"
+                                alt="Diagrama jerárquico mostrando el lazo externo dVOC y el lazo interno adaptativo CCS-MFPC sobre la etapa NPC-3LVL"
+                                width="1200" height="625" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                3. Lazos jerárquicos: <em>dVOC</em> genera la referencia y <em>FSM</em> habilita
+                                el acople hacia el lazo predictivo <em>CCS-MFPC</em>.
+                            </figcaption>
+                        </figure>
+                    </div>
                 </div>
             </article>
 
-            <!-- Proyecto 3: Control por Caída Virtual (dVoc) -->
-            <article class="project-item">
+            <!-- Seccion 2: Planta de potencia y topologias multinivel -->
+            <article class="project-item reveal">
                 <div class="project-content">
-                    <h2>Control por Caída Virtual (dVoc) en Microredes</h2>
-                    <p class="tech-stack"><i class="fas fa-network-wired"></i> Dispatchable Virtual Oscillator Control
-                        (dVoc) | Microgrids | Estabilidad</p>
-
-                    <div class="image-card full-width-image">
-                        <div class="zoom-container">
-                            <img src="../assets/img/projects/electronica-de-potencia/dVoc_working.png"
-                                alt="Gráfica de transitorios dVoc">
-                        </div>
-                        <p class="image-caption">Respuesta frente a transitorios (evento crítico en <span
-                                class="math_word">t = 0.5s</span>). Las
-                            sub-gráficas muestran la respuesta simultánea de corriente, frecuencia, ángulo, error y
-                            potencia.</p>
-                    </div>
+                    <h2>2. Planta de Potencia: Inversor NPC-3LVL, Topologías y Filtro LCL</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-bolt" aria-hidden="true"></i> Bus DC 700 V |
+                        <i class="fas fa-sliders-h" aria-hidden="true"></i> LCL 40 kHz (-80 dB) |
+                        <i class="fas fa-plug" aria-hidden="true"></i> Banco 70.63 kVA
+                    </p>
 
                     <p>
-                        Investigación sobre el control de oscilador virtual despachable para la sincronización
-                        automática de convertidores en microredes aisladas.
-                        Esta técnica permite compartir carga activa y reactiva sin comunicaciones rápidas, imitando la
-                        dinámica de generadores síncronos pero con respuesta casi instantánea.
+                        La planta emplea un inversor trifásico <em>Neutral Point Clamped (NPC) de 3 niveles</em> con
+                        modulación vectorial <em>SVPWM</em> a <span class="math-inline">40 kHz</span>. Su escalón intermedio en cero reduce a
+                        la mitad la tensión por transistor (<span class="math-inline">350 V</span>) y equilibra el punto neutro mediante
+                        estados redundantes (rizado de <span class="math-inline">4.6%</span>, bajo el criterio <span class="math-inline">&lt; 5%</span>).
                     </p>
+
+                    <details class="spec-details">
+                        <summary>Comparativa de topologías multinivel (3L-NPC / 3L-T-Type / 5L-CHB)</summary>
+                        <div class="table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Topología</th>
+                                        <th>Bus DC y Semiconductores / Fase</th>
+                                        <th>Criterio Técnico en la Memoria</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><em>3L-NPC</em> (Implementada)</td>
+                                        <td>Bus único partido (<span class="math-inline">700 V</span>) · 4 IGBT + 2 diodos clamp (<span class="math-inline"><var>V</var><sub><span class="math-rm">dc</span></sub>/2</span>)</td>
+                                        <td>Menor estrés de tensión y balance neutro vía SVPWM redundante a 40 kHz</td>
+                                    </tr>
+                                    <tr>
+                                        <td><em>3L-T-Type</em></td>
+                                        <td>Bus único partido · 4 IGBT sin diodos de enclavamiento</td>
+                                        <td>Menores pérdidas de conducción a baja frecuencia; rama externa soporta <span class="math-inline"><var>V</var><sub><span class="math-rm">dc</span></sub></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><em>5L-CHB</em></td>
+                                        <td>Fuentes DC aisladas · 8 IGBT en 2 puentes H por fase</td>
+                                        <td>Alta modularidad y tolerancia a fallas para media tensión; mayor costo de buses</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+
+                    <figure class="figure-card">
+                        <img class="tech-diagram" src="/assets/img/id/inversor-npc-3lvl.webp"
+                            alt="Esquema unifilar de la rama de potencia de 50 kW con bus DC dividido, inversor NPC-3LVL, filtro LCL1 e impedancia Zinv1"
+                            width="1200" height="247" loading="lazy" decoding="async">
+                        <figcaption class="figure-caption">
+                            Bloque unifilar de la unidad 1 (<span class="math-inline">50 kW / 49.94 kVA</span>) con bus DC dividido a
+                            <span class="math-inline">700 V</span>, filtro <span class="math-inline"><span class="math-rm">LCL</span><sub>1</sub></span> y salida a <span class="math-inline"><span class="math-rm">pcc</span>(1)</span>.
+                        </figcaption>
+                    </figure>
+
+                    <div class="figure-grid">
+                        <figure class="figure-card">
+                            <img class="tech-diagram" src="/assets/img/id/planta-inversor-aislado.webp"
+                                alt="Esquema de circuito trifásico detallado del inversor NPC de 3 niveles con interruptores Sa1 a Sc4 y diodos de enclavamiento"
+                                width="1200" height="499" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Etapa trifásica <em>NPC-3LVL</em> (<span class="math-inline"><var>S</var><sub><span class="math-rm">a1</span></sub>&hellip;<var>S</var><sub><span class="math-rm">c4</span></sub></span>, diodos
+                                <span class="math-inline"><var>D</var><sub><var>x</var></sub>/<var>D</var><sub><var>y</var></sub>/<var>D</var><sub><var>z</var></sub></span> y bus partido <span class="math-inline"><var>V</var><sub><span class="math-rm">dc</span></sub>/2</span>).
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img class="tech-diagram" src="/assets/img/id/carga-rectificador-nolineal.webp"
+                                alt="Esquema eléctrico de la carga no lineal compuesta por rectificador trifásico de diodos de seis pulsos con filtro LC"
+                                width="1200" height="474" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Carga no lineal: rectificador de 6 pulsos con filtro LC (<span class="math-inline">22.17 kVA</span>), fuente
+                                de armónicos 5&deg;, 7&deg;, 11&deg; y 13&deg;.
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <h3><i class="fas fa-filter" aria-hidden="true"></i> Filtro LCL Amortiguado y Especificaciones</h3>
+                    <p>
+                        El filtro LCL sitúa su resonancia entre <em>4 y 5 kHz</em>, logrando <em>-80 dB</em> de atenuación
+                        a <span class="math-inline">40 kHz</span> con amortiguamiento pasivo <span class="math-inline"><var>R</var><sub><span class="math-rm">d</span></sub> = 1 &Omega;</span> (polos en el
+                        semiplano izquierdo).
+                    </p>
+
+                    <div class="figure-grid">
+                        <figure class="figure-card">
+                            <img class="tech-diagram" src="/assets/img/id/filtro-lcl-esquema.webp"
+                                alt="Circuito trifásico del filtro LCL con inductancias Li y Lg, condensadores C1 a C3 y resistencias de amortiguamiento Rd y Rc"
+                                width="1200" height="798" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Circuito LCL (<span class="math-inline"><var>L</var><sub><span class="math-rm">i</span></sub> = 1.5 mH</span>, <span class="math-inline"><var>C</var> = 15 &mu;F</span>,
+                                <span class="math-inline"><var>R</var><sub><span class="math-rm">d</span></sub> = 1 &Omega;</span>, <span class="math-inline"><var>L</var><sub><span class="math-rm">g</span></sub> = 0.75 mH</span>).
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/filtro-lcl-bode-lgr.webp"
+                                alt="Diagrama de Bode y Lugar Geométrico de las Raíces (LGR) del filtro LCL amortiguado mostrando atenuación de -80 dB a 40 kHz"
+                                width="1200" height="514" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Bode (atenuación <span class="math-inline">&minus;80 dB</span> a 40 kHz) y Lugar Geométrico de Raíces estable.
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <details class="spec-details">
+                        <summary>Parámetros eléctricos del sistema (planta, líneas y cargas)</summary>
+                        <div class="table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Subsistema</th>
+                                        <th>Parámetros Principales</th>
+                                        <th>Capacidad / Desempeño</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Bus DC y NPC-3LVL</td>
+                                        <td><span class="math-inline"><var>V</var><sub><span class="math-rm">dc</span></sub> = 700 V</span>, <span class="math-inline"><var>C</var><sub><span class="math-rm">dc1</span></sub> = <var>C</var><sub><span class="math-rm">dc2</span></sub> = 3300 &mu;F</span>, <span class="math-inline"><var>f</var><sub><span class="math-rm">sw</span></sub> = 40 kHz</span></td>
+                                        <td>Margen 30% sobre <span class="math-inline">380 <var>V</var><sub><span class="math-rm">LL</span></sub></span> · Rizado 3er armónico <span class="math-inline">4.6%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Filtro LCL</td>
+                                        <td><span class="math-inline"><var>L</var><sub><span class="math-rm">i</span></sub> = 1.5 mH</span>, <span class="math-inline"><var>C</var> = 15 &mu;F</span>, <span class="math-inline"><var>R</var><sub><span class="math-rm">d</span></sub> = 1 &Omega;</span>, <span class="math-inline"><var>L</var><sub><span class="math-rm">g</span></sub> = 0.75 mH</span></td>
+                                        <td>Resonancia <span class="math-inline">4&ndash;5 kHz</span> · Atenuación <span class="math-inline">&minus;80 dB</span> a 40 kHz</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inversor 1 (Inv1)</td>
+                                        <td>Acople Cu 120 mm<sup>2</sup> 30 m (<span class="math-inline">0.006 &Omega;</span>, <span class="math-inline">0.009 mH</span>)</td>
+                                        <td><span class="math-inline">50 kW / 49.94 kVA</span> (<span class="math-inline"><var>I</var><sub><span class="math-rm">BASE</span></sub> = 107 <var>A</var><sub><span class="math-rm">pk</span></sub></span>, <span class="math-inline"><var>I</var><sub><span class="math-rm">MAX1</span></sub> = 200 A</span>)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inversor 2 (Inv2)</td>
+                                        <td>Acople Cu 120 mm<sup>2</sup> 15 m (<span class="math-inline">0.003 &Omega;</span>, <span class="math-inline">0.004 mH</span>)</td>
+                                        <td><span class="math-inline">30 kW / 30.33 kVA</span> (<span class="math-inline"><var>I</var><sub><span class="math-rm">BASE</span></sub> = 65 <var>A</var><sub><span class="math-rm">pk</span></sub></span>, <span class="math-inline"><var>I</var><sub><span class="math-rm">MAX2</span></sub> = 100 A</span>)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Líneas y Red</td>
+                                        <td><span class="math-inline"><var>Z</var><sub><span class="math-rm">lin1</span></sub></span> 450 m (<span class="math-inline">0.090 &Omega;</span>, <span class="math-inline">0.135 mH</span>); <span class="math-inline"><var>Z</var><sub><span class="math-rm">grid</span></sub></span> 800 m</td>
+                                        <td>Sistema <span class="math-inline">380 <var>V</var><sub><span class="math-rm">LL</span></sub> / 50 Hz</span> · Reserva <span class="math-inline">12.02%</span> (9.65 kVA)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Banco de Cargas</td>
+                                        <td>Lineal + Rectificador 6p (<span class="math-inline">1.0 s</span>) + Desbalanceada (<span class="math-inline">1.5 s</span>)</td>
+                                        <td><span class="math-inline">70.63 kVA</span> total (30.0 + 22.17 + 18.46 kVA; cargabilidad <span class="math-inline">87.98%</span>)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </article>
+
+            <!-- Seccion 3: Lazo interno CCS-MFPC, RLS-DCD y proteccion ASM -->
+            <article class="project-item reveal">
+                <div class="project-content">
+                    <h2>3. Lazo Interno Adaptativo: CCS-MFPC, RLS-DCD y Protección ASM</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-brain" aria-hidden="true"></i> <span class="math-inline"><span class="math-rm">ARX</span>(3, 2)</span> |
+                        <i class="fas fa-microchip" aria-hidden="true"></i> Solver DCD <span class="math-inline"><var>O</var>(<var>N</var>)</span> |
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i> Límite Activo ASM (8 ms)
+                    </p>
+
+                    <p>
+                        En coordenadas estacionarias <span class="math-inline"><var>&alpha;</var><var>&beta;</var></span> cada <span class="math-inline"><var>T</var><sub><span class="math-rm">s</span></sub> = 25 &mu;s</span>, el lazo
+                        <em>CCS-MFPC</em> modela la tensión del condensador <span class="math-inline"><var>v</var><sub><span class="math-rm">c</span></sub>(<var>k</var>)</span> mediante un predictor
+                        discreto <span class="math-inline"><span class="math-rm">ARX</span>(<var>n</var><sub><span class="math-rm">A</span></sub> = 3, <var>n</var><sub><span class="math-rm">B</span></sub> = 2)</span> de cinco coeficientes por eje, sin conocer previamente
+                        los valores del filtro o la red:
+                    </p>
+
+                    <div class="formula-box" aria-label="Ecuacion del predictor ARX y funcion de costo">
+                        <div class="math-display">
+                            <span class="math-eq">
+                                <span class="math-hat"><var>v</var></span><sub><span class="math-rm">c</span></sub>(<var>k</var>)
+                                = &minus;<span class="math-sum"><span class="math-sum-top">3</span><span class="math-sum-sym">&Sigma;</span><span class="math-sum-bot"><var>i</var>=1</span></span>
+                                <var>a</var><sub><var>i</var></sub>&#8201;<var>v</var><sub><span class="math-rm">c</span></sub>(<var>k</var> &minus; <var>i</var>)
+                                + <span class="math-sum"><span class="math-sum-top">2</span><span class="math-sum-sym">&Sigma;</span><span class="math-sum-bot"><var>j</var>=1</span></span>
+                                <var>b</var><sub><var>j</var></sub>&#8201;<var>u</var><sub><span class="math-rm">ref</span></sub>(<var>k</var> &minus; <var>j</var>)
+                                = <span class="math-vec">&phi;</span><sub><var>k</var></sub><sup><span class="math-rm">T</span></sup>&#8201;<span class="math-vec">&theta;</span><sub><var>k</var></sub>
+                            </span>
+                            <span class="math-sep" aria-hidden="true">|</span>
+                            <span class="math-eq">
+                                <span class="math-lim"><span class="math-lim-op">min</span><span class="math-lim-sub"><var>u</var>(<var>k</var>)</span></span>
+                                <var>J</var>(<var>u</var>(<var>k</var>))
+                                = &#8214;&#8201;<var>v</var><sub><span class="math-rm">c</span></sub><sup>*</sup>(<var>k</var> + 1)
+                                &minus; <span class="math-hat"><var>v</var></span><sub><span class="math-rm">c</span></sub>(<var>k</var> + 1)&#8201;&#8214;<sup>2</sup>
+                            </span>
+                        </div>
+                    </div>
+
+                    <ul>
+                        <li><em>Estimador RLS-DCD:</em> sustituye la inversión matricial <span class="math-inline"><var>O</var>(<var>N</var><sup>3</sup>)</span> por sumas y desplazamientos de bits <span class="math-inline"><var>O</var>(<var>N</var>)</span> (<span class="math-inline"><var>&lambda;</var><sub><span class="math-rm">RLS</span></sub> = 0.9995</span>, <span class="math-inline"><var>M</var> = 8</span> bits).</li>
+                        <li><em>Convergencia y error:</em> parámetros convergen en <span class="math-inline">&lt; 1 ms</span>; error a priori <span class="math-inline">&lt; 0.6% p.u.</span> y seguimiento <span class="math-inline">&lt; 0.5%</span> en régimen permanente.</li>
+                        <li><em>Robustez extrema y ASM:</em> ante cambios de <span class="math-inline"><var>C</var> &minus;50%</span>, <span class="math-inline"><var>L</var><sub><span class="math-rm">i</span></sub> &minus;30%</span> y <span class="math-inline"><var>L</var><sub><span class="math-rm">g</span></sub> +50%</span> se readapta en <span class="math-inline">15 ms</span> (<span class="math-inline"><span class="math-rm">THD</span><sub><var>V</var></sub> = 0.151%</span>); el limitador <em>ASM</em> acota sobrecorrientes y recupera en <span class="math-inline">8 ms</span>.</li>
+                    </ul>
+
+                    <figure class="figure-card">
+                        <img class="tech-diagram" src="/assets/img/id/modelo-arx-diagrama.webp"
+                            alt="Diagrama de bloques del predictor discreto ARX de orden nA=3 y nB=2 empleado por el controlador CCS-MFPC"
+                            width="1200" height="483" loading="lazy" decoding="async">
+                        <figcaption class="figure-caption">
+                            Predictor discreto <span class="math-inline"><span class="math-rm">ARX</span>(3, 2)</span> para proyectar <span class="math-inline"><span class="math-hat"><var>v</var></span><sub><span class="math-rm">c</span></sub>(<var>k</var> + 1)</span> y calcular la
+                            modulación continua SVPWM.
+                        </figcaption>
+                    </figure>
+
+                    <div class="figure-grid">
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/arx-theta-modo-isla.webp"
+                                alt="Convergencia en línea de los cinco parámetros ARX a1, a2, a3, b1, b2 mediante RLS-DCD en menos de 0.4 milisegundos"
+                                width="1200" height="1200" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Convergencia de <span class="math-inline"><span class="math-vec">&theta;</span><sub><var>k</var></sub> = [<var>a</var><sub>1</sub>&hellip;<var>b</var><sub>2</sub>]</span> en modo isla en <span class="math-inline">&lt; 1 ms</span>.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/seguimiento-vc-carga-nolineal.webp"
+                                alt="Detalle de seguimiento exacto de las tensiones Vc alfa y Vc beta frente a referencias discretas operando con carga no lineal"
+                                width="1200" height="1200" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Seguimiento en eje <span class="math-inline"><var>&alpha;</var><var>&beta;</var></span> bajo rectificador trifásico no lineal.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/error-prediccion-arx.webp"
+                                alt="Error de predicción a priori del modelo ARX acotado bajo 0.6 por ciento en p.u. ante escalones de carga lineal, no lineal y desbalanceada"
+                                width="1200" height="600" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Error a priori ARX bajo <span class="math-inline">&lt; 0.6% p.u. (1.87 V)</span> en los tres tipos de carga.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/error-seguimiento-vc-vref.webp"
+                                alt="Error de seguimiento en tensión Vc respecto a la referencia acotado bajo más menos 1.4 por ciento en todo régimen"
+                                width="1200" height="800" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Error de seguimiento acotado en <span class="math-inline">&plusmn;1.4% máx</span> (<span class="math-inline">&lt; 0.5%</span> en
+                                régimen permanente).
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/robustez-variacion-parametros.webp"
+                                alt="Reestimación en línea de coeficientes ARX ante variación simultánea de C (-50%), Li (-30%) y Lg (+50%) en t = 0.40 s"
+                                width="1200" height="1600" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Reestimación ARX tras perturbar <span class="math-inline"><var>C</var> &minus;50%</span>, <span class="math-inline"><var>L</var><sub><span class="math-rm">i</span></sub> &minus;30%</span> y
+                                <span class="math-inline"><var>L</var><sub><span class="math-rm">g</span></sub> +50%</span> en <span class="math-inline"><var>t</var> = 0.40 s</span>.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/transitorio-cambio-referencia.webp"
+                                alt="Respuesta transitoria de tensiones Vc alfa y Vc beta estabilizada en 15 milisegundos tras perturbación paramétrica"
+                                width="1200" height="1600" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Estabilización en <span class="math-inline">15 ms</span> tras la perturbación paramétrica
+                                (<span class="math-inline"><span class="math-rm">THD</span><sub><var>V</var></sub> = 0.151%</span>).
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/proteccion-corriente-asm-tension.webp"
+                                alt="Corrientes trifásicas hacia red con limitación activa ASM durante evento en t = 1.00 s y recuperación nominal en 8 milisegundos"
+                                width="1200" height="762" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Corrientes hacia red (<em>Amp red1</em>): actuación del limitador <em>ASM</em> en
+                                <span class="math-inline"><var>t</var> = 1.00 s</span> y recuperación en <span class="math-inline">8 ms</span>.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/proteccion-corriente-asm-corriente.webp"
+                                alt="Canales de tensión Vc alfa y Vc beta durante la actuación de saturación activa de corriente ASM entre 1.000 y 1.040 s"
+                                width="1200" height="762" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Tensión <span class="math-inline"><var>V</var><sub><span class="math-rm">c</span><var>&alpha;</var></sub>, <var>V</var><sub><span class="math-rm">c</span><var>&beta;</var></sub></span> durante el recorte seguro <em>ASM</em> para
+                                proteger los IGBT.
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="resource-links">
+                        <a href="/projects/ia-algoritmos.html" class="resource-btn">
+                            <i class="fas fa-play-circle" aria-hidden="true"></i> Probar Simulador Interactivo RLS-DCD
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Seccion 4: Lazo externo dVOC, FSM y reparto en isla -->
+            <article class="project-item reveal">
+                <div class="project-content">
+                    <h2>4. Lazo Externo Grid-Forming (dVOC), FSM y Reparto en Isla</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-compass" aria-hidden="true"></i> dVOC Descentralizado |
+                        <i class="fas fa-project-diagram" aria-hidden="true"></i> FSM Soft-Sync |
+                        <i class="fas fa-balance-scale" aria-hidden="true"></i> Reparto 2:1 (41.5 / 21.5 kW)
+                    </p>
+
+                    <p>
+                        Antes de cerrar el interruptor de acople, la máquina de estados (<em>FSM</em>) iguala ángulo y
+                        amplitud hasta reducir el error bajo <span class="math-inline">10<sup>&minus;4</sup></span>. Luego, la ley no lineal <em>dVOC</em>
+                        coordina el reparto proporcional de potencia entre inversores sin enlaces digitales rápidos.
+                    </p>
+
+                    <details class="spec-details">
+                        <summary>Parámetros sintonizados de FSM, dVOC e impedancia virtual</summary>
+                        <div class="table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Etapa / Unidad</th>
+                                        <th>Constantes Sintonizadas</th>
+                                        <th>Desempeño Medido (PLECS 25 &mu;s)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>FSM Soft-Sync</td>
+                                        <td><em>INIT</em> (0) &rarr; <em>MATCH</em> (0.06 s) &rarr; <em>SYNC</em> (0.10 s, <span class="math-inline"><var>K</var><sub><span class="math-rm">SYNC</span></sub> = 15</span>) &rarr; <em>GFM</em> (0.16 s)</td>
+                                        <td>Error cuadrático <span class="math-inline">&#8214;<var>e</var><sub><span class="math-rm">sync</span></sub>&#8214;<sup>2</sup> &lt; 10<sup>&minus;4</sup></span> previo al cierre</td>
+                                    </tr>
+                                    <tr>
+                                        <td>dVOC Inv1 (50 kW)</td>
+                                        <td><span class="math-inline"><var>&eta;</var><sub>1</sub> = 5.0</span>, <span class="math-inline"><var>&alpha;</var><sub>1</sub> = 3.0</span> &rarr; <span class="math-inline"><var>&tau;</var><sub><span class="math-rm">v1</span></sub> = 33.3 ms</span></td>
+                                        <td>Despacho isla <span class="math-inline">41.5 kW</span> · <span class="math-inline"><span class="math-rm">THD</span><sub><var>V</var></sub> = 0.155%</span> · <span class="math-inline"><span class="math-rm">THD</span><sub><var>I</var></sub> = 6.08%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>dVOC Inv2 (30 kW)</td>
+                                        <td><span class="math-inline"><var>&eta;</var><sub>2</sub> = 3.0</span>, <span class="math-inline"><var>&alpha;</var><sub>2</sub> = 1.8</span> &rarr; <span class="math-inline"><var>&tau;</var><sub><span class="math-rm">v2</span></sub> = 92.6 ms</span></td>
+                                        <td>Despacho isla <span class="math-inline">21.5 kW</span> (~<span class="math-inline">2:1</span>) · <span class="math-inline"><span class="math-rm">THD</span><sub><var>V</var></sub> &le; 0.325%</span> · <span class="math-inline"><span class="math-rm">THD</span><sub><var>I</var></sub> = 13.58%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Impedancia Virtual</td>
+                                        <td><span class="math-inline"><var>R</var><sub><span class="math-rm">v</span></sub> = 0.5 &Omega;</span>, <span class="math-inline"><var>L</var><sub><span class="math-rm">v</span></sub> = 15 mH</span> · Slew <span class="math-inline">30 &rarr; 40 p.u./s</span></td>
+                                        <td>Cumple <em>IEEE 519-2022</em> (<span class="math-inline"><span class="math-rm">THD</span><sub><var>V</var></sub> &le; 0.325%</span> vs <span class="math-inline">&lt; 5%</span>)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+
+                    <div class="figure-grid">
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/fsm-secuencia-estados.webp"
+                                alt="Secuencia temporal completa de la máquina de estados FSM mostrando transición INIT, MATCH en 0.06 s, SYNC y modo GFM en 0.16 s"
+                                width="1200" height="762" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Secuencia <em>FSM</em> con transiciones suaves en <span class="math-inline"><var>t</var> = 0.06 s</span> y
+                                <span class="math-inline"><var>t</var> = 0.16 s</span>.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/sincronizacion-suave-soft-sync.webp"
+                                alt="Detalle del proceso de sincronización suave entre 0.00 y 0.11 s donde Vc converge exactamente a Vpcc reduciendo el error a cero"
+                                width="1200" height="762" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Sincronización suave (<em>Soft-Sync</em>): <span class="math-inline"><var>V</var><sub><span class="math-rm">c</span></sub></span> converge a <span class="math-inline"><var>V</var><sub><span class="math-rm">pcc</span></sub></span>
+                                con error bajo <span class="math-inline">10<sup>&minus;4</sup></span>.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/despacho-isla-inv1.webp"
+                                alt="Despacho proporcional de potencia activa hasta 41.5 kW y reactiva del Inversor 1 en modo isla ante escalones de carga"
+                                width="1200" height="1600" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Reparto autónomo de <em>Inv1 (50 kW)</em> hasta <span class="math-inline">41.5 kW</span> en modo isla.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/despacho-isla-inv2.webp"
+                                alt="Despacho proporcional de potencia activa hasta 21.5 kW y reactiva del Inversor 2 en modo isla ante escalones de carga"
+                                width="1200" height="1600" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Respuesta coordinada de <em>Inv2 (30 kW)</em> alcanzando <span class="math-inline">21.5 kW</span>
+                                (~<span class="math-inline">2:1</span>).
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/ondas-isla-nolineal-inv1.webp"
+                                alt="Formas de onda trifásicas sinusoidales limpias de voltaje y corriente del Inversor 1 en modo isla con carga no lineal"
+                                width="1200" height="1200" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                <em>Inv1</em> con carga no lineal: <span class="math-inline"><span class="math-rm">THD</span><sub><var>V</var></sub> = 0.155%</span> y
+                                <span class="math-inline"><span class="math-rm">THD</span><sub><var>I</var></sub> = 6.08%</span>.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/id/ondas-isla-nolineal-inv2.webp"
+                                alt="Tensión sinusoidal regulada con THD inferior a 0.325% en Inversor 2 mientras absorbe la corriente armónica de la carga no lineal"
+                                width="1200" height="1200" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                <em>Inv2</em> absorbe mayor corriente armónica (<span class="math-inline"><span class="math-rm">THD</span><sub><var>I</var></sub> = 13.58%</span>) conservando
+                                <span class="math-inline"><span class="math-rm">THD</span><sub><var>V</var></sub> &le; 0.325%</span>.
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Seccion 5: Validacion actual y hoja de ruta -->
+            <article class="project-item reveal">
+                <div class="project-content">
+                    <h2>5. Validación Actual y Hoja de Ruta hacia Paper y CHIL</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-desktop" aria-hidden="true"></i> PLECS C-Scripts (25 &mu;s) + MATLAB |
+                        <i class="fas fa-microchip" aria-hidden="true"></i> Proyección OPAL-RT / Typhoon HIL + TI C2000
+                    </p>
+
+                    <p>
+                        Los resultados presentados provienen de simulación electromagnética discreta en <em>PLECS</em>
+                        (<span class="math-inline"><var>T</var><sub><span class="math-rm">s</span></sub> = 25 &mu;s</span>) ejecutando código C embarcable (<code>ccs-mfpc.c</code> y
+                        <code>dVOC_only.c</code>), junto con diseño frecuencial en <em>MATLAB/Simulink</em>. La
+                        validación en banco hardware y la publicación científica constituyen las etapas activas de
+                        continuidad.
+                    </p>
+
+                    <div class="roadmap-grid">
+                        <div class="roadmap-step">
+                            <span class="step-badge">Fase 1 · En Curso</span>
+                            <h4>Paper Científico</h4>
+                            <p>
+                                Manuscrito IEEE con <em>dVOC + CCS-MFPC (RLS-DCD) + ASM</em> en topología
+                                <em>NPC-3LVL</em>, convergencia <span class="math-inline">&lt; 1 ms</span> y <span class="math-inline"><span class="math-rm">THD</span><sub><var>V</var></sub> &le; 0.325%</span>.
+                            </p>
+                        </div>
+
+                        <div class="roadmap-step">
+                            <span class="step-badge">Fase 2 · Tiempo Real</span>
+                            <h4>Validación CHIL + TI C2000</h4>
+                            <p>
+                                Portado del código C (<span class="math-inline">25 &mu;s</span>) a DSP <em>Texas Instruments C2000</em> en
+                                lazo <em>CHIL</em> sobre <em>OPAL-RT / Typhoon HIL</em>.
+                            </p>
+                        </div>
+
+                        <div class="roadmap-step">
+                            <span class="step-badge">Fase 3 · Microrredes</span>
+                            <h4>Control Secundario MEMS</h4>
+                            <p>
+                                Gestión jerárquica compatible con <em>IEEE 2030.7</em> para restauración de
+                                tensión/frecuencia, BESS y despacho económico.
+                            </p>
+                        </div>
+
+                        <div class="roadmap-step">
+                            <span class="step-badge">Fase 4 · Analítica</span>
+                            <h4>Gemelos Digitales</h4>
+                            <p>
+                                Uso de los coeficientes <span class="math-inline"><span class="math-vec">&theta;</span><sub><var>k</var></sub></span> de <em>RLS-DCD</em> para diagnóstico
+                                en línea de deriva capacitiva o saturación en reactores.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Seccion 6: Base bibliografica completa y especificada -->
+            <article class="project-item reveal">
+                <div class="project-content">
+                    <h2>6. Base Bibliográfica Completa y Especificada</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-book" aria-hidden="true"></i> 20 Referencias Base de Memoria ([1]&ndash;[20]) |
+                        <i class="fas fa-flask" aria-hidden="true"></i> Artículos Complementarios 2024&ndash;2026
+                    </p>
+
+                    <p>
+                        A continuación se especifican las <em>20 referencias base</em> de la memoria de título
+                        (<em>[1]&ndash;[20]</em>) junto con los <em>artículos complementarios recientes (2024&ndash;2026)</em>
+                        que orientan la línea de investigación futura: <em>Baeckeland et al. (2024)</em> sobre
+                        limitación de sobrecorriente en convertidores GFM, <em>Abdelghany et al. (2026)</em> sobre
+                        despacho económico <em>Cost-Based dVOC</em> y trabajos de control predictivo
+                        <em>CCS-MFPC</em> basados en predictor afín y ultralocal.
+                    </p>
+
+                    <details class="spec-details">
+                        <summary>Ver las 20 referencias base de la memoria ([1]&ndash;[20]) y artículos complementarios (2024&ndash;2026)</summary>
+                        <div class="table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Ref.</th>
+                                        <th>Referencia Bibliográfica Completa</th>
+                                        <th>Aporte / Línea</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>[1]</td>
+                                        <td>IEA, "Renewables 2024: Analysis and forecast to 2030," 2024.</td>
+                                        <td>Contexto energético renovable</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[2]</td>
+                                        <td>M. Khalid, "Smart grids and renewable energy systems: Perspectives and grid integration challenges," <em>Energy Strategy Rev.</em>, vol. 51, art. 101299, Jan. 2024, doi: 10.1016/j.esr.2024.101299.</td>
+                                        <td>Desafíos de baja inercia en redes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[3]</td>
+                                        <td>J. Rodriguez, J.-S. Lai, and F. Z. Peng, "Multilevel inverters: a survey of topologies, controls, and applications," <em>IEEE Trans. Ind. Electron.</em>, vol. 49, no. 4, pp. 724-738, Aug. 2002, doi: 10.1109/TIE.2002.801052.</td>
+                                        <td>Topologías multinivel NPC/T-Type/CHB</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[4]</td>
+                                        <td>P. Karamanakos, E. Liegmann, T. Geyer, and R. Kennel, "Model Predictive Control of Power Electronic Systems: Methods, Results, and Challenges," <em>IEEE Open J. Ind. Appl.</em>, vol. 1, pp. 95-114, 2020, doi: 10.1109/OJIA.2020.3020184.</td>
+                                        <td>Fundamentos MPC en electrónica de potencia</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[5]</td>
+                                        <td>L. Ljung, <em>System Identification: Theory for the User</em>, 2nd ed. Prentice Hall, 1999.</td>
+                                        <td>Identificación discreta ARX y RLS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[6]</td>
+                                        <td>Y. V. Zakharov, G. P. White, and J. Liu, "Low-Complexity RLS Algorithms Using Dichotomous Coordinate Descent Iterations," <em>IEEE Trans. Signal Process.</em>, vol. 56, no. 7, pp. 3150-3161, Jul. 2008, doi: 10.1109/TSP.2008.917374.</td>
+                                        <td>Formulación RLS-DCD <span class="math-inline"><var>O</var>(<var>N</var>)</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>[7]</td>
+                                        <td>G.-S. Seo, M. Colombino, I. Subotic, B. Johnson, D. Gros, and F. Dorfler, "Dispatchable Virtual Oscillator Control for Decentralized Inverter-dominated Power Systems," in <em>Proc. IEEE APEC</em>, 2019, pp. 561-566, doi: 10.1109/APEC.2019.8722028.</td>
+                                        <td>Ley no lineal dVOC descentralizada</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[8]</td>
+                                        <td>M. Lu, S. Dutta, V. Purba, S. Dhople, and B. Johnson, "A Grid-compatible Virtual Oscillator Controller: Analysis and Design," in <em>Proc. IEEE ECCE</em>, 2019, pp. 2643-2649, doi: 10.1109/ECCE.2019.8913128.</td>
+                                        <td>Diseño GFM y compatibilidad con red</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[9]</td>
+                                        <td>L. Yang et al., "Model-Free Predictive Control of Grid-Forming Inverters Based on RLS-DCD Algorithm," in <em>Proc. IEEE PRECEDE</em>, 2025, pp. 1-7.</td>
+                                        <td>MFPC con RLS-DCD en inversores GFM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[10]</td>
+                                        <td>M. Nauman and W. Shireen, "Efficient Continuous Control-Set Model-Free Predictive Control of a Grid-Forming Inverter With an LCL Filter," <em>IEEE Access</em>, vol. 13, pp. 157235-157248, 2025, doi: 10.1109/ACCESS.2025.3605731.</td>
+                                        <td>Base CCS-MFPC + <span class="math-inline"><span class="math-rm">ARX</span>(3, 2)</span> sobre LCL</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[11]</td>
+                                        <td>J. Wang et al., "A Model-Free Predictive Control Strategy for dVOC Converter Under Unbalanced Grid Voltages," in <em>Proc. IEEE PEDG</em>, 2025, pp. 988-992, doi: 10.1109/PEDG62294.2025.11060227.</td>
+                                        <td>Integración dVOC + MFPC ante desbalance</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[12]</td>
+                                        <td>V. S. Goncalves et al., "Model-Free Predictive Control of Grid-Forming Converters in Parallel Using ARX-RLS Identification," in <em>Proc. SEPOC</em>, 2025, pp. 1-8, doi: 10.1109/SEPOC67005.2025.11297591.</td>
+                                        <td>Inversores GFM paralelos con ARX-RLS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[13]</td>
+                                        <td>L. Yuan, J.-W. Mei, A. Xu, and X. Li, "Model-Free Predictive Control With Super-Twisting Observer of Single-Phase Neutral-Clamped H-Bridge Cascade Inverters With Fixed Switching Frequency," <em>IEEE J. Emerg. Sel. Topics Power Electron.</em>, vol. 13, no. 2, pp. 2410-2421, Apr. 2025.</td>
+                                        <td>MFPC en cascada multinivel a frecuencia fija</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[14]</td>
+                                        <td>Z. Shu, W. Luo, and B. Shao, "Model-Free Predictive Control for NPC Inverter Based on Nonlinear Extended State Observer," in <em>Proc. ICPET</em>, 2025, pp. 416-421.</td>
+                                        <td>MFPC para inversor NPC</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[15]</td>
+                                        <td>Y. Yuan, J. Ma, Y. Hu, X. Liu, L. Qiu, and Y. Fang, "Model-Free Predictive Control for Three-Level NPC Inverters Based on Adaptive Sliding-Mode Observer and RLS Algorithm," in <em>Proc. ICET</em>, 2025, pp. 286-291.</td>
+                                        <td>NPC-3LVL con observador adaptativo y RLS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[16]</td>
+                                        <td>Plexim GmbH, "Space Vector PWM (3-Level)," in <em>PLECS User Manual</em>, ver. 4.9, 2024, p. 962.</td>
+                                        <td>Modulación SVPWM de 3 niveles</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[17]</td>
+                                        <td>SEC, "Pliego Técnico Normativo RIC N°04: Conductores, materiales y sistemas de canalización," Ministerio de Energía, Chile, 2020.</td>
+                                        <td>Dimensionamiento de conductores Cu</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[18]</td>
+                                        <td>IEC, "Short-circuit currents in three-phase a.c. systems - Part 0," IEC 60909-0:2001, 2001.</td>
+                                        <td>Cálculo de corrientes de cortocircuito</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[19]</td>
+                                        <td>IEEE Std 519-2022, "IEEE Standard for Harmonic Control in Electric Power Systems," 2022.</td>
+                                        <td>Límites de distorsión armónica THD</td>
+                                    </tr>
+                                    <tr>
+                                        <td>[20]</td>
+                                        <td>IEEE Std 2030.7-2017, "IEEE Standard for the Specification of Microgrid Controllers," 2017.</td>
+                                        <td>Especificación de controladores MEMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comp. 2024</td>
+                                        <td>N. Baeckeland, D. Chatterjee, M. Lu, B. Johnson, and G.-S. Seo, "Overcurrent Limiting in Grid-Forming Inverters: A Comprehensive Review and Discussion," <em>IEEE Trans. Power Electron.</em>, vol. 39, no. 11, Nov. 2024, doi: 10.1109/TPEL.2024.3430316.</td>
+                                        <td>Limitación de sobrecorriente GFM (ASM)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comp. 2026</td>
+                                        <td>M. B. Abdelghany, M. Al Talaq, S. Kanukollu, A. Al-Durra, F. Gao, and M. S. El Moursi, "Decentralized Cost-Based Dispatchable Virtual Oscillator Control for Grid-Forming Inverters," <em>IEEE Trans. Smart Grid</em>, vol. 17, no. 3, 2026, doi: 10.1109/TSG.2025.3646883.</td>
+                                        <td>Cost-Based dVOC y despacho económico</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comp. 2024</td>
+                                        <td>W. Zhao, J. Ye, and M. Yang, "Continuous Control Set Predictive Control with Affine Registration Technique for Permanent Magnet Synchronous Motor Drive," <em>Energies</em>, vol. 17, no. 18, art. 4706, 2024, doi: 10.3390/en17184706.</td>
+                                        <td>CCS-MFPC con registro afín</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comp. 2023/2026</td>
+                                        <td>P. Burgos, H. Young, and P. Epul, "Model-Free Predictive Voltage Control of a Grid-Forming Inverter Based on an Ultralocal Predictor," in <em>Proc. IEEE CHILECON</em>, 2023, doi: 10.1109/CHILECON60335.2023.10418664; X. Sun et al., "Model-Free Predictive Current Control of 2-Level Voltage Source Inverter via Robust Load Estimation in Impulsive Outliers," in <em>Proc. IEEE ISCAS</em>, 2026, doi: 10.1109/ISCAS66217.2026.11562493.</td>
+                                        <td>CCS-MFPC con predictor ultralocal y robustez ante outliers</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+
+                    <div class="resource-links">
+                        <a href="/projects/ia-algoritmos.html" class="resource-btn">
+                            <i class="fas fa-sliders-h" aria-hidden="true"></i> Explorar Simulador RLS-DCD en Vivo
+                        </a>
+                        <a href="/#contact" class="resource-btn">
+                            <i class="fas fa-envelope" aria-hidden="true"></i> Consultar dudas, Colaboración o Paper
+                        </a>
+                    </div>
                 </div>
             </article>
         </section>
 
         <div class="back-link">
-            <a href="../index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Volver a Proyectos</a>
+            <a href="/#id-research" class="btn-back"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver</a>
         </div>
     </main>
 
-    <script src="../assets/js/hero.js?v=2.0"></script>
-    <script src="../assets/js/cursor.js"></script>
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="/#hero">Inicio</a></li>
+                    <li><a href="/#about">Sobre mí</a></li>
+                    <li><a href="/#id-research">I + D</a></li>
+                    <li><a href="/#projects">Proyectos</a></li>
+                    <li><a href="/#contact">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="https://github.com/lmasix?tab=repositories" target="_blank"
+                            rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/maximiliano-andaur-henriquez/" target="_blank"
+                            rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i> LinkedIn</a>
+                    </li>
+                    <li><a href="/CV_powersystems_structural.pdf" target="_blank" rel="noopener noreferrer" download><i
+                                class="fas fa-file-download" aria-hidden="true"></i> Descargar CV</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-info">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Concepción, Chile</p>
+                <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:maximiliano@maxandaur.com"
+                        class="footer-mail-link">maximiliano@maxandaur.com</a></p>
+                <p><i class="fas fa-language" aria-hidden="true"></i> Español (Nativo), Inglés (C1)</p>
+            </div>
+
+            <div>
+                <h3>Sobre este sitio</h3>
+                <p><span class="frase">“La excelencia no es un acto, sino un hábito”</span></p>
+                <p>Diseñado con enfoque en Sistemas de Potencia, Control Avanzado e IA.</p>
+                <p class="footer-updated">Última actualización: Noviembre 2026</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 Maximiliano Andaur Henriquez. Todos los derechos reservados.
+        </div>
+    </footer>
 </body>
 
 </html>

@@ -1,61 +1,218 @@
-// Actualiza el JavaScript
-document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.querySelector('.hamburger');
-    const nav = document.querySelector('header');
-    const navLinks = document.querySelector('.nav-links');
+/*
+ * Header, theme toggle, navigation, native profile dialog and reveal observers (ES Module)
+ */
 
-    hamburger.addEventListener('click', () => {
-        nav.classList.toggle('nav-active');
-        hamburger.setAttribute('aria-expanded', nav.classList.contains('nav-active'));
-    });
+const THEME_STORAGE_KEY = 'maxandaur_theme';
+let headerListenersBound = false;
 
-    // Cerrar al hacer click fuera
-    document.addEventListener('click', (e) => {
-        if (!nav.contains(e.target)) {
-            nav.classList.remove('nav-active');
+function readStoredTheme() {
+    try {
+        const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+        return stored === 'night' ? 'night' : 'day';
+    } catch {
+        return 'day';
+    }
+}
+
+function saveStoredTheme(theme) {
+    try {
+        window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+        // Ignore storage errors in restricted browsing contexts
+    }
+}
+
+function applyTheme(theme) {
+    const normalized = theme === 'night' ? 'night' : 'day';
+    const isNight = normalized === 'night';
+
+    document.documentElement.setAttribute('data-theme', normalized);
+
+    const themeBtn = document.getElementById('themeToggleBtn');
+    if (themeBtn) {
+        themeBtn.setAttribute('aria-pressed', isNight ? 'true' : 'false');
+        const icon = themeBtn.querySelector('i');
+        if (icon) {
+            icon.classList.toggle('fa-sun', isNight);
+            icon.classList.toggle('fa-moon', !isNight);
+        }
+        const label = themeBtn.querySelector('.theme-toggle-label');
+        if (label) {
+            label.textContent = isNight ? 'Modo: Noche' : 'Modo: Dia';
+        }
+    }
+
+    return normalized;
+}
+
+function isSamePageLink(anchor) {
+    const href = anchor.getAttribute('href');
+    if (!href) return { same: false, hash: '' };
+    if (href.startsWith('#')) return { same: true, hash: href };
+
+    try {
+        const targetUrl = new URL(anchor.href, window.location.origin);
+        const currentPath = window.location.pathname.replace(/\/index\.html$/, '/');
+        const targetPath = targetUrl.pathname.replace(/\/index\.html$/, '/');
+        const same = targetUrl.origin === window.location.origin && currentPath === targetPath;
+        return { same, hash: targetUrl.hash };
+    } catch {
+        return { same: false, hash: '' };
+    }
+}
+
+export function initRevealObserver() {
+    const revealTargets = document.querySelectorAll('.reveal, .metric-card, .kpi-card');
+    if (!revealTargets.length) return;
+
+    document.documentElement.classList.add('js-enabled');
+
+    if (!('IntersectionObserver' in window)) {
+        revealTargets.forEach((el) => el.classList.add('is-visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries, obs) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0,
+            rootMargin: '0px 0px -20px 0px'
+        }
+    );
+
+    revealTargets.forEach((el) => observer.observe(el));
+}
+
+export function initHeader() {
+    applyTheme(readStoredTheme());
+
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    const hamburger = header.querySelector('.hamburger');
+    const sentinel = document.querySelector('.header-sentinel') || document.querySelector('#hero, .project-hero');
+
+    const closeNav = () => {
+        header.classList.remove('nav-active');
+        if (hamburger) {
             hamburger.setAttribute('aria-expanded', 'false');
+        }
+    };
+
+    // Observe top sentinel instead of listening to scroll events
+    if (sentinel && 'IntersectionObserver' in window) {
+        const headerObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    header.classList.toggle('is-scrolled', !entry.isIntersecting);
+                });
+            },
+            { threshold: 0 }
+        );
+        headerObserver.observe(sentinel);
+    }
+
+    if (headerListenersBound) return;
+    headerListenersBound = true;
+
+    // Delegated click handler for theme toggle, dialog, navigation and mobile drawer
+    document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+
+        // Toggle day/night theme
+        const themeBtn = target.closest('#themeToggleBtn');
+        if (themeBtn) {
+            const current = document.documentElement.getAttribute('data-theme') === 'night' ? 'night' : 'day';
+            const nextTheme = current === 'night' ? 'day' : 'night';
+            applyTheme(nextTheme);
+            saveStoredTheme(nextTheme);
+            window.dispatchEvent(new CustomEvent('solarpunk-theme-change', { detail: { theme: nextTheme } }));
+            return;
+        }
+
+        // Open native profile dialog
+        const openTrigger = target.closest('[data-open-dialog]');
+        if (openTrigger) {
+            const dialogId = openTrigger.getAttribute('data-open-dialog');
+            const dialog = dialogId ? document.getElementById(dialogId) : null;
+            if (dialog && typeof dialog.showModal === 'function' && !dialog.open) {
+                dialog.showModal();
+            }
+            return;
+        }
+
+        // Close native dialog from close button
+        const closeTrigger = target.closest('[data-close-dialog]');
+        if (closeTrigger) {
+            const dialog = closeTrigger.closest('dialog');
+            if (dialog && dialog.open) {
+                dialog.close();
+            }
+            return;
+        }
+
+        // Close native dialog when clicking its backdrop
+        if (target instanceof HTMLDialogElement && target.open) {
+            target.close();
+            return;
+        }
+
+        // Toggle mobile menu
+        const toggleBtn = target.closest('.hamburger');
+        if (toggleBtn && header.contains(toggleBtn)) {
+            const isOpen = header.classList.toggle('nav-active');
+            toggleBtn.setAttribute('aria-expanded', String(isOpen));
+            return;
+        }
+
+        // Smooth scroll for same-page nav or anchor links
+        const navLink = target.closest('.nav-links a, a[data-scroll-link]');
+        if (navLink) {
+            const { same, hash } = isSamePageLink(navLink);
+            if (same && hash && hash.length > 1) {
+                const section = document.querySelector(hash);
+                if (section) {
+                    event.preventDefault();
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    closeNav();
+                    return;
+                }
+            }
+            if (header.contains(navLink)) {
+                closeNav();
+            }
+            return;
+        }
+
+        // Close mobile drawer when clicking outside header
+        if (!header.contains(target) && header.classList.contains('nav-active')) {
+            closeNav();
         }
     });
 
-    // Smooth scroll
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
-
-            // Solo aplicar smooth scroll si es un enlace interno (empieza con #)
-            if (href.startsWith('#')) {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    nav.classList.remove('nav-active');
-                    hamburger.setAttribute('aria-expanded', 'false');
-                }
-            }
-        });
+    // Close mobile menu on Escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && header.classList.contains('nav-active')) {
+            closeNav();
+        }
     });
+}
 
-    // Logo Modal Logic (Premium Lightbox)
-    const logoImg = document.querySelector('.logo img');
-    if (logoImg) {
-        // Create modal
-        const modal = document.createElement('div');
-        modal.className = 'logo-modal';
-        modal.innerHTML = `<img src="${logoImg.src}" alt="Profile Picture Enlarged">`;
-        document.body.appendChild(modal);
+function bootstrap() {
+    initHeader();
+    initRevealObserver();
+}
 
-        logoImg.addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.classList.add('active');
-            document.body.classList.add('no-scroll');
-        });
-
-        modal.addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        });
-    }
-});
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootstrap);
+} else {
+    bootstrap();
+}

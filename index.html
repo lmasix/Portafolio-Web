@@ -4,306 +4,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="ingeniero civil eléctrico, control y convertidores, automatización con IA">
+    <meta name="description"
+        content="Portafolio de Maximiliano Andaur Henriquez, Ingeniero Civil Eléctrico (Universidad de Concepción) especializado en estudios eléctricos con ETAP y DIgSILENT PowerFactory, electrónica de potencia y microrredes Grid-Forming.">
+    <meta name="keywords"
+        content="ingeniero civil eléctrico, estudios eléctricos, ETAP, DIgSILENT PowerFactory, convertidores multinivel, control predictivo, automatización, Chile">
     <link rel="icon"
         href="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100">
-    <title>Maximiliano Andaur Henriquez</title>
+    <title>Maximiliano Andaur Henriquez | Ingeniero Civil Eléctrico</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/header.css?v=2.0">
-    <link rel="stylesheet" href="assets/css/body.css?v=2.0">
-    <link rel="stylesheet" href="assets/css/sobremi.css?v=2.0">
-    <link rel="stylesheet" href="assets/css/footer.css?v=2.0">
-    <link rel="stylesheet" href="assets/css/contact.css?v=1.0">
-    <link rel="stylesheet" href="assets/css/proyectos.css?v=2.0">
+    <script>try { if (localStorage.getItem('maxandaur_theme') === 'night') document.documentElement.setAttribute('data-theme', 'night'); } catch (e) { }</script>
+    <link rel="stylesheet" href="/assets/css/body.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/sobremi.css">
+    <link rel="stylesheet" href="/assets/css/proyectos.css">
+    <link rel="stylesheet" href="/assets/css/contact.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <script type="module" src="/assets/js/header.js" defer></script>
+    <script type="module" src="/assets/js/hero.js" defer></script>
+    <script type="module" src="/assets/js/cursor.js" defer></script>
 </head>
 
 <body>
+    <div class="header-sentinel" aria-hidden="true"></div>
     <canvas id="circuitCanvas"></canvas>
     <canvas id="cursorCanvas"></canvas>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="assets/img/yo.png" alt="Logo">
+
+    <header class="site-header">
+        <nav aria-label="Navegación principal">
+            <div class="logo-group">
+                <button type="button" class="avatar-btn" data-open-dialog="profileDialog"
+                    aria-label="Ampliar foto de perfil">
+                    <img src="/assets/img/yo-thumb.webp" alt="Maximiliano Andaur Henriquez" width="600" height="663"
+                        loading="lazy" decoding="async">
+                </button>
+                <a href="/index.html" class="brand-home">Max Andaur</a>
             </div>
 
-            <ul class="nav-links">
-                <li><a href="#home">Inicio</a></li>
-                <li><a href="projects/multinivel.html">I + D</a></li>
-                <li><a href="#projects">Proyectos</a></li>
-                <li><a href="#contact">Contacto</a></li>
-                <li class="lang-selector">
-                    <a href="index.html" class="active">ES</a> |
-                    <a href="en/index.html">EN</a> |
-                    <a href="de/index.html">DE</a>
-                </li>
+            <ul class="nav-links" id="primaryNav">
+                <li><a href="/#hero">Inicio</a></li>
+                <li><a href="/#about">Sobre mí</a></li>
+                <li><a href="/#id-research">I + D</a></li>
+                <li><a href="/#projects">Proyectos</a></li>
+                <li><a href="/#contact">Contacto</a></li>
             </ul>
-            <!-- Botón hamburguesa -->
-            <button class="hamburger" aria-label="Abrir menú">
+
+            <div class="header-controls">
+                <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-pressed="false"
+                    title="Cambiar entre modo dia y modo noche"><i class="fas fa-moon" aria-hidden="true"></i><span
+                        class="theme-toggle-label">Modo: Dia</span></button>
+                <button type="button" class="cursor-toggle-btn" id="cursorToggleBtn" aria-pressed="true"
+                    title="Activar o desactivar animacion del puntero"><i class="fas fa-leaf"
+                        aria-hidden="true"></i><span class="cursor-toggle-label">Puntero: ON</span></button>
+            </div>
+
+            <!-- Selector de idioma reservado para futura activacion
+            <div class="lang-selector">
+                <a href="#es" class="active">ES</a>
+                <span>|</span>
+                <a href="#en">EN</a>
+                <span>|</span>
+                <a href="#de">DE</a>
+            </div>
+            -->
+
+            <button type="button" class="hamburger" aria-label="Abrir menú" aria-expanded="false"
+                aria-controls="primaryNav">
                 <span class="hamburger-box">
                     <span class="hamburger-inner"></span>
                 </span>
             </button>
         </nav>
-        <script src="assets/js/header.js?v=2.0"></script>
     </header>
 
-    <div class="hero-about-container">
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h2 class="tagline">Maximiliano Alejandro Andaur Henriquez</h2>
-                <h1>Ingeniería Eléctrica: Control Avanzado y Sistemas Energéticos.</h1>
+    <dialog id="profileDialog" class="profile-dialog" aria-labelledby="profileDialogTitle">
+        <div class="profile-dialog-content">
+            <button type="button" class="dialog-close-btn" data-close-dialog aria-label="Cerrar ventana">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <img src="/assets/img/yo.webp" alt="Maximiliano Andaur Henriquez - Ingeniero Civil Eléctrico" width="1200"
+                height="1326" loading="lazy" decoding="async">
+            <p id="profileDialogTitle" class="profile-dialog-caption">Maximiliano Andaur Henriquez — Ingeniero Civil
+                Eléctrico (UdeC)</p>
+        </div>
+    </dialog>
+
+    <main>
+        <div class="hero-about-container">
+            <section id="hero" class="hero">
+                <div class="hero-content">
+                    <h2 class="tagline">Maximiliano Alejandro Andaur Henriquez</h2>
+                    <h1>Estudios Eléctricos, Sistemas de Potencia y Control de Microrredes</h1>
+                    <p class="hero-lead">
+                        Actualmente trabajo en estudios de flujo de potencia, cortocircuito, coordinación de
+                        protecciones y <em>arc flash</em> en <em>ETAP</em> en <a href="https://esys.cl" target="_blank"
+                            rel="noopener noreferrer" class="inline-link">ESYS</a>.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="/#projects" class="btn-primary" data-scroll-link>Ver Proyectos</a>
+                        <a href="/#id-research" class="btn-primary" data-scroll-link>Investigación I + D</a>
+                        <a href="/CV_powersystems_structural.pdf" class="btn-primary" target="_blank"
+                            rel="noopener noreferrer">Descargar CV</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="sobremi reveal">
+                <h2>Sobre Mí</h2>
+                <p class="about-text">
+                    Soy <em>Ingeniero Civil Eléctrico titulado de la Universidad de Concepción</em>. Me desempeño en
+                    <em>estudios eléctricos de sistemas de potencia</em>, desarrollando análisis de flujo de potencia,
+                    cortocircuito, coordinación de protecciones y <em>arc flash</em> principalmente en <em>ETAP</em>,
+                    junto con <em>DIgSILENT PowerFactory</em>.
+                </p>
+                <p class="about-text">
+                    Complemento el análisis de redes con diseño eléctrico y software técnico en <em>Python</em>,
+                    <em>C++</em>, <em>MATLAB/Simulink</em>, <em>PLECS</em> y <em>AutoCAD</em>. Mi experiencia abarca
+                    plantas fotovoltaicas con almacenamiento <em>BESS</em>, iluminación <em>DIALux</em>, seguridad
+                    <em>CCTV</em> e investigación en control predictivo adaptativo (<span
+                        class="math_word">CCS-MFPC</span> con <span class="math_word">RLS-DCD</span>) y convertidores
+                    multinivel <em>Grid-Forming</em> (<span class="math_word">dVOC</span>).
+                </p>
+
+                <div class="contributions">
+                    <h3>¿Qué aporto a un proyecto?</h3>
+                    <ul>
+                        <li>
+                            Estudios eléctricos y normativa: modelado de redes, flujo de carga, cortocircuito,
+                            selectividad de protecciones y <em>arc flash</em> en <em>ETAP</em> y <em>DIgSILENT
+                                PowerFactory</em>.
+                        </li>
+                        <li>
+                            Ingeniería de detalle: diseño de plantas fotovoltaicas, sistemas <em>BESS</em>, alumbrado
+                            <em>DIALux</em> y planimetría en <em>AutoCAD</em>.
+                        </li>
+                        <li>
+                            Automatización, software e I+D: simulación en <em>PLECS</em> y <em>MATLAB/Simulink</em>,
+                            algoritmos en <em>Python</em> y <em>C++</em>, e inglés <em>C1</em>.
+                        </li>
+                    </ul>
+                    <p class="objective-text">Mi objetivo es impulsar sistemas eléctricos más seguros, confiables y
+                        preparados para la integración de energías renovables.</p>
+                </div>
+            </section>
+        </div>
+
+        <section id="skills" class="skills-section reveal">
+            <h2>Habilidades Técnicas</h2>
+            <div class="skills-container">
+                <a href="/#contact" class="skill-card" data-scroll-link>
+                    <i class="fas fa-project-diagram" aria-hidden="true"></i>
+                    <h3>Estudios Eléctricos (Junior)</h3>
+                    <p>ETAP (principal), DIgSILENT PowerFactory: flujo de potencia, cortocircuito, coordinación de
+                        protecciones y arc flash.</p>
+                </a>
+                <a href="/projects/multinivel.html" class="skill-card">
+                    <i class="fas fa-bolt" aria-hidden="true"></i>
+                    <h3>Simulación y Potencia</h3>
+                    <p>PLECS, MATLAB/Simulink: convertidores multinivel, control predictivo y microrredes Grid-Forming.
+                    </p>
+                </a>
+                <a href="/projects/ia-algoritmos.html" class="skill-card">
+                    <i class="fas fa-robot" aria-hidden="true"></i>
+                    <h3>Programación e IA</h3>
+                    <p>Python (automatización, análisis de datos e IA) y C++ (control en tiempo real y optimización).
+                    </p>
+                </a>
+                <a href="/projects/parque-verde.html" class="skill-card">
+                    <i class="fas fa-drafting-compass" aria-hidden="true"></i>
+                    <h3>Diseño y Planimetría</h3>
+                    <p>AutoCAD, DIALux: plantas fotovoltaicas, sistemas BESS, media tensión e iluminación normativa.</p>
+                </a>
+                <a href="/projects/automatizacion.html" class="skill-card">
+                    <i class="fas fa-cogs" aria-hidden="true"></i>
+                    <h3>Automatización Industrial</h3>
+                    <p>RSLogix 5000, Ladder, HMI/SCADA (FactoryTalk View) y co-simulación OPC.</p>
+                </a>
+                <a href="/#about" class="skill-card" data-scroll-link>
+                    <i class="fas fa-language" aria-hidden="true"></i>
+                    <h3>Idiomas</h3>
+                    <p>Inglés (C1), Español (Nativo).</p>
+                </a>
             </div>
-            <script src="assets/js/hero.js?v=2.0"></script>
         </section>
 
+        <section id="id-research" class="id-research-section reveal">
+            <div class="id-showcase-card">
+                <div class="id-showcase-content">
+                    <span class="id-badge">Investigación Aplicada (I + D)</span>
+                    <h2>Microrredes sin Inercia Física: Control Inteligente y Convertidores Multinivel</h2>
+                    <p>
+                        Cuando una red eléctrica incorpora más paneles solares y baterías, pierde la inercia mecánica de
+                        las grandes turbinas convencionales y se vuelve más sensible a perturbaciones. Esta línea de
+                        investigación explica de forma clara y visual cómo resolvemos ese desafío con convertidores
+                        multinivel (<em>NPC</em>, <em>T-Type</em> y <em>CHB</em>).
+                    </p>
+                    <p>
+                        Combinamos un lazo externo Formador de Red (<em>dVOC</em>, que sincroniza inversores sin
+                        comunicación rápida entre sí) con un lazo interno adaptativo sin modelo previo
+                        (<em>CCS-MFPC + RLS-DCD</em>) validado en <em>PLECS</em> y <em>MATLAB/Simulink</em>,
+                        proyectado hacia publicación científica y pruebas en tiempo real <em>CHIL</em> sobre plataformas
+                        <em>OPAL-RT / Typhoon HIL</em>.
+                    </p>
+                    <div class="id-highlights">
+                        <span class="id-pill">Convergencia &lt; 1 ms</span>
+                        <span class="id-pill"><span class="math-inline"><span
+                                    class="math-rm">THD</span><sub><var>V</var></sub> &le; 0.325%</span> (IEEE
+                            519)</span>
+                        <span class="id-pill">Sincronización &lt; 0.10 s</span>
+                    </div>
+                    <a href="/projects/multinivel.html" class="btn-primary">Explorar Vitrina I + D</a>
+                </div>
 
-        <section id="about" class="sobremi">
-            <h2>Sobre Mí</h2>
-            <p class="about-text">
-                Ingeniero Civil Eléctrico de la Universidad de Concepción, apasionado por la
-                convergencia entre la potencia, el control avanzado y la innovación tecnológica. Mi formación se ha
-                centrado en resolver problemas complejos mediante el uso de herramientas de Optimización e Inteligencia
-                Artificial aplicadas a sistemas eléctricos. Mi experiencia abarca desde el diseño de proyectos de
-                infraestructura a gran escala como: plantas fotovoltaicas industriales, sistemas de bombeo y alumbrado
-                eficiente, hasta la investigación de vanguardia en electrónica de potencia. Desarrollé mi
-                memoria de título en el control de convertidores multinivel (NPC, T-Type y CHB) con control predictivo
-                (<span class="math_word">CCS-MFPC</span>) y control por oscilación virtual con despacho
-                (<span class="math_word">dVOC</span>) para aplicaciones Grid-Forming. Además, he desarrollado una base
-                sólida en simulación y programación, creando proyectos detallados en MATLAB/Simulink e implementando
-                soluciones de
-                programación competitiva en C++. Mi trabajo más reciente incluye el desarrollo de agentes autónomos
-                utilizando Inteligencia Artificial y Machine Learning para optimizar procesos industriales y
-                sistemas eléctricos.
-            </p>
-
-            <div class="contributions">
-                <h3>¿Qué aporto a un proyecto?</h3>
-                <ul>
-                    <li>
-                        <strong>Sólida base teórica y práctica:</strong> Especialización en convertidores estáticos,
-                        control no lineal y optimización de sistemas.
-                    </li>
-                    <li>
-                        <strong>Capacidad de ejecución:</strong> Experiencia comprobable en terreno y diseño técnico
-                        (AutoCAD), con honores especiales en proyectos de impacto social y energético.
-                    </li>
-                    <li>
-                        <strong>Perfil tecnológico bilingüe:</strong> Dominio del Inglés (C1), programación
-                        competitiva en C++ y desarrollo de soluciones de IA en Python.
-                    </li>
-                </ul>
-                <p class="objective-text">Mi objetivo es impulsar la eficiencia energética y la transición hacia redes
-                    eléctricas más inteligentes y resilientes.</p>
+                <figure class="id-figure">
+                    <img class="tech-diagram" src="/assets/img/id/microrred-esquema-general-thumb.webp"
+                        alt="Esquema general de microrred eléctrica con inversores multinivel Grid-Forming" width="600"
+                        height="362" loading="lazy" decoding="async">
+                    <figcaption>
+                        Topología de microrred con inversores multinivel en paralelo, filtro LCL, barra común de carga y
+                        conexión a red mediante interruptor estático.
+                    </figcaption>
+                </figure>
             </div>
         </section>
-    </div>
 
-    <section id="skills" class="skills-section">
-        <h2>Habilidades Técnicas</h2>
-        <div class="skills-container">
-            <!-- Tarjetas de habilidades con enlaces -->
-            <a href="projects/multinivel.html" class="skill-card">
-                <i class="fas fa-bolt"></i>
-                <h3>Simulación</h3>
-                <p>Matlab, PLECS, Simulink, ETAP</p>
-            </a>
-            <a href="projects/ia-algoritmos.html" class="skill-card">
-                <i class="fas fa-robot"></i>
-                <h3>Programación</h3>
-                <p>C++ (Control y optimización), Python (IA, automatización, data analysis, web)</p>
-            </a>
-            <a href="projects/parque-verde.html" class="skill-card">
-                <i class="fas fa-file-alt"></i>
-                <h3>Diseño y Planos</h3>
-                <p>AutoCAD, DIALux</p>
-            </a>
-            <a href="#about" class="skill-card">
-                <i class="fas fa-language"></i>
-                <h3>Idioma</h3>
-                <p>Ingles C1, español Nativo</p>
-            </a>
-            <a href="projects/automatizacion.html" class="skill-card">
-                <i class="fas fa-cogs"></i>
-                <h3>Control de Procesos y Automatización</h3>
-                <p>Rslogix, ladder, HMI, SCADA</p>
-            </a>
-        </div>
-    </section>
-
-    <section id="projects" class="projects-section">
-        <div class="projects-intro">
-            <h2>Áreas de Expertiz y Proyectos</h2>
-            <p class="about-proyects">
-                Convergencia entre el rigor del <b>control avanzado</b> y la ejecución de
-                <b>infraestructura eléctrica</b>. Investigación en topologías <b>multinivel</b> y
-                <b>sistemas energéticos sostenibles</b> con modelos de <b>IA</b>.
-            </p>
-        </div>
-        <div class="projects-grid">
-            <a href="projects/parque-verde.html" class="project-card">
-                <div class="project-info">
-                    <span class="card-category">Infraestructura</span>
-                    <h3>Energías Renovables e Infraestructura</h3>
-                    <p class="card-description">Diseño de ingeniería eléctrica para parques urbanos y plantas
-                        fotovoltaicas con BESS.</p>
-                    <div class="card-tags">
-                        <span>AutoCAD</span>
-                        <span>DIALux</span>
-                        <span>BESS</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="projects/multinivel.html" class="project-card">
-                <div class="project-info">
-                    <span class="card-category">Investigación</span>
-                    <h3>Electrónica de Potencia y Control Avanzado</h3>
-                    <p class="card-description">Investigación en topologías multinivel y control predictivo para la
-                        estabilidad de redes.</p>
-                    <div class="card-tags">
-                        <span>Predictive Control</span>
-                        <span>Multilevel</span>
-                        <span>Grid-Forming</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="projects/ia-algoritmos.html" class="project-card">
-                <div class="project-info">
-                    <span class="card-category">Software</span>
-                    <h3>Inteligencia Artificial y Optimización</h3>
-                    <p class="card-description">Implementación de metaheurísticas y algoritmos de optimización aplicados
-                        a sistemas de potencia.</p>
-                    <div class="card-tags">
-                        <span>Metaheurísticas</span>
-                        <span>C++</span>
-                        <span>DCD-RLS</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="projects/automatizacion.html" class="project-card">
-                <div class="project-info">
-                    <span class="card-category">Industria 4.0</span>
-                    <h3>Automatización y Control Industrial</h3>
-                    <p class="card-description">Sistemas SCADA, programación de PLCs industriales y modelado cinemático
-                        de robótica.</p>
-                    <div class="card-tags">
-                        <span>PLC / SCADA</span>
-                        <span>HMI</span>
-                        <span>Robótica</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- Nueva Sección de Contacto Profesional -->
-    <section id="contact" class="contact-section">
-        <div class="contact-container">
-            <!-- Columna Izquierda: Información -->
-            <div class="contact-info">
-                <h2>Hablemos de <span>Ingeniería</span></h2>
-                <p>¿Buscas un ingeniero para abordar desafíos en potencia, infraestructura o nuevas tecnologías?
-                    Estoy disponible para colaborar en proyectos que requieran soluciones técnicas de alto impacto y
-                    eficiencia.</p>
-
-                <div class="contact-methods">
-                    <div class="method-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>maximiliano@maxandaur.com</span>
-                    </div>
-                    <div class="method-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Concepción, Chile</span>
-                    </div>
-                    <a href="https://www.linkedin.com/in/maximiliano-andaur-henriquez/" target="_blank"
-                        class="method-item" style="text-decoration: none;">
-                        <i class="fab fa-linkedin-in"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                </div>
+        <section id="projects" class="projects-section">
+            <div class="projects-intro reveal">
+                <h2>Proyectos y Casos de Estudio</h2>
+                <p class="about-proyects">
+                    Casos reales con métricas verificables que conectan la ingeniería eléctrica de terreno, el diseño
+                    fotovoltaico con almacenamiento, la automatización industrial y los algoritmos de control en tiempo
+                    real.
+                </p>
             </div>
 
-            <!-- Columna Derecha: Formulario -->
-            <form class="contact-form" action="https://formspree.io/f/xwvvkrye" method="POST">
-                <!-- Honeypot para evitar SPAM (Seguridad) -->
-                <input type="text" name="_gotcha" style="display:none !important">
+            <div class="projects-grid">
+                <article class="project-card reveal">
+                    <figure class="project-figure">
+                        <img src="/assets/img/proyectos/quirihue-1-iluminacion-dialux-thumb.webp"
+                            alt="Simulación lumínica DIALux del Parque Urbano Natural Quirihue" width="600" height="369"
+                            loading="lazy" decoding="async">
+                        <figcaption>Modelo lumínico DIALux e infraestructura PV/BESS en Quirihue.</figcaption>
+                    </figure>
+                    <div class="project-info">
+                        <span class="card-category">Infraestructura y Energía</span>
+                        <h3><a href="/projects/parque-verde.html" class="card-title-link">Parque Urbano Natural
+                                Quirihue</a></h3>
+                        <p class="card-description">
+                            Ingeniería eléctrica integral para parque público: generación fotovoltaica <em>Net
+                                Billing</em>, reingeniería de baterías <em>AC-Coupling</em>, alumbrado normativo y
+                            seguridad <em>CCTV</em>.
+                        </p>
+                        <div class="card-metrics">
+                            <div class="card-metric">
+                                <span class="metric-value">281.16 kWp</span>
+                                <span>PV + 46.08 kWh BESS</span>
+                            </div>
+                            <div class="card-metric">
+                                <span class="metric-value">371 LED / 20 CCTV</span>
+                                <span>DIALux FHS 0% + Red IP</span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span>AutoCAD</span>
+                            <span>DIALux</span>
+                            <span>BESS</span>
+                            <span>Net Billing</span>
+                        </div>
+                        <span class="card-cta-label">Ver caso de estudio &rarr;</span>
+                    </div>
+                </article>
 
-                <div class="form-group">
-                    <label for="name">Nombre Completo</label>
-                    <input type="text" id="name" name="name" placeholder="Ej. Juan Pérez" required>
+                <article class="project-card reveal">
+                    <figure class="project-figure">
+                        <img src="/assets/img/proyectos/automatizacion-estanques-thumb.webp"
+                            alt="Simulación de estanques acoplados y control PID en tiempo real" width="600"
+                            height="335" loading="lazy" decoding="async">
+                        <figcaption>Arquitectura PLC/SCADA vía OPC y cinemática inversa 5-DOF.</figcaption>
+                    </figure>
+                    <div class="project-info">
+                        <span class="card-category">Industria 4.0 y Robótica</span>
+                        <h3><a href="/projects/automatizacion.html" class="card-title-link">Automatización Industrial
+                                PLC/SCADA</a></h3>
+                        <p class="card-description">
+                            Lógica secuencial en <em>RSLogix 5000</em>, supervisión HMI en <em>FactoryTalk View</em>,
+                            co-simulación HIL de 4 estanques vía OPC y control articular de brazo robótico
+                            <em>5-DOF</em>.
+                        </p>
+                        <div class="card-metrics">
+                            <div class="card-metric">
+                                <span class="metric-value">4 Estanques</span>
+                                <span>Co-simulación OPC / PID</span>
+                            </div>
+                            <div class="card-metric">
+                                <span class="metric-value">5-DOF CAD</span>
+                                <span>Cinemática en Simscape</span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span>RSLogix 5000</span>
+                            <span>FactoryTalk</span>
+                            <span>Simscape</span>
+                            <span>OPC</span>
+                        </div>
+                        <span class="card-cta-label">Ver caso de estudio &rarr;</span>
+                    </div>
+                </article>
+
+                <article class="project-card reveal">
+                    <figure class="project-figure">
+                        <div class="project-diagram-preview">
+                            <svg viewBox="0 0 360 180" role="img"
+                                aria-label="Curva comparativa de complejidad computacional O(N) vs O(N^3) para RLS-DCD">
+                                <line x1="46" y1="20" x2="46" y2="145" stroke="#466556" stroke-width="1.5" />
+                                <line x1="46" y1="145" x2="335" y2="145" stroke="#466556" stroke-width="1.5" />
+                                <path d="M 52 140 Q 170 132 235 80 T 305 22" fill="none" stroke="#1d7898"
+                                    stroke-width="2.5" stroke-dasharray="5 4" />
+                                <path d="M 52 141 L 325 112" fill="none" stroke="#2d7a4f" stroke-width="3" />
+                                <text x="235" y="42" fill="#145972" font-size="11" font-family="monospace">RLS
+                                    O(N^3)</text>
+                                <text x="235" y="103" fill="#1f5c3a" font-size="11" font-family="monospace">RLS-DCD
+                                    O(N)</text>
+                                <text x="190" y="166" fill="#2a4739" font-size="10" font-family="Outfit, sans-serif"
+                                    text-anchor="middle">Orden del sistema (sin inversión matricial)</text>
+                            </svg>
+                        </div>
+                        <figcaption>Reducción de costo computacional de <span
+                                class="math-inline"><var>O</var>(<var>N</var><sup>3</sup>)</span> a <span
+                                class="math-inline"><var>O</var>(<var>N</var>)</span> en tiempo real.</figcaption>
+                    </figure>
+                    <div class="project-info">
+                        <span class="card-category">Control Adaptativo e IA</span>
+                        <h3><a href="/projects/ia-algoritmos.html" class="card-title-link">Algoritmos de Control e IA en
+                                Tiempo Real</a></h3>
+                        <p class="card-description">
+                            Simulador interactivo nativo del estimador <em>RLS-DCD</em> (sin multiplicaciones ni
+                            inversión matricial) junto a metaheurísticas aplicadas a sistemas eléctricos de potencia.
+                        </p>
+                        <div class="card-metrics">
+                            <div class="card-metric">
+                                <span class="metric-value math-inline"><var>O</var>(<var>N</var>) vs
+                                    <var>O</var>(<var>N</var><sup>3</sup>)</span>
+                                <span>Apto para DSP / FPGA</span>
+                            </div>
+                            <div class="card-metric">
+                                <span class="metric-value">&lt; 1 ms (8 bits)</span>
+                                <span>Convergencia en línea</span>
+                            </div>
+                        </div>
+                        <div class="card-tags">
+                            <span>RLS-DCD</span>
+                            <span>C++ / Python</span>
+                            <span>Metaheurísticas</span>
+                            <span>Canvas 2D</span>
+                        </div>
+                        <span class="card-cta-label">Probar simulador en vivo &rarr;</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section reveal">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Hablemos de Ingeniería</h2>
+                    <p>¿Buscas apoyo en estudios eléctricos con <em>ETAP</em> o <em>DIgSILENT</em>, proyectos
+                        fotovoltaicos y <em>BESS</em>, o desarrollo de algoritmos de control y estabilidad sistémica?
+                        Conversemos.</p>
+
+                    <div class="contact-methods">
+                        <div class="method-item">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <span>maximiliano@maxandaur.com</span>
+                        </div>
+                        <div class="method-item">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>Concepción, Chile</span>
+                        </div>
+                        <a href="https://www.linkedin.com/in/maximiliano-andaur-henriquez/" target="_blank"
+                            rel="noopener noreferrer" class="method-item">
+                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
-                </div>
+                <form class="contact-form" action="https://formspree.io/f/xwvvkrye" method="POST">
+                    <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off"
+                        aria-hidden="true">
 
-                <div class="form-group">
-                    <label for="subject">Asunto</label>
-                    <input type="text" id="subject" name="subject" placeholder="Asunto del mensaje" required>
-                </div>
+                    <div class="form-group">
+                        <label for="name">Nombre Completo</label>
+                        <input type="text" id="name" name="name" placeholder="Ej. Juan Pérez" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="message">Mensaje</label>
-                    <textarea id="message" name="message" placeholder="Cuéntame sobre tu proyecto..."
-                        required></textarea>
-                </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                    </div>
 
-                <button type="submit" class="btn-submit">
-                    Enviar Mensaje <i class="fas fa-paper-plane"></i>
-                </button>
-            </form>
-        </div>
-    </section>
+                    <div class="form-group">
+                        <label for="subject">Asunto</label>
+                        <input type="text" id="subject" name="subject" placeholder="Asunto del mensaje" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Mensaje</label>
+                        <textarea id="message" name="message" placeholder="Cuéntame sobre tu proyecto..."
+                            required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        Enviar Mensaje <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
 
     <footer class="footer">
         <div class="footer-container">
-            <!-- Navegación -->
             <div>
                 <h3>Navegación</h3>
                 <ul>
-                    <li><a href="#home">Inicio</a></li>
-                    <li><a href="projects/multinivel.html">I + D</a></li>
-                    <li><a href="#projects">Proyectos</a></li>
-                    <li><a href="#contact">Contacto</a></li>
+                    <li><a href="/#hero">Inicio</a></li>
+                    <li><a href="/#about">Sobre mí</a></li>
+                    <li><a href="/#id-research">I + D</a></li>
+                    <li><a href="/#projects">Proyectos</a></li>
+                    <li><a href="/#contact">Contacto</a></li>
                 </ul>
             </div>
 
-            <!-- Recursos y Enlaces -->
             <div>
                 <h3>Recursos</h3>
                 <ul>
                     <li><a href="https://github.com/lmasix?tab=repositories" target="_blank"
-                            rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a></li>
+                            rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
                     <li><a href="https://www.linkedin.com/in/maximiliano-andaur-henriquez/" target="_blank"
-                            rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i> LinkedIn</a></li>
-                    <li><a href="CV_powersystems_structural.pdf" target="_blank" download><i
-                                class="fas fa-file-download"></i> Descargar CV</a></li>
+                            rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i> LinkedIn</a>
+                    </li>
+                    <li><a href="/CV_powersystems_structural.pdf" target="_blank" rel="noopener noreferrer" download><i
+                                class="fas fa-file-download" aria-hidden="true"></i> Descargar CV</a></li>
                 </ul>
             </div>
 
-            <!-- Información Personal o Profesional -->
             <div class="footer-info">
                 <h3>Contacto</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Concepción, Chile</p>
-                <p><i class="fas fa-envelope"></i> <a href="mailto:maximiliano@maxandaur.com"
-                        style="color: inherit; text-decoration: none;">maximiliano@maxandaur.com</a></p>
-                <p><i class="fas fa-language"></i> Español, Inglés (C1)</p>
+                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Concepción, Chile</p>
+                <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:maximiliano@maxandaur.com"
+                        class="footer-mail-link">maximiliano@maxandaur.com</a></p>
+                <p><i class="fas fa-language" aria-hidden="true"></i> Español (Nativo), Inglés (C1)</p>
             </div>
 
-            <!-- Detalles Extras -->
             <div>
                 <h3>Sobre este sitio</h3>
                 <p><span class="frase">“La excelencia no es un acto, sino un hábito”</span></p>
-                <p>Diseñado con enfoque en Control Avanzado e IA.</p>
-                <p style="font-size: 0.9em; opacity: 0.5;">Última act: Enero 2026</p>
+                <p>Diseñando los Sistemas de Potencia y control del futuro.</p>
+                <p class="footer-updated">Última actualización: Noviembre 2026</p>
             </div>
         </div>
 
@@ -311,8 +472,6 @@
             &copy; 2026 Maximiliano Andaur Henriquez. Todos los derechos reservados.
         </div>
     </footer>
-
-    <script src="assets/js/cursor.js"></script>
 </body>
 
 </html>

@@ -4,175 +4,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Casos de estudio en automatización industrial, programación de PLCs RSLogix 5000, supervisión HMI/SCADA vía OPC y control de brazo robótico 5-DOF en SolidWorks y Simscape.">
     <link rel="icon"
         href="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100">
     <title>Automatización y Control Industrial - Maximiliano Andaur</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/header.css?v=2.0">
-    <link rel="stylesheet" href="../assets/css/body.css?v=2.0">
-    <link rel="stylesheet" href="../assets/css/footer.css?v=2.0">
-    <link rel="stylesheet" href="../assets/css/proyecto-detalle.css?v=1.0">
+    <script>try{if(localStorage.getItem('maxandaur_theme')==='night')document.documentElement.setAttribute('data-theme','night');}catch(e){}</script>
+    <link rel="stylesheet" href="/assets/css/body.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/proyecto-detalle.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <script type="module" src="/assets/js/header.js" defer></script>
+    <script type="module" src="/assets/js/hero.js" defer></script>
+    <script type="module" src="/assets/js/cursor.js" defer></script>
 </head>
 
 <body>
+    <div class="header-sentinel" aria-hidden="true"></div>
     <canvas id="circuitCanvas"></canvas>
     <canvas id="cursorCanvas"></canvas>
 
-    <!-- Reutilizamos el header -->
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="../index.html">
-                    <img src="../assets/img/yo.png" alt="Logo">
-                </a>
+    <header class="site-header">
+        <nav aria-label="Navegación principal">
+            <div class="logo-group">
+                <button type="button" class="avatar-btn" data-open-dialog="profileDialog"
+                    aria-label="Ampliar foto de perfil">
+                    <img src="/assets/img/yo-thumb.webp" alt="Maximiliano Andaur Henriquez" width="600" height="663"
+                        loading="lazy" decoding="async">
+                </button>
+                <a href="/index.html" class="brand-home">Max Andaur</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="../index.html#home">Inicio</a></li>
-                <li><a href="../index.html#innovation">I + D</a></li>
-                <li><a href="../index.html#projects">Proyectos</a></li>
-                <li><a href="../index.html#contact">Contacto</a></li>
+
+            <ul class="nav-links" id="primaryNav">
+                <li><a href="/#hero">Inicio</a></li>
+                <li><a href="/#about">Sobre mí</a></li>
+                <li><a href="/#id-research">I + D</a></li>
+                <li><a href="/#projects">Proyectos</a></li>
+                <li><a href="/#contact">Contacto</a></li>
             </ul>
-            <button class="hamburger" aria-label="Abrir menú">
+
+            <div class="header-controls">
+                <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-pressed="false" title="Cambiar entre modo dia y modo noche"><i class="fas fa-moon" aria-hidden="true"></i><span class="theme-toggle-label">Modo: Dia</span></button>
+                <button type="button" class="cursor-toggle-btn" id="cursorToggleBtn" aria-pressed="true" title="Activar o desactivar animacion del puntero"><i class="fas fa-leaf" aria-hidden="true"></i><span class="cursor-toggle-label">Puntero: ON</span></button>
+            </div>
+
+            <!-- Selector de idioma reservado para futura activacion
+            <div class="lang-selector">
+                <a href="#es" class="active">ES</a>
+                <span>|</span>
+                <a href="#en">EN</a>
+                <span>|</span>
+                <a href="#de">DE</a>
+            </div>
+            -->
+
+            <button type="button" class="hamburger" aria-label="Abrir menú" aria-expanded="false"
+                aria-controls="primaryNav">
                 <span class="hamburger-box"><span class="hamburger-inner"></span></span>
             </button>
         </nav>
-        <script src="../assets/js/header.js?v=2.0"></script>
     </header>
+
+    <dialog id="profileDialog" class="profile-dialog" aria-labelledby="profileDialogTitle">
+        <div class="profile-dialog-content">
+            <button type="button" class="dialog-close-btn" data-close-dialog aria-label="Cerrar ventana">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <img src="/assets/img/yo.webp" alt="Maximiliano Andaur Henriquez - Ingeniero Civil Eléctrico" width="1200"
+                height="1326" loading="lazy" decoding="async">
+            <p id="profileDialogTitle" class="profile-dialog-caption">Maximiliano Andaur Henriquez — Ingeniero Civil
+                Eléctrico (UdeC)</p>
+        </div>
+    </dialog>
 
     <main class="project-detail-container">
         <section class="project-hero">
+            <span class="project-badge">Industria 4.0 · PLC · SCADA · Robótica</span>
             <h1>Automatización y Control Industrial</h1>
-            <p class="subtitle">Integración de sistemas SCADA, PLC y HMIs para la industria 4.0</p>
+            <p class="subtitle">
+                Control secuencial en RSLogix 5000, supervisión HMI en FactoryTalk View, co-simulación
+                Hardware-in-the-Loop vía OPC y modelado dinámico de robótica 5-DOF.
+            </p>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <span class="kpi-value">RSLogix 5000</span>
+                    <span class="kpi-label">Lógica Ladder y PID</span>
+                    <span class="kpi-detail">Máquina de estados y enclavamientos de seguridad</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">4 Estanques</span>
+                    <span class="kpi-label">Planta MIMO Acoplada</span>
+                    <span class="kpi-detail">Co-simulación HIL PLC + FactoryTalk vía OPC</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">5-DOF CAD</span>
+                    <span class="kpi-label">Manipulador Robótico</span>
+                    <span class="kpi-detail">5 grados de libertad en SolidWorks y Simscape</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">OPC / Eth-IP</span>
+                    <span class="kpi-label">Integración Industrial</span>
+                    <span class="kpi-detail">Alarmas, tendencias y gemelo digital en línea</span>
+                </div>
+            </div>
         </section>
 
         <section class="project-list">
-
-            <!-- Proyecto PLC -->
-            <article class="project-item">
+            <!-- Caso 1: Sistema PLC embotelladora en RSLogix 5000 -->
+            <article class="project-item reveal">
                 <div class="project-content">
-                    <h2>Programación de PLCs (Allen Bradley / Siemens)</h2>
+                    <h2>Sistema PLC Embotelladora: Máquina de Estados en RSLogix 5000</h2>
                     <p class="tech-stack">
-                        <i class="fas fa-microchip"></i> RSLogix 5000 |
-                        <i class="fas fa-project-diagram"></i> Ladder Logic |
-                        <i class="fas fa-industry"></i> Automatización
+                        <i class="fas fa-microchip" aria-hidden="true"></i> RSLogix 5000 |
+                        <i class="fas fa-project-diagram" aria-hidden="true"></i> Ladder Logic |
+                        <i class="fas fa-network-wired" aria-hidden="true"></i> Ethernet/IP y Modbus |
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i> Enclavamientos
                     </p>
                     <p>
-                        Diseño y programación de lógica de control para procesos industriales secuenciales.
-                        Experiencia en la implementación de rutinas de seguridad, control PID discreto y gestión de
-                        alarmas.
+                        Implementación de la lógica de control para una línea de embotellado en <em>RSLogix 5000</em>,
+                        estructurada como máquina de estados para separar operación automática, paro ordenado y
+                        protección ante fallas.
                     </p>
                     <ul>
-                        <li>Desarrollo de lógica escalera (Ladder) estructurada y comentada.</li>
-                        <li>Configuración de comunicación industrial (Ethernet/IP, Modbus).</li>
-                        <li>Simulación y validación de procesos antes de la puesta en marcha.</li>
+                        <li><em>Secuenciamiento por estados:</em> etapas modulares de alimentación, posicionamiento, dosificación temporizada, tapado y conteo.</li>
+                        <li><em>Enclavamientos de seguridad:</em> bloqueo frente a parada de emergencia (NC), sobrecarga térmica y ausencia de envase.</li>
+                        <li><em>Control y conectividad:</em> lazos PID auxiliares y mapeo de etiquetas sobre Ethernet/IP y Modbus hacia supervisión HMI.</li>
                     </ul>
 
-                    <!-- Placeholder Visual de Ladder -->
-                    <div style="margin-top: 20px; background: #fff; padding: 10px; border-radius: 5px; opacity: 0.9;">
-                        <!-- Dibujo simple con CSS para simular Ladder -->
-                        <div
-                            style="font-family: monospace; color: #000; font-weight: bold; border-left: 2px solid #000; border-right: 2px solid #000; padding: 10px; position: relative;">
-                            <div
-                                style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-                                <span>|--[ START ]--[ STOP ]--</span>
-                                <span style="border: 1px solid #000; padding: 2px 5px;">( MOTOR )</span>
+                    <figure class="figure-card figure-card--dark">
+                        <div class="ladder-diagram" role="img"
+                            aria-label="Esquema Ladder con enclavamiento de marcha, control de válvula de llenado y etapa de tapado">
+                            <div class="ladder-rung">
+                                <span>|--[ START ]--+--[/ STOP_NC ]--[/ FALLA_TERM ]--</span>
+                                <span class="ladder-coil">( M_CICLO )</span>
                                 <span>--|</span>
                             </div>
-                            <div style="display: flex; align-items: center; justify-content: space-between;">
-                                <span>|--[ SENSOR ]-------------</span>
-                                <span style="border: 1px solid #000; padding: 2px 5px;">( VÁLVULA )</span>
+                            <div class="ladder-rung">
+                                <span>|--[ M_CICLO ]--[ SEN_BOTELLA ]--[/ TON_LLEN.DN ]--</span>
+                                <span class="ladder-coil">( V_LLENADO )</span>
+                                <span>--|</span>
+                            </div>
+                            <div class="ladder-rung">
+                                <span>|--[ M_CICLO ]--[ TON_LLEN.DN ]--[ FIN_NIVEL ]--</span>
+                                <span class="ladder-coil">( M_TAPADO )</span>
                                 <span>--|</span>
                             </div>
                         </div>
-                        <p style="text-align: center; color: #333; margin: 5px 0 0 0; font-size: 0.8rem;">
-                            *Representación esquemática de lógica Ladder</p>
-                    </div>
+                        <figcaption class="figure-caption">
+                            Esquema Ladder de enclavamiento y secuenciamiento para cinta, válvula dosificadora y tapado.
+                        </figcaption>
+                    </figure>
                 </div>
             </article>
 
-            <!-- Proyecto HMI/SCADA (Actualizado) -->
-            <article class="project-item">
+            <!-- Caso 2: Planta de 4 estanques y control PID via OPC -->
+            <article class="project-item reveal">
                 <div class="project-content">
-                    <h2>Sistemas HMI, SCADA y Control de Procesos</h2>
+                    <h2>Planta de 4 Estanques: Control PID, SCADA y Co-Simulación OPC</h2>
                     <p class="tech-stack">
-                        <i class="fas fa-desktop"></i> FactoryTalk View / OPC |
-                        <i class="fas fa-cogs"></i> RSLogix / Matlab |
-                        <i class="fas fa-industry"></i> Automatización
+                        <i class="fas fa-desktop" aria-hidden="true"></i> FactoryTalk View |
+                        <i class="fas fa-exchange-alt" aria-hidden="true"></i> Servidor OPC |
+                        <i class="fas fa-cogs" aria-hidden="true"></i> RSLogix 5000 |
+                        <i class="fas fa-wave-square" aria-hidden="true"></i> MATLAB / Simulink
                     </p>
                     <p>
-                        Implementación integral de un sistema de control para 4 estanques interconectados, cumpliendo
-                        normativas estándares.
-                        Integración completa desde el controlador (Ladder/RSLogix) hasta la supervisión (FactoryTalk
-                        View),
-                        utilizando Matlab/Simulink vía OPC para co-simulación de la planta física.
+                        Sistema SCADA y banco de pruebas <em>Hardware-in-the-Loop</em> para controlar el nivel de 4
+                        estanques acoplados, integrando un PLC emulado en RSLogix 5000, pantallas FactoryTalk View y un
+                        gemelo dinámico en Simulink vía servidor OPC.
                     </p>
                     <ul>
-                        <li>Desarrollo de lógica de control secuencial y regulatorio (PID) en PLC 5000.</li>
-                        <li>Interfaz HMI avanzada con gestión de alarmas y tendencias en tiempo real.</li>
-                        <li>Comunicación OPC para validación de modelos dinámicos (Digital Twin).</li>
+                        <li><em>Control PID multivariable:</em> lazos discretos en PLC 5000 para regular caudales y compensar acoplamiento cruzado.</li>
+                        <li><em>Interfaz HMI operativa:</em> sinóptico en FactoryTalk View con modos Manual/Automático, consignas, alarmas y tendencias.</li>
+                        <li><em>Gemelo digital vía OPC:</em> intercambio cíclico de variables en tiempo real entre el controlador y la planta simulada.</li>
                     </ul>
 
-                    <h3 style="margin-top: 30px;"><i class="fab fa-youtube" style="color: #FF0000;"></i> Demostración:
-                        Control de Nivel de 4 Tanques</h3>
-                    <p style="margin-bottom: 15px;">Simulación HIL (Hardware-in-the-Loop) virtualizada:</p>
+                    <figure class="detail-figure"><img src="/assets/img/proyectos/automatizacion-estanques.webp" alt="Simulación de estanques acoplados y control PID en tiempo real" width="814" height="455" loading="lazy" decoding="async"><figcaption>Simulación dinámica de estanques acoplados con lazo de control PID en tiempo real.</figcaption></figure>
 
-                    <div
-                        style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 10px; background: #000; border: 1px solid #333;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;"
-                            src="https://www.youtube.com/embed/UrUnwfdLxPI"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
+                    <div class="spec-table-wrap">
+                        <table class="spec-table">
+                            <thead>
+                                <tr>
+                                    <th>Capa del Sistema</th>
+                                    <th>Plataforma</th>
+                                    <th>Rol Técnico</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Supervisión y Operación</td>
+                                    <td>FactoryTalk View SE/ME</td>
+                                    <td>Sinóptico de 4 estanques, alarmas, tendencias y comando de lazos</td>
+                                </tr>
+                                <tr>
+                                    <td>Capa de Control</td>
+                                    <td>RSLogix 5000 (Ladder / PID)</td>
+                                    <td>Ejecución de lazos regulatorios, modos de operación y enclavamientos</td>
+                                </tr>
+                                <tr>
+                                    <td>Bus de Intercambio</td>
+                                    <td>RSLinx / OPC Server</td>
+                                    <td>Sincronización en tiempo real de tags de proceso entre PLC y planta</td>
+                                </tr>
+                                <tr>
+                                    <td>Planta Física (Digital Twin)</td>
+                                    <td>MATLAB / Simulink</td>
+                                    <td>Dinámica no lineal de los 4 estanques acoplados y perturbaciones</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
+                    <figure class="figure-card figure-card--dark">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/UrUnwfdLxPI"
+                                title="Demostración de control de nivel en planta de 4 estanques con HMI FactoryTalk y co-simulación OPC"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                loading="lazy" allowfullscreen></iframe>
+                        </div>
+                        <figcaption class="figure-caption">
+                            <i class="fab fa-youtube" aria-hidden="true"></i> Co-simulación HIL del sistema de 4 estanques integrando RSLogix 5000, FactoryTalk View y Simulink vía OPC.
+                        </figcaption>
+                    </figure>
                 </div>
             </article>
 
-            <!-- Nuevo Proyecto: Robotica -->
-            <article class="project-item">
+            <!-- Caso 3: Brazo robotico 5-DOF en SolidWorks y Simscape -->
+            <article class="project-item reveal">
                 <div class="project-content">
-                    <h2>Modelado y Control de Brazo Robótico</h2>
+                    <h2>Modelado Mecatrónico y Control de Brazo Robótico 5-DOF</h2>
                     <p class="tech-stack">
-                        <i class="fas fa-robot"></i> Robótica |
-                        <i class="fas fa-cube"></i> SolidWorks |
-                        <i class="fas fa-calculator"></i> Matlab / Simscape
+                        <i class="fas fa-robot" aria-hidden="true"></i> Manipulador 5-DOF |
+                        <i class="fas fa-cube" aria-hidden="true"></i> SolidWorks CAD |
+                        <i class="fas fa-calculator" aria-hidden="true"></i> MATLAB / Simscape Multibody
                     </p>
                     <p>
-                        Diseño mecatrónico completo de un manipulador robótico. El proceso abarcó desde el modelado CAD
-                        en SolidWorks
-                        hasta la importación en Simscape Multibody para simulación física.
+                        Flujo mecatrónico para un manipulador robótico de 5 grados de libertad (<em>5-DOF</em>), desde el
+                        ensamble paramétrico en SolidWorks hasta la validación de control articular en MATLAB/Simscape
+                        Multibody con inercias y masas reales.
                     </p>
                     <ul>
-                        <li>Resolución matemática de cinemática directa e inversa.</li>
-                        <li>Diseño de controladores de trayectoria en Matlab/Simulink.</li>
-                        <li>Validación mecánica y visualización 3D integrada.</li>
+                        <li><em>Modelado CAD e inercias:</em> eslabones, juntas rotacionales y tensores de inercia exportados desde SolidWorks a Simscape.</li>
+                        <li><em>Cinemática directa e inversa:</em> mapeo de trayectorias cartesianas del efector final hacia referencias articulares (<span class="math-inline"><var>q</var><sub>1</sub>, <var>q</var><sub>2</sub>, <var>q</var><sub>3</sub>, <var>q</var><sub>4</sub>, <var>q</var><sub>5</sub></span>).</li>
+                        <li><em>Control en lazo cerrado:</em> sintonía articular en Simulink evaluando seguimiento, torques requeridos y visualización 3D.</li>
                     </ul>
 
-                    <h3 style="margin-top: 30px;"><i class="fab fa-youtube" style="color: #FF0000;"></i> Demostración:
-                        Simulación Cinemática</h3>
-
-                    <div
-                        style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 10px; background: #000; border: 1px solid #333;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;"
-                            src="https://www.youtube.com/embed/OnYt09YW5oQ"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
-                    </div>
+                    <figure class="figure-card figure-card--dark">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/OnYt09YW5oQ"
+                                title="Simulación cinemática y dinámica 3D de brazo robótico 5-DOF en MATLAB Simscape"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                loading="lazy" allowfullscreen></iframe>
+                        </div>
+                        <figcaption class="figure-caption">
+                            <i class="fab fa-youtube" aria-hidden="true"></i> Demostración de trayectoria y control
+                            articular del manipulador 5-DOF importado desde SolidWorks hacia MATLAB Simscape Multibody.
+                        </figcaption>
+                    </figure>
                 </div>
             </article>
-
         </section>
 
         <div class="back-link">
-            <a href="../index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Volver a Proyectos</a>
+            <a href="/index.html#projects" class="btn-back"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver</a>
         </div>
     </main>
 
-    <script src="../assets/js/hero.js?v=2.0"></script>
-    <script src="../assets/js/cursor.js"></script>
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="/#hero">Inicio</a></li>
+                    <li><a href="/#about">Sobre mí</a></li>
+                    <li><a href="/#id-research">I + D</a></li>
+                    <li><a href="/#projects">Proyectos</a></li>
+                    <li><a href="/#contact">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="https://github.com/lmasix?tab=repositories" target="_blank"
+                            rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/maximiliano-andaur-henriquez/" target="_blank"
+                            rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i> LinkedIn</a>
+                    </li>
+                    <li><a href="/CV_powersystems_structural.pdf" target="_blank" rel="noopener noreferrer" download><i
+                                class="fas fa-file-download" aria-hidden="true"></i> Descargar CV</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-info">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Concepción, Chile</p>
+                <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:maximiliano@maxandaur.com"
+                        class="footer-mail-link">maximiliano@maxandaur.com</a></p>
+                <p><i class="fas fa-language" aria-hidden="true"></i> Español (Nativo), Inglés (C1)</p>
+            </div>
+
+            <div>
+                <h3>Sobre este sitio</h3>
+                <p><span class="frase">“La excelencia no es un acto, sino un hábito”</span></p>
+                <p>Diseñado con enfoque en Sistemas de Potencia, Control Avanzado e IA.</p>
+                <p class="footer-updated">Última actualización: Noviembre 2026</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 Maximiliano Andaur Henriquez. Todos los derechos reservados.
+        </div>
+    </footer>
 </body>
 
 </html>

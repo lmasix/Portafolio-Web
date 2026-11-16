@@ -1,174 +1,442 @@
-#projects {
-    padding: 100px 5vw;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-}
-
-#projects h2 {
-    color: var(--electric-blue);
-    font-size: 3rem;
-    margin-bottom: 10px;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.about-proyects {
-    color: #d1d1d1;
-    max-width: 700px;
-    line-height: 1.8;
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-}
-
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 30px;
-    width: 100%;
-}
-
-.project-card {
-    background: #1a1a1c;
-    /* Optimización: Color sólido para evitar lag de blur */
-    border-radius: 20px;
-    padding: 0;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    /* Eliminar subrayado globalmente en las tarjetas */
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.project-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--electric-blue), transparent);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: 1;
-}
-
-.project-card:hover {
-    transform: translateY(-15px) scale(1.02);
-    border-color: rgba(42, 99, 235, 0.4);
-    box-shadow: 0 20px 50px rgba(42, 99, 235, 0.15);
-}
-
-.project-card:hover::before {
-    opacity: 0.1;
-}
-
-.project-info {
-    padding: 40px;
-    position: relative;
-    z-index: 2;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.project-info h3 {
-    color: var(--white);
-    margin-bottom: 15px;
-    font-size: 1.8rem;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    line-height: 1.2;
-    transition: color 0.3s ease;
-}
-
-.card-category {
-    display: block;
-    color: var(--neon-green);
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-}
-
-.card-description {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1rem;
-    line-height: 1.5;
-    margin-bottom: 20px;
-    font-family: 'Outfit', sans-serif;
-}
-
-.card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 5px;
-}
-
-.card-tags span {
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.6);
-    padding: 4px 12px;
-    border-radius: 5px;
-    font-size: 0.75rem;
-    font-family: 'Outfit', sans-serif;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-.project-card:hover .card-tags span {
-    border-color: rgba(42, 99, 235, 0.3);
-    color: var(--white);
-    background: rgba(42, 99, 235, 0.1);
-}
-
-.project-card:hover .project-info h3 {
-    color: var(--neon-green);
-}
-
-/* Decoración con icono flotante en la tarjeta */
-.project-card::after {
-    content: '→';
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    font-size: 2rem;
-    color: var(--electric-blue);
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.4s ease;
-    z-index: 2;
-}
-
-.project-card:hover::after {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* Diseño para pantallas grandes */
-@media (min-width: 1024px) {
-    #projects {
-        padding: 120px 10%;
+@layer components {
+    /* Featured R&D section on index.html */
+    .id-research-section {
+        padding: 72px 5vw 20px;
+        max-width: 1320px;
+        margin: 0 auto;
+        position: relative;
+        z-index: var(--z-base);
     }
-}
 
-@media (max-width: 768px) {
-    .projects-grid {
-        grid-template-columns: 1fr;
+    .id-showcase-card {
+        display: grid;
+        grid-template-columns: 1.15fr 0.95fr;
+        gap: 36px;
+        align-items: center;
+        background-color: var(--surface-card);
+        background-image: var(--biotech-card-bg);
+        background-repeat: var(--biotech-bg-repeat);
+        background-position: var(--biotech-bg-position);
+        background-size: var(--biotech-bg-size);
+        border: 1px solid var(--border-accent);
+        border-left: 4px solid var(--forest-green);
+        border-radius: var(--radius-lg);
+        padding: 36px;
+        box-shadow: var(--shadow-card);
+    }
+
+    html[data-theme="night"] .id-showcase-card {
+        border-left-color: var(--lantern-orange);
+    }
+
+    .id-badge {
+        display: inline-block;
+        color: var(--wood-warm);
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        margin-bottom: 8px;
+    }
+
+    .id-showcase-content h2 {
+        margin: 0 0 14px;
+        font-family: var(--font-display);
+        font-size: clamp(1.9rem, 3vw, 2.55rem);
+        color: var(--text-primary);
+        line-height: 1.15;
+    }
+
+    .id-showcase-content p {
+        color: var(--text-secondary);
+        font-size: 1.02rem;
+        line-height: 1.7;
+        margin: 0 0 16px;
+    }
+
+    .id-highlights {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 0 24px;
+    }
+
+    .id-pill {
+        background: rgba(45, 122, 79, 0.1);
+        border: 1px solid rgba(45, 122, 79, 0.28);
+        color: var(--forest-green-deep);
+        padding: 6px 12px;
+        border-radius: var(--radius-sm);
+        font-family: var(--font-display);
+        font-size: 0.92rem;
+        font-weight: 600;
+    }
+
+    html[data-theme="night"] .id-pill {
+        background: rgba(74, 214, 136, 0.12);
+        border-color: rgba(74, 214, 136, 0.36);
+        color: var(--forest-green);
+    }
+
+    .id-figure {
+        margin: 0;
+        background-color: var(--parchment-solid);
+        background-image: var(--biotech-panel-bg);
+        background-repeat: var(--biotech-bg-repeat);
+        background-position: var(--biotech-bg-position);
+        background-size: var(--biotech-bg-size);
+        padding: 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-accent);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .id-figure img {
+        width: 100%;
+        height: auto;
+        border-radius: var(--radius-sm);
+    }
+
+    .id-figure figcaption {
+        margin-top: 10px;
+        padding: 10px 12px;
+        border-radius: var(--radius-sm);
+        background: rgba(228, 244, 252, 0.65);
+        border: 1px solid rgba(29, 120, 152, 0.16);
+        color: var(--text-secondary);
+        font-size: 0.88rem;
+        line-height: 1.45;
+        text-align: center;
+    }
+
+    html[data-theme="night"] .id-figure figcaption {
+        background: rgba(13, 32, 34, 0.88);
+        border-color: var(--border-subtle);
+    }
+
+    /* Projects and case studies section */
+    #projects {
+        padding: 88px 5vw;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        max-width: 1320px;
+        margin: 0 auto;
+        position: relative;
+        z-index: var(--z-base);
     }
 
     #projects h2 {
-        font-size: 2.2rem;
+        color: var(--forest-green-deep);
+        font-size: clamp(2.1rem, 3.2vw, 2.85rem);
+        margin: 0 0 10px;
+        font-family: var(--font-display);
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .about-proyects {
+        color: var(--text-secondary);
+        max-width: 760px;
+        line-height: 1.75;
+        margin: 0;
+        font-size: 1.06rem;
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        gap: 28px;
+        width: 100%;
+    }
+
+    .project-card {
+        contain: layout style;
+        background-color: var(--surface-card);
+        background-image: var(--biotech-card-bg);
+        background-repeat: var(--biotech-bg-repeat);
+        background-position: var(--biotech-bg-position);
+        background-size: var(--biotech-bg-size);
+        border-radius: var(--radius-lg);
+        padding: 0;
+        border: 1px solid var(--border-accent);
+        box-shadow: var(--shadow-card);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 84px;
+        height: 84px;
+        background-image: var(--card-moss-sprig);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: bottom right;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.8;
+    }
+
+    .project-card:nth-child(4n + 1)::after {
+        transform: none;
+    }
+
+    .project-card:nth-child(4n + 2)::after {
+        transform: scaleX(-1) rotate(-4deg);
+    }
+
+    .project-card:nth-child(4n + 3)::after {
+        transform: scaleY(-1) rotate(3deg);
+    }
+
+    .project-card:nth-child(4n + 4)::after {
+        transform: scaleX(-1) scaleY(-1) rotate(-3deg);
+    }
+
+    .project-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(45, 122, 79, 0.14), rgba(29, 120, 152, 0.08));
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    html[data-theme="night"] .project-card::before {
+        background: linear-gradient(135deg, rgba(255, 154, 60, 0.14), rgba(74, 214, 136, 0.08));
+    }
+
+    .project-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--border-accent);
+    }
+
+    .project-card:hover::before {
+        opacity: 1;
+    }
+
+    .project-figure {
+        margin: 0;
+        background-color: var(--parchment-solid);
+        background-image: var(--biotech-panel-bg);
+        background-repeat: var(--biotech-bg-repeat);
+        background-position: var(--biotech-bg-position);
+        background-size: var(--biotech-bg-size);
+        border-bottom: 1px solid var(--border-accent);
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+    }
+
+    .project-figure img {
+        width: 100%;
+        height: 215px;
+        object-fit: cover;
+        transition: transform 0.45s var(--ease-out);
+    }
+
+    .project-card:hover .project-figure img {
+        transform: scale(1.03);
+    }
+
+    .project-diagram-preview {
+        height: 215px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        background: radial-gradient(circle at top right, rgba(29, 120, 152, 0.1), transparent 68%);
+    }
+
+    html[data-theme="night"] .project-diagram-preview {
+        background: radial-gradient(circle at top right, var(--lantern-glow), rgba(13, 32, 34, 0.92));
+    }
+
+    html[data-theme="night"] .project-diagram-preview svg line {
+        stroke: #8eb0a2;
+    }
+
+    html[data-theme="night"] .project-diagram-preview svg path:first-of-type {
+        stroke: #38b6db;
+    }
+
+    html[data-theme="night"] .project-diagram-preview svg path:last-of-type {
+        stroke: #4ad688;
+    }
+
+    html[data-theme="night"] .project-diagram-preview svg text {
+        fill: #f5f2eb;
+    }
+
+    .project-diagram-preview svg {
+        width: 100%;
+        height: 100%;
+        max-height: 180px;
+    }
+
+    .project-figure figcaption {
+        padding: 9px 16px;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        background: var(--surface-elevated);
+        border-top: 1px solid var(--border-subtle);
+    }
+
+    .project-info {
+        padding: 26px 28px 30px;
+        position: relative;
+        z-index: 2;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-category {
+        display: block;
+        color: var(--wood-warm);
+        font-family: var(--font-display);
+        font-size: 0.86rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        margin-bottom: 8px;
+    }
+
+    .project-info h3 {
+        margin: 0 0 12px;
+        font-size: 1.6rem;
+        font-family: var(--font-display);
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .card-title-link {
+        color: var(--text-primary);
+        text-decoration: none;
+    }
+
+    .card-title-link::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+    }
+
+    .project-card:hover .card-title-link {
+        color: var(--forest-green);
+    }
+
+    .card-description {
+        color: var(--text-secondary);
+        font-size: 0.97rem;
+        line-height: 1.56;
+        margin: 0 0 18px;
+    }
+
+    .card-metrics {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .card-metric {
+        background: rgba(45, 122, 79, 0.06);
+        border: 1px solid rgba(45, 122, 79, 0.2);
+        border-radius: var(--radius-sm);
+        padding: 8px 10px;
+    }
+
+    html[data-theme="night"] .card-metric {
+        background: rgba(255, 154, 60, 0.08);
+        border-color: var(--border-subtle);
+    }
+
+    .card-metric .metric-value,
+    .card-metric strong {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 1.08rem;
+        font-weight: 700;
+        color: var(--forest-green-deep);
+    }
+
+    .card-metric span:not(.metric-value) {
+        display: block;
+        font-size: 0.78rem;
+        color: var(--text-muted);
+    }
+
+    .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: auto;
+    }
+
+    .card-tags span {
+        background: rgba(29, 120, 152, 0.08);
+        color: var(--water-blue-deep);
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-size: 0.76rem;
+        font-weight: 500;
+        border: 1px solid rgba(29, 120, 152, 0.22);
+    }
+
+    html[data-theme="night"] .card-tags span {
+        background: rgba(56, 182, 219, 0.12);
+        border-color: rgba(56, 182, 219, 0.34);
+        color: #8de2f7;
+    }
+
+    .card-cta-label {
+        margin-top: 16px;
+        font-family: var(--font-display);
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--water-blue-deep);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    @media (max-width: 900px) {
+        .id-showcase-card {
+            grid-template-columns: 1fr;
+            padding: 24px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .project-card::after {
+            width: 48px;
+            height: 48px;
+            opacity: 0.55;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .projects-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .id-research-section,
+        #projects {
+            padding: 60px 1.25rem;
+        }
     }
 }

@@ -4,124 +4,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Caso de estudio Parque Urbano Natural Quirihue: diseño eléctrico, planta fotovoltaica 281 kWp, sistema de respaldo BESS, iluminación DIALux, CCTV y Eco-Laguna.">
     <link rel="icon"
         href="https://lh3.googleusercontent.com/a/ACg8ocI1MFc9GdgGZeNmWh-oM2scl1VJ4mwXfX_RAxnsIe-XStpnZY3Z=s96-c-rg-br100">
-    <title>Energías Renovables e Infraestructura - Maximiliano Andaur</title>
+    <title>Parque Urbano Natural Quirihue - Ingeniería Eléctrica PV/BESS - Maximiliano Andaur</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/header.css?v=2.0">
-    <link rel="stylesheet" href="../assets/css/body.css?v=2.0">
-    <link rel="stylesheet" href="../assets/css/footer.css?v=2.0">
-    <link rel="stylesheet" href="../assets/css/proyecto-detalle.css?v=1.0">
+    <script>try{if(localStorage.getItem('maxandaur_theme')==='night')document.documentElement.setAttribute('data-theme','night');}catch(e){}</script>
+    <link rel="stylesheet" href="/assets/css/body.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/proyecto-detalle.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <script type="module" src="/assets/js/header.js" defer></script>
+    <script type="module" src="/assets/js/hero.js" defer></script>
+    <script type="module" src="/assets/js/cursor.js" defer></script>
 </head>
 
 <body>
+    <div class="header-sentinel" aria-hidden="true"></div>
     <canvas id="circuitCanvas"></canvas>
     <canvas id="cursorCanvas"></canvas>
 
-    <!-- Reutilizamos el header -->
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="../index.html">
-                    <img src="../assets/img/yo.png" alt="Logo">
-                </a>
+    <header class="site-header">
+        <nav aria-label="Navegación principal">
+            <div class="logo-group">
+                <button type="button" class="avatar-btn" data-open-dialog="profileDialog"
+                    aria-label="Ampliar foto de perfil">
+                    <img src="/assets/img/yo-thumb.webp" alt="Maximiliano Andaur Henriquez" width="600" height="663"
+                        loading="lazy" decoding="async">
+                </button>
+                <a href="/index.html" class="brand-home">Max Andaur</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="../index.html#home">Inicio</a></li>
-                <li><a href="../index.html#projects">Proyectos</a></li>
-                <li><a href="../index.html#contact">Contacto</a></li>
+
+            <ul class="nav-links" id="primaryNav">
+                <li><a href="/#hero">Inicio</a></li>
+                <li><a href="/#about">Sobre mí</a></li>
+                <li><a href="/#id-research">I + D</a></li>
+                <li><a href="/#projects">Proyectos</a></li>
+                <li><a href="/#contact">Contacto</a></li>
             </ul>
-            <button class="hamburger" aria-label="Abrir menú">
+
+            <div class="header-controls">
+                <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-pressed="false" title="Cambiar entre modo dia y modo noche"><i class="fas fa-moon" aria-hidden="true"></i><span class="theme-toggle-label">Modo: Dia</span></button>
+                <button type="button" class="cursor-toggle-btn" id="cursorToggleBtn" aria-pressed="true" title="Activar o desactivar animacion del puntero"><i class="fas fa-leaf" aria-hidden="true"></i><span class="cursor-toggle-label">Puntero: ON</span></button>
+            </div>
+
+            <!-- Selector de idioma reservado para futura activacion
+            <div class="lang-selector">
+                <a href="#es" class="active">ES</a>
+                <span>|</span>
+                <a href="#en">EN</a>
+                <span>|</span>
+                <a href="#de">DE</a>
+            </div>
+            -->
+
+            <button type="button" class="hamburger" aria-label="Abrir menú" aria-expanded="false"
+                aria-controls="primaryNav">
                 <span class="hamburger-box"><span class="hamburger-inner"></span></span>
             </button>
         </nav>
-        <script src="../assets/js/header.js?v=2.0"></script>
     </header>
+
+    <dialog id="profileDialog" class="profile-dialog" aria-labelledby="profileDialogTitle">
+        <div class="profile-dialog-content">
+            <button type="button" class="dialog-close-btn" data-close-dialog aria-label="Cerrar ventana">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <img src="/assets/img/yo.webp" alt="Maximiliano Andaur Henriquez - Ingeniero Civil Eléctrico" width="1200"
+                height="1326" loading="lazy" decoding="async">
+            <p id="profileDialogTitle" class="profile-dialog-caption">Maximiliano Andaur Henriquez — Ingeniero Civil
+                Eléctrico (UdeC)</p>
+        </div>
+    </dialog>
 
     <main class="project-detail-container">
         <section class="project-hero">
-            <h1>Energías Renovables e Infraestructura</h1>
-            <p class="subtitle">Gestión, diseño y ejecución de proyectos de alto impacto</p>
+            <span class="project-badge">Caso de Estudio · Quirihue, Región de Ñuble</span>
+            <h1>Parque Urbano Natural Quirihue</h1>
+            <p class="subtitle">
+                Ingeniería eléctrica integral para un recinto público de 7 hectáreas: generación fotovoltaica de
+                281 kWp, respaldo BESS en AC-Coupling, iluminación DIALux, televigilancia CCTV e integración de Eco-Laguna.
+            </p>
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <span class="kpi-value">281 kWp</span>
+                    <span class="kpi-label">Planta Solar Fotovoltaica</span>
+                    <span class="kpi-detail">Generación limpia conectada a red</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">46 kWh</span>
+                    <span class="kpi-label">Baterías de Respaldo (BESS)</span>
+                    <span class="kpi-detail">Autonomía para consumos críticos (46.08 kWh)</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">371</span>
+                    <span class="kpi-label">Luminarias LED Eficientes</span>
+                    <span class="kpi-detail">Iluminación vial y peatonal del parque</span>
+                </div>
+                <div class="kpi-card">
+                    <span class="kpi-value">20</span>
+                    <span class="kpi-label">Cámaras IP CCTV</span>
+                    <span class="kpi-detail">Seguridad por fibra óptica soterrada y PoE</span>
+                </div>
+            </div>
         </section>
 
         <section class="project-list">
-            <!-- Proyecto Principal -->
-            <article class="project-item">
+            <!-- Resumen de participacion y vistas principales -->
+            <article class="project-item reveal">
                 <div class="project-content">
-                    <h2>Parque Urbano Verde - Quirihue</h2>
+                    <h2>Participación Eléctrica Integral y Vistas Principales</h2>
                     <p class="tech-stack">
-                        <i class="fas fa-drafting-compass"></i> AutoCAD |
-                        <i class="fas fa-solar-panel"></i> PVsyst |
-                        <i class="fas fa-lightbulb"></i> DIALux |
-                        <i class="fas fa-battery-full"></i> BESS
+                        <i class="fas fa-solar-panel" aria-hidden="true"></i> Fotovoltaica 281 kWp |
+                        <i class="fas fa-battery-full" aria-hidden="true"></i> BESS AC-Coupling |
+                        <i class="fas fa-lightbulb" aria-hidden="true"></i> DIALux 3000 K |
+                        <i class="fas fa-video" aria-hidden="true"></i> CCTV IP + Fibra |
+                        <i class="fas fa-drafting-compass" aria-hidden="true"></i> AutoCAD y Media Tensión
                     </p>
                     <p>
-                        Diseño integral de la ingeniería eléctrica para un gran Parque Urbano en la comuna de Quirihue.
-                        Este proyecto se centra en la sostenibilidad y la autonomía energética, integrando generación
-                        renovable y almacenamiento avanzado.
+                        En el equipo multidisciplinario de la Universidad de Concepción (<em>VRIM — Mejora Parque Urbano
+                        Natural Multiuso de Quirihue</em>), asumí la ingeniería eléctrica completa del recinto,
+                        integrando generación renovable, respaldo crítico, iluminación normativa y seguridad.
                     </p>
-
-                    <h3><i class="fas fa-list-ul" style="color: var(--neon-green); font-size: 0.8em;"></i> Detalles
-                        Técnicos</h3>
                     <ul>
-                        <li><strong>Sistema Fotovoltaico:</strong> Diseño de un arreglo de <strong>281 kWp</strong> para
-                            cubrir la demanda energética del parque.</li>
-                        <li><strong>Almacenamiento (BESS):</strong> Dimensionamiento de un sistema de baterías para
-                            respaldo y gestión de demanda.</li>
-                        <li><strong>Alumbrado Eficiente:</strong> Planificación luminotécnica y eléctrica para
-                            garantizar seguridad y eficiencia.</li>
+                        <li><em>Alcance integral:</em> empalme en 13.2 kV, planta solar DC/AC, reingeniería BESS, fotometría DIALux, red CCTV y coordinación de protecciones.</li>
+                        <li><em>Reconocimiento UdeC:</em> distinguido con <em>Honores Especiales</em> en el programa <em>Prácticas con Impacto</em> por la memoria de cálculo ante la SEC y cumplimiento normativo (RIC N°09, RGR N°06/2024, DS N° 1 y DS N° 51).</li>
                     </ul>
 
-                    <div
-                        style="margin-top: 20px; padding: 15px; background: rgba(0, 255, 136, 0.1); border-left: 4px solid var(--neon-green); border-radius: 5px;">
-                        <h4 style="color: var(--neon-green); margin: 0 0 5px 0; font-family: 'Rajdhani', sans-serif;"><i
-                                class="fas fa-award"></i> Logro Destacado</h4>
-                        <p style="margin: 0; font-size: 0.95rem;">
-                            Recibí <strong>Honores Especiales</strong> por parte de mi tutor en el programa "Prácticas
-                            con Impacto" debido a la excelencia técnica y capacidad de gestión demostrada durante este
-                            proyecto.
-                        </p>
+                    <h3><i class="fas fa-star" aria-hidden="true"></i> Vistas Principales Priorizadas</h3>
+
+                    <!-- Vista principal 1 -->
+                    <figure class="figure-card figure-card--dark figure-featured">
+                        <img src="/assets/img/proyectos/quirihue-1-iluminacion-dialux.webp"
+                            alt="Render fotométrico nocturno en DIALux de la iluminación del estacionamiento fotovoltaico, vialidad y alrededores del Parque Urbano Natural Quirihue"
+                            width="1200" height="739" loading="lazy" decoding="async">
+                        <figcaption class="figure-caption">
+                            <em>Modelo lumínico nocturno (DIALux):</em> iluminación cálida de 3000 K con emisión nula al hemisferio superior (<span class="math-inline"><span class="math-rm">FHS</span> = 0%</span>) en accesos, estacionamientos solares y senderos.
+                        </figcaption>
+                    </figure>
+
+                    <!-- Vistas principales 2 y 3 -->
+                    <div class="figure-grid">
+                        <figure class="figure-card">
+                            <img src="/assets/img/proyectos/quirihue-2-modelo-3d-techumbre.webp"
+                                alt="Modelo 3D estructural de techumbre metálica tipo carport con paneles solares sobre estacionamientos"
+                                width="830" height="477" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                <em>Modelo 3D de techumbre solar:</em> estructura metálica modular tipo carport verificada bajo NCh 2360.Of2022.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/proyectos/quirihue-3-mapa-electrico-paneles.webp"
+                                alt="Mapa eléctrico y distribución en planta de los paneles solares sobre estacionamientos y entorno multicancha"
+                                width="790" height="527" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                <em>Mapa eléctrico de arreglos:</em> distribución espacial de los 396 módulos bifaciales hacia los tres inversores Solis.
+                            </figcaption>
+                        </figure>
                     </div>
+                </div>
+            </article>
 
-                    <h3><i class="fas fa-images"
-                            style="color: var(--electric-blue); font-size: 0.8em; margin-top: 25px;"></i> Galería de
-                        Planos (AutoCAD)</h3>
-                    <p style="font-style: italic; font-size: 0.9rem; margin-bottom: 15px;">Muestra del trabajo técnico
-                        de diseño y planimetría:</p>
+            <!-- Subsistema 1: Planta Solar -->
+            <article class="project-item reveal">
+                <div class="project-content">
+                    <h2>1. Planta Solar Fotovoltaica On-Grid (281 kWp)</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-sun" aria-hidden="true"></i> 396x Trina Vertex N 710 Wp |
+                        <i class="fas fa-bolt" aria-hidden="true"></i> 3x Solis 100K-5G-PRO |
+                        <i class="fas fa-file-contract" aria-hidden="true"></i> Net Billing Ley 21.118 / RIC N°09
+                    </p>
+                    <p>
+                        Para aprovechar la alta radiación estival de Quirihue sin recortes por saturación y asegurar
+                        redundancia operativa, se diseñó una arquitectura descentralizada con tres inversores de string de
+                        100 kW cada uno.
+                    </p>
+                    <ul>
+                        <li><em>Arreglo simétrico:</em> 396 módulos bifaciales <em>Trina Vertex N 710 Wp</em> repartidos equitativamente (18 strings de 20 y 3 de 12 por planta).</li>
+                        <li><em>Relación DC/AC:</em> razón de <code>0.937</code> sobre inversores multi-MPPT para minimizar pérdidas por sombreado parcial.</li>
+                        <li><em>Seguridad térmica y DC:</em> tensión máxima en frío (-10 °C) bajo el límite de 1100 V, cable solar <code>6 mm² H1Z2Z2-K</code>, conectores MC4-Evo2 y fusibles gPV.</li>
+                        <li><em>Balance Net Billing:</em> generación estimada superior a 587 MWh/año con excedentes inyectables a la red bajo Ley 21.118.</li>
+                    </ul>
 
-                    <!-- Placeholder para Galería -->
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                        <div
-                            style="background: rgba(255,255,255,0.05); padding: 40px 10px; text-align: center; border-radius: 8px; border: 1px dashed rgba(255,255,255,0.2);">
-                            <i class="far fa-file-image" style="font-size: 2rem; color: #aaa; margin-bottom: 10px;"></i>
-                            <p>Diagrama Unilineal General</p>
+                    <figure class="figure-card">
+                        <img src="/assets/img/proyectos/quirihue-unifilar-dc-inversor.webp"
+                            alt="Diagrama DC por inversor"
+                            width="1200" height="595" loading="lazy" decoding="async">
+                        <figcaption class="figure-caption">
+                            Diagrama DC por inversor: distribución de strings por MPPT.
+                        </figcaption>
+                    </figure>
+                </div>
+            </article>
+
+            <!-- Subsistema 2: Reingenieria BESS -->
+            <article class="project-item reveal">
+                <div class="project-content">
+                    <h2>2. Reingeniería del Sistema BESS en AC-Coupling</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-exchange-alt" aria-hidden="true"></i> Inversor Gestor Trifásico 12 kW |
+                        <i class="fas fa-battery-three-quarters" aria-hidden="true"></i> Banco de Baterías 48 V (46.08 kWh) |
+                        <i class="fas fa-gavel" aria-hidden="true"></i> RGR N°06/2024
+                    </p>
+                    <p>
+                        Los antecedentes iniciales conectaban baterías de baja tensión (48 V) al bus DC de alta tensión
+                        de los inversores fotovoltaicos; se corrigió mediante una arquitectura <em>AC-Coupling</em> en
+                        paralelo sobre el Tablero General de Distribución (TGD).
+                    </p>
+                    <ul>
+                        <li><em>Micro-red híbrida:</em> un inversor gestor trifásico lee el flujo neto vía transformadores de corriente para almacenar excedentes y respaldar cargas críticas.</li>
+                        <li><em>Banco modular de 46.08 kWh:</em> arreglo paralelo de 48 V dimensionado a baja tasa de descarga para extender la vida útil de las baterías.</li>
+                        <li><em>Seguridad e infraestructura:</em> barras de cobre simétricas, seccionador NH00, comunicación BMS/CAN y recinto RF60/RF120 según RGR N°06/2024.</li>
+                        <li><em>Peak shaving:</em> despacho programado en horas punta de invierno sobre tarifa AT4.3 para reducir costos de potencia máxima.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Subsistema 3: Iluminacion DIALux -->
+            <article class="project-item reveal">
+                <div class="project-content">
+                    <h2>3. Iluminación Vial, Peatonal y Deportiva (DIALux)</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-lightbulb" aria-hidden="true"></i> 371 Luminarias LED |
+                        <i class="fas fa-leaf" aria-hidden="true"></i> 3000 K · <span class="math-inline"><span class="math-rm">FHS</span> = 0%</span> |
+                        <i class="fas fa-balance-scale" aria-hidden="true"></i> Balance Trifásico R/S/T
+                    </p>
+                    <p>
+                        El proyecto lumínico en <em>DIALux</em> equilibra la seguridad peatonal y vehicular (DS N° 51)
+                        con el control de contaminación lumínica (DS N° 1 y RIC N°11), empleando luminarias cálidas de
+                        3000 K con cero flujo hacia el hemisferio superior.
+                    </p>
+                    <ul>
+                        <li><em>Balance trifásico en multicancha:</em> proyectores deportivos distribuidos equitativamente en las fases R, S y T para evitar asimetrías de tensión.</li>
+                        <li><em>Control de caída de tensión:</em> dimensionamiento de alimentadores en estacionamientos y senderos extensos bajo criterio de regulación en terreno.</li>
+                    </ul>
+
+                    <details class="spec-details">
+                        <summary>Ver detalle de luminarias por zona (371 equipos)</summary>
+                        <div class="table-wrapper">
+                            <table class="spec-table">
+                                <thead>
+                                    <tr>
+                                        <th>Sector del Parque</th>
+                                        <th>Luminaria Especificada</th>
+                                        <th>Cantidad</th>
+                                        <th>Potencia Total</th>
+                                        <th>Energía Efectiva / Día</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Estacionamiento</td>
+                                        <td>Philips BN126C LED52S (43 W)</td>
+                                        <td>84</td>
+                                        <td>3.612 W</td>
+                                        <td>21.67 kWh</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Peatonal Interior</td>
+                                        <td>Cardi LILY 4200 ALU 3K (40 W)</td>
+                                        <td>75</td>
+                                        <td>3.000 W</td>
+                                        <td>21.60 kWh</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cancha Deportiva</td>
+                                        <td>LUG CRUISER 2 PLUS LED (600 W)</td>
+                                        <td>36</td>
+                                        <td>21.600 W (7.2 kW/fase)</td>
+                                        <td>43.20 kWh</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Zona Verde</td>
+                                        <td>Cardi TERSUS POLLARE 3000K (18 W)</td>
+                                        <td>140</td>
+                                        <td>2.520 W</td>
+                                        <td>27.22 kWh</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ciclovía y Calle</td>
+                                        <td>LUG URBANO TWILIGHT LED (103 W)</td>
+                                        <td>26</td>
+                                        <td>2.678 W</td>
+                                        <td>19.28 kWh</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Peatonal Exterior</td>
+                                        <td>Cardi MIRA STREET 5500 (36 W)</td>
+                                        <td>10</td>
+                                        <td>360 W</td>
+                                        <td>2.59 kWh</td>
+                                    </tr>
+                                    <tr>
+                                        <td><em>Total Parque</em></td>
+                                        <td><em>6 Zonas Integradas (3000 K / <span class="math-inline"><span class="math-rm">FHS</span> 0%</span>)</em></td>
+                                        <td><em>371</em></td>
+                                        <td><em>33.770 W</em></td>
+                                        <td><em>135.56 kWh/día</em></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div
-                            style="background: rgba(255,255,255,0.05); padding: 40px 10px; text-align: center; border-radius: 8px; border: 1px dashed rgba(255,255,255,0.2);">
-                            <i class="far fa-map" style="font-size: 2rem; color: #aaa; margin-bottom: 10px;"></i>
-                            <p>Emplazamiento de Paneles</p>
-                        </div>
-                        <div
-                            style="background: rgba(255,255,255,0.05); padding: 40px 10px; text-align: center; border-radius: 8px; border: 1px dashed rgba(255,255,255,0.2);">
-                            <i class="fas fa-network-wired"
-                                style="font-size: 2rem; color: #aaa; margin-bottom: 10px;"></i>
-                            <p>Detalle de Canalizaciones</p>
-                        </div>
+                    </details>
+                </div>
+            </article>
+
+            <!-- Subsistema 4: Seguridad CCTV y Cargas Criticas -->
+            <article class="project-item reveal">
+                <div class="project-content">
+                    <h2>4. Seguridad, Televigilancia CCTV y Cargas Críticas</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-video" aria-hidden="true"></i> 20 Cámaras IP + Fibra |
+                        <i class="fas fa-wifi" aria-hidden="true"></i> Fibra Óptica + PoE |
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i> Respaldo BESS
+                    </p>
+                    <p>
+                        Para asegurar vigilancia continua conforme al Decreto N° 209 (Ley N° 21.659), toda la red de
+                        televigilancia y telemetría se alimenta desde el subtablero de cargas críticas respaldado por el
+                        sistema BESS.
+                    </p>
+                    <ul>
+                        <li><em>Infraestructura de red:</em> 20 cámaras IP interconectadas mediante switches <em>PoE</em> industriales, fibra óptica soterrada y enlaces inalámbricos.</li>
+                        <li><em>Almacenamiento continuo:</em> NVR de 32 canales con compresión H.265+ y 8 TB dedicados para respaldo continuo 24/7.</li>
+                        <li><em>Respaldo y mantenimiento:</em> consumo base cercano a 500 W sobre la salida protegida, con conmutador bypass manual <code>I-0-II</code> hacia el TGD.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Subsistema 5: Media Tension, Protecciones y Eco-Laguna -->
+            <article class="project-item reveal">
+                <div class="project-content">
+                    <h2>5. Media Tensión, Protecciones y Eco-Laguna</h2>
+                    <p class="tech-stack">
+                        <i class="fas fa-plug" aria-hidden="true"></i> Empalme 13.2 kV |
+                        <i class="fas fa-server" aria-hidden="true"></i> TGD IP54 (36 kA) |
+                        <i class="fas fa-water" aria-hidden="true"></i> Eco-Laguna 12.800 m³
+                    </p>
+                    <p>
+                        La interconexión principal opera en Media Tensión a <code>13.2 kV</code> mediante transformador
+                        particular, celda de medición bidireccional Net Billing y alimentador subterráneo hacia el
+                        Tablero General de Distribución (<code>TGD IP54</code>).
+                    </p>
+                    <ul>
+                        <li><em>Selectividad amperimétrica:</em> interruptor general caja moldeada coordinado con protecciones dedicadas por inversor, alumbrado y bombeo.</li>
+                        <li><em>Protección diferencial:</em> dispositivos <code>300 mA Clase B</code> en inversores solares y <code>30 mA Clase A</code> en circuitos de acceso público.</li>
+                        <li><em>Integración Eco-Laguna:</em> electrobombas de recirculación (1.1 kW) conectadas en barra general con protecciones <em>Curva D</em>, segregadas de la isla BESS.</li>
+                    </ul>
+
+                    <h3><i class="fas fa-images" aria-hidden="true"></i> Galería Técnica de Planimetría y Equipos</h3>
+                    <div class="figure-grid">
+                        <figure class="figure-card">
+                            <img src="/assets/img/proyectos/quirihue-detalle-estructural-paneles.webp"
+                                alt="Plano constructivo escala 1:50 de elevación y planta de techumbre fotovoltaica en estacionamiento"
+                                width="1200" height="420" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Plano constructivo escala 1:50 de elevación y planta para techumbre fotovoltaica modular.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/proyectos/quirihue-emplazamiento-paneles-autocad.webp"
+                                alt="Plano AutoCAD de emplazamiento general de cubiertas solares en estacionamiento principal y lateral"
+                                width="1200" height="411" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Emplazamiento en AutoCAD de los sectores de cubiertas fotovoltaicas en estacionamientos.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/proyectos/quirihue-planta-ecolaguna.webp"
+                                alt="Plano de planta de la Eco-Laguna con trazado de tuberías de impulsión, desborde y bombeo"
+                                width="752" height="527" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Planta de la Eco-Laguna (12.800 m³) con sala de bombas, impulsión y retorno por gravedad.
+                            </figcaption>
+                        </figure>
+
+                        <figure class="figure-card">
+                            <img src="/assets/img/proyectos/quirihue-bomba-impulso-fcp1100l.webp"
+                                alt="Ficha dimensional y tabla técnica de electrobomba FCP1100L de 1.1 kW y 25 m3/h"
+                                width="777" height="547" loading="lazy" decoding="async">
+                            <figcaption class="figure-caption">
+                                Electrobomba FCP1100L (1.1 kW) protegida con curva D en la barra general del TGD.
+                            </figcaption>
+                        </figure>
                     </div>
                 </div>
             </article>
         </section>
 
         <div class="back-link">
-            <a href="../index.html#projects" class="btn-back"><i class="fas fa-arrow-left"></i> Volver a Proyectos</a>
+            <a href="/index.html#projects" class="btn-back"><i class="fas fa-arrow-left" aria-hidden="true"></i> Volver</a>
         </div>
     </main>
 
-    <script src="../assets/js/hero.js?v=2.0"></script>
-    <script src="../assets/js/cursor.js"></script>
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="/#hero">Inicio</a></li>
+                    <li><a href="/#about">Sobre mí</a></li>
+                    <li><a href="/#id-research">I + D</a></li>
+                    <li><a href="/#projects">Proyectos</a></li>
+                    <li><a href="/#contact">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="https://github.com/lmasix?tab=repositories" target="_blank"
+                            rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/maximiliano-andaur-henriquez/" target="_blank"
+                            rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i> LinkedIn</a>
+                    </li>
+                    <li><a href="/CV_powersystems_structural.pdf" target="_blank" rel="noopener noreferrer" download><i
+                                class="fas fa-file-download" aria-hidden="true"></i> Descargar CV</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-info">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Concepción, Chile</p>
+                <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:maximiliano@maxandaur.com"
+                        class="footer-mail-link">maximiliano@maxandaur.com</a></p>
+                <p><i class="fas fa-language" aria-hidden="true"></i> Español (Nativo), Inglés (C1)</p>
+            </div>
+
+            <div>
+                <h3>Sobre este sitio</h3>
+                <p><span class="frase">“La excelencia no es un acto, sino un hábito”</span></p>
+                <p>Diseñado con enfoque en Sistemas de Potencia, Control Avanzado e IA.</p>
+                <p class="footer-updated">Última actualización: Noviembre 2026</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 Maximiliano Andaur Henriquez. Todos los derechos reservados.
+        </div>
+    </footer>
 </body>
 
 </html>

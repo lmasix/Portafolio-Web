@@ -1,109 +1,539 @@
-:root {
-    --electric-blue: #2A63EB;
-    --dark-gray: #1B1A1C;
-    --white: #ffffff;
-    --neon-green: #00FF88;
-}
+@layer reset, tokens, base, layout, components, utilities;
 
-body {
-    margin: 0;
-    background-color: var(--dark-gray);
-    font-family: 'Outfit', sans-serif;
-    color: var(--white);
-    overflow-x: hidden;
-}
-
-/* Contenedor principal para Hero y Sobre Mí */
-.hero-about-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    /* Permite que .hero crezca para que funcione sticky */
-    justify-content: center;
-    width: 100%;
-    min-height: 80vh;
-    padding-top: 80px;
-    /* Espacio para el header fijo si lo hay, o margen superior */
-}
-
-.hero {
-    flex: 1;
-    min-width: 300px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    /* Cambiado de center a flex-start para que empiece arriba */
-    text-align: center;
-    position: relative;
-}
-
-.hero-content {
-    position: sticky;
-    top: 30vh;
-    /* Se mantiene a esta altura mientras scrolleas */
-    transition: top 0.3s ease;
-}
-
-.sobremi {
-    flex: 1;
-    min-width: 300px;
-    /* Los estilos de sobremi.css se aplican aquí también */
-}
-
-
-/* Eliminar el .overlay */
-canvas {
-    position: fixed;
-    /* Cambiado de absolute a fixed */
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: block;
-    background-color: var(--dark-gray);
-    /* Fondo estático */
-    z-index: -1;
-}
-
-#cursorCanvas {
-    background-color: transparent;
-    z-index: 9999;
-    pointer-events: none;
-}
-
-.hero h1,
-.hero h2 {
-    z-index: 2;
-    /* Asegurar que el texto esté sobre el canvas */
-}
-
-/* Estilos del título */
-.hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(45deg, var(--electric-blue), var(--neon-green));
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
-    /* Efecto de resplandor */
-}
-
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2rem;
+@layer reset {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
     }
 
-    .projects-grid {
-        grid-template-columns: 1fr;
+    html {
+        scroll-behavior: smooth;
+    }
+
+    img,
+    svg {
+        display: block;
+        max-width: 100%;
+    }
+}
+
+@layer tokens {
+    :root {
+        /* Solarpunk day palette */
+        --sky-top: #cbe7f7;
+        --sky-mid: #e4f4fc;
+        --sky-low: #eef7f0;
+        --pine-ink: #163024;
+        --pine-soft: #2a4739;
+        --pine-muted: #466556;
+        --forest-green: #2d7a4f;
+        --forest-green-deep: #1f5c3a;
+        --water-blue: #1d7898;
+        --water-blue-deep: #145972;
+        --sprout-green: #4ba36b;
+        --wood-warm: #8c5e35;
+        --amber-accent: #b86b28;
+        --parchment-solid: #fcfaf4;
+        --text-on-filled: #fcfaf4;
+        --lantern-orange: #b86b28;
+        --lantern-amber: #d4893c;
+        --lantern-glow: rgba(75, 163, 107, 0.08);
+
+        /* Mapped tokens across all pages */
+        --dark-gray: #e4f4fc;
+        --white: #fcfaf4;
+        --light-gray: #163024;
+        --electric-blue: #1d7898;
+        --electric-blue-light: #2b8cad;
+        --electric-blue-dark: #145972;
+        --neon-green: #2d7a4f;
+        --accent-cyan: #4ba36b;
+        --surface-dark: rgba(252, 250, 244, 0.95);
+        --surface-card: rgba(252, 250, 244, 0.95);
+        --surface-elevated: rgba(246, 243, 232, 0.97);
+        --surface-glass: rgba(252, 250, 244, 0.72);
+        --text-primary: #163024;
+        --text-secondary: #2a4739;
+        --text-muted: #466556;
+        --border-subtle: rgba(140, 94, 53, 0.24);
+        --border-accent: rgba(45, 122, 79, 0.36);
+        --border-blue: rgba(29, 120, 152, 0.32);
+        --shadow-soft: 0 10px 28px rgba(22, 48, 36, 0.08);
+        --shadow-card: 0 14px 36px rgba(22, 48, 36, 0.11);
+
+        /* Bio-tech Solarpunk organic SVG data-URI textures */
+        --biotech-vine-corner: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M32 6C52 18 66 10 82 24C98 38 96 58 112 80' stroke='%232d7a4f' stroke-opacity='0.34' stroke-width='1.6'/%3E%3Cpath d='M52 14C68 18 82 28 96 46' stroke='%234ba36b' stroke-opacity='0.28' stroke-width='1.1'/%3E%3C/g%3E%3Cg%3E%3Cpath d='M54 14Q62 4 70 10Q64 19 54 14Z' fill='%234ba36b' fill-opacity='0.3'/%3E%3Cpath d='M76 22Q86 14 92 22Q83 29 76 22Z' fill='%232d7a4f' fill-opacity='0.28'/%3E%3Cpath d='M96 42Q108 38 110 48Q100 52 96 42Z' fill='%234ba36b' fill-opacity='0.3'/%3E%3Cpath d='M102 62Q114 60 114 70Q104 72 102 62Z' fill='%232d7a4f' fill-opacity='0.26'/%3E%3Ccircle cx='86' cy='26' r='2.4' fill='%23b86b28' fill-opacity='0.38'/%3E%3C/g%3E%3C/svg%3E");
+        --screen-vines-left: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 800'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 0C22 70 10 155 34 240C52 305 16 390 28 485C38 565 12 645 24 795' stroke='%232d7a4f' stroke-opacity='0.38' stroke-width='2.1'/%3E%3Cpath d='M18 110C38 132 54 168 46 218' stroke='%231f5c3a' stroke-opacity='0.28' stroke-width='1.3'/%3E%3Cpath d='M28 335C8 360 44 404 54 452' stroke='%234ba36b' stroke-opacity='0.32' stroke-width='1.4'/%3E%3Cpath d='M20 560C44 585 52 630 36 690' stroke='%232d7a4f' stroke-opacity='0.3' stroke-width='1.3'/%3E%3C/g%3E%3Cg%3E%3Cpath d='M0 36Q24 44 20 68Q6 72 0 58Z' fill='%234ba36b' fill-opacity='0.24'/%3E%3Cpath d='M0 265Q18 274 14 298Q4 302 0 286Z' fill='%232d7a4f' fill-opacity='0.22'/%3E%3Cpath d='M0 510Q22 522 16 548Q5 554 0 536Z' fill='%234ba36b' fill-opacity='0.22'/%3E%3Cpath d='M18 92Q36 80 42 94Q28 106 18 92Z' fill='%232d7a4f' fill-opacity='0.38'/%3E%3Cpath d='M44 176Q64 166 64 182Q48 190 44 176Z' fill='%234ba36b' fill-opacity='0.36'/%3E%3Cpath d='M32 238Q52 232 52 248Q36 254 32 238Z' fill='%231f5c3a' fill-opacity='0.32'/%3E%3Cpath d='M26 355Q46 342 50 358Q34 368 26 355Z' fill='%234ba36b' fill-opacity='0.36'/%3E%3Cpath d='M48 432Q68 424 66 442Q50 448 48 432Z' fill='%232d7a4f' fill-opacity='0.35'/%3E%3Cpath d='M24 590Q44 576 48 592Q32 604 24 590Z' fill='%234ba36b' fill-opacity='0.34'/%3E%3Cpath d='M36 672Q56 664 56 680Q40 688 36 672Z' fill='%231f5c3a' fill-opacity='0.3'/%3E%3Ccircle cx='46' cy='218' r='2.8' fill='%23b86b28' fill-opacity='0.44'/%3E%3Ccircle cx='54' cy='452' r='2.5' fill='%231d7898' fill-opacity='0.4'/%3E%3Ccircle cx='36' cy='690' r='2.6' fill='%23b86b28' fill-opacity='0.42'/%3E%3C/g%3E%3C/svg%3E");
+        --screen-vines-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 800'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M80 12C54 88 68 182 42 268C22 334 62 422 46 520C32 606 64 684 52 798' stroke='%232d7a4f' stroke-opacity='0.38' stroke-width='2'/%3E%3Cpath d='M62 152C36 178 24 218 32 262' stroke='%234ba36b' stroke-opacity='0.3' stroke-width='1.35'/%3E%3Cpath d='M52 390C28 418 20 462 36 512' stroke='%231f5c3a' stroke-opacity='0.3' stroke-width='1.35'/%3E%3Cpath d='M58 615C34 638 28 682 44 736' stroke='%234ba36b' stroke-opacity='0.32' stroke-width='1.3'/%3E%3C/g%3E%3Cg%3E%3Cpath d='M80 64Q56 72 60 98Q74 102 80 88Z' fill='%232d7a4f' fill-opacity='0.24'/%3E%3Cpath d='M80 318Q54 328 58 354Q72 358 80 342Z' fill='%234ba36b' fill-opacity='0.22'/%3E%3Cpath d='M80 572Q56 584 60 610Q74 614 80 598Z' fill='%232d7a4f' fill-opacity='0.22'/%3E%3Cpath d='M64 114Q44 102 40 118Q56 128 64 114Z' fill='%234ba36b' fill-opacity='0.36'/%3E%3Cpath d='M34 210Q14 202 16 218Q32 226 34 210Z' fill='%232d7a4f' fill-opacity='0.34'/%3E%3Cpath d='M48 296Q28 286 26 302Q44 310 48 296Z' fill='%231f5c3a' fill-opacity='0.32'/%3E%3Cpath d='M36 446Q16 438 18 456Q34 462 36 446Z' fill='%234ba36b' fill-opacity='0.36'/%3E%3Cpath d='M52 508Q32 500 32 516Q48 524 52 508Z' fill='%232d7a4f' fill-opacity='0.34'/%3E%3Cpath d='M44 654Q24 646 24 662Q40 670 44 654Z' fill='%234ba36b' fill-opacity='0.34'/%3E%3Cpath d='M52 740Q32 732 34 748Q48 756 52 740Z' fill='%231f5c3a' fill-opacity='0.3'/%3E%3Ccircle cx='32' cy='262' r='2.6' fill='%231d7898' fill-opacity='0.42'/%3E%3Ccircle cx='36' cy='512' r='2.8' fill='%23b86b28' fill-opacity='0.44'/%3E%3Ccircle cx='44' cy='736' r='2.5' fill='%231d7898' fill-opacity='0.4'/%3E%3C/g%3E%3C/svg%3E");
+        --card-moss-sprig: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10C44 18 58 14 72 28C84 40 80 58 88 78' stroke='%232d7a4f' stroke-opacity='0.34' stroke-width='1.5'/%3E%3Cpath d='M48 16C64 20 74 30 78 48' stroke='%234ba36b' stroke-opacity='0.28' stroke-width='1.1'/%3E%3C/g%3E%3Cg%3E%3Cpath d='M58 6Q76 4 86 14Q92 26 88 38Q76 28 66 20Q58 14 58 6Z' fill='%234ba36b' fill-opacity='0.18'/%3E%3Cpath d='M36 14Q44 5 52 11Q46 20 36 14Z' fill='%232d7a4f' fill-opacity='0.3'/%3E%3Cpath d='M60 22Q72 15 76 24Q66 30 60 22Z' fill='%234ba36b' fill-opacity='0.32'/%3E%3Cpath d='M74 42Q88 38 89 48Q78 52 74 42Z' fill='%232d7a4f' fill-opacity='0.3'/%3E%3Cpath d='M78 60Q90 60 89 70Q78 70 78 60Z' fill='%234ba36b' fill-opacity='0.28'/%3E%3Ccircle cx='72' cy='28' r='2.3' fill='%23b86b28' fill-opacity='0.4'/%3E%3Ccircle cx='88' cy='78' r='1.9' fill='%231d7898' fill-opacity='0.36'/%3E%3C/g%3E%3C/svg%3E");
+
+        /* Shared clean bio-tech surface presets without mosaic repetition */
+        --biotech-bg-repeat: no-repeat, no-repeat;
+        --biotech-bg-position: top right, center;
+        --biotech-bg-size: 100% 100%, 100% 100%;
+        --biotech-card-bg:
+            radial-gradient(circle at top right, var(--lantern-glow), transparent 55%),
+            linear-gradient(155deg, rgba(252, 250, 244, 0.96), rgba(238, 247, 240, 0.94));
+        --biotech-panel-bg:
+            radial-gradient(circle at top right, var(--lantern-glow), transparent 55%),
+            linear-gradient(160deg, rgba(252, 250, 244, 0.98), rgba(242, 248, 243, 0.96));
+
+        /* Typography */
+        --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+        --font-display: 'Rajdhani', system-ui, sans-serif;
+        --font-mono: 'Courier New', ui-monospace, monospace;
+        --font-math: 'Latin Modern Math', 'Computer Modern Serif', 'Cambria Math', 'STIX Two Math', 'Times New Roman', Georgia, serif;
+
+        /* Spacing */
+        --space-xs: 0.5rem;
+        --space-sm: 1rem;
+        --space-md: 1.5rem;
+        --space-lg: 2.5rem;
+        --space-xl: 4rem;
+
+        /* Radii */
+        --radius-sm: 6px;
+        --radius-md: 12px;
+        --radius-lg: 20px;
+        --radius-pill: 40px;
+        --radius-full: 50%;
+
+        /* Z-index scale */
+        --z-bg: -1;
+        --z-base: 2;
+        --z-footer: 10;
+        --z-header: 1000;
+        --z-cursor: 9999;
+
+        /* Motion */
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        --duration-fast: 0.25s;
+        --duration-med: 0.45s;
+    }
+
+    html[data-theme="night"] {
+        /* Night bio-tech Solarpunk palette with warm orange lanterns */
+        --sky-top: #06101a;
+        --sky-mid: #0b1b28;
+        --sky-low: #0e241f;
+        --lantern-orange: #ff9a3c;
+        --lantern-amber: #ffb85c;
+        --lantern-glow: rgba(255, 154, 60, 0.24);
+        --pine-ink: #f5f2eb;
+        --pine-soft: #c9ddd4;
+        --pine-muted: #8eb0a2;
+        --forest-green: #4ad688;
+        --forest-green-deep: #ffad4d;
+        --water-blue: #38b6db;
+        --water-blue-deep: #ff9a3c;
+        --sprout-green: #4ad688;
+        --wood-warm: #ff9a3c;
+        --amber-accent: #ffb85c;
+        --parchment-solid: #102526;
+        --text-on-filled: #081316;
+
+        --dark-gray: #0b1b28;
+        --white: #102526;
+        --light-gray: #f5f2eb;
+        --electric-blue: #38b6db;
+        --electric-blue-light: #5fd0ef;
+        --electric-blue-dark: #ff9a3c;
+        --neon-green: #4ad688;
+        --accent-cyan: #4ad688;
+        --surface-dark: rgba(9, 22, 26, 0.95);
+        --surface-card: rgba(12, 27, 28, 0.95);
+        --surface-elevated: rgba(16, 36, 36, 0.97);
+        --surface-glass: rgba(10, 24, 26, 0.78);
+        --text-primary: #f5f2eb;
+        --text-secondary: #c9ddd4;
+        --text-muted: #8eb0a2;
+        --border-subtle: rgba(255, 154, 60, 0.28);
+        --border-accent: rgba(255, 168, 76, 0.55);
+        --border-blue: rgba(56, 182, 219, 0.36);
+        --shadow-soft: 0 10px 28px rgba(4, 10, 14, 0.45), 0 0 18px rgba(255, 154, 60, 0.12);
+        --shadow-card: 0 14px 36px rgba(4, 10, 14, 0.55), 0 0 26px rgba(255, 154, 60, 0.16);
+
+        --biotech-vine-corner: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M32 6C52 18 66 10 82 24C98 38 96 58 112 80' stroke='%234ad688' stroke-opacity='0.42' stroke-width='1.6'/%3E%3Cpath d='M52 14C68 18 82 28 96 46' stroke='%23ff9a3c' stroke-opacity='0.34' stroke-width='1.1'/%3E%3C/g%3E%3Cg%3E%3Cpath d='M54 14Q62 4 70 10Q64 19 54 14Z' fill='%234ad688' fill-opacity='0.36'/%3E%3Cpath d='M76 22Q86 14 92 22Q83 29 76 22Z' fill='%234ad688' fill-opacity='0.34'/%3E%3Cpath d='M96 42Q108 38 110 48Q100 52 96 42Z' fill='%234ad688' fill-opacity='0.36'/%3E%3Cpath d='M102 62Q114 60 114 70Q104 72 102 62Z' fill='%23ff9a3c' fill-opacity='0.34'/%3E%3Ccircle cx='86' cy='26' r='2.6' fill='%23ffb85c' fill-opacity='0.68'/%3E%3C/g%3E%3C/svg%3E");
+        --screen-vines-left: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 800'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 0C22 70 10 155 34 240C52 305 16 390 28 485C38 565 12 645 24 795' stroke='%232e8555' stroke-opacity='0.52' stroke-width='2.1'/%3E%3Cpath d='M18 110C38 132 54 168 46 218' stroke='%234ad688' stroke-opacity='0.38' stroke-width='1.3'/%3E%3Cpath d='M28 335C8 360 44 404 54 452' stroke='%23ff9a3c' stroke-opacity='0.34' stroke-width='1.3'/%3E%3Cpath d='M20 560C44 585 52 630 36 690' stroke='%234ad688' stroke-opacity='0.4' stroke-width='1.3'/%3E%3C/g%3E%3Cg%3E%3Cpath d='M0 36Q24 44 20 68Q6 72 0 58Z' fill='%232e8555' fill-opacity='0.34'/%3E%3Cpath d='M0 265Q18 274 14 298Q4 302 0 286Z' fill='%231e5c3e' fill-opacity='0.34'/%3E%3Cpath d='M0 510Q22 522 16 548Q5 554 0 536Z' fill='%232e8555' fill-opacity='0.32'/%3E%3Cpath d='M18 92Q36 80 42 94Q28 106 18 92Z' fill='%234ad688' fill-opacity='0.44'/%3E%3Cpath d='M44 176Q64 166 64 182Q48 190 44 176Z' fill='%232e8555' fill-opacity='0.42'/%3E%3Cpath d='M32 238Q52 232 52 248Q36 254 32 238Z' fill='%23ff9a3c' fill-opacity='0.32'/%3E%3Cpath d='M26 355Q46 342 50 358Q34 368 26 355Z' fill='%234ad688' fill-opacity='0.42'/%3E%3Cpath d='M48 432Q68 424 66 442Q50 448 48 432Z' fill='%232e8555' fill-opacity='0.4'/%3E%3Cpath d='M24 590Q44 576 48 592Q32 604 24 590Z' fill='%234ad688' fill-opacity='0.4'/%3E%3Cpath d='M36 672Q56 664 56 680Q40 688 36 672Z' fill='%23ff9a3c' fill-opacity='0.3'/%3E%3Ccircle cx='46' cy='218' r='3' fill='%23ff9a3c' fill-opacity='0.72'/%3E%3Ccircle cx='54' cy='452' r='2.6' fill='%234ad688' fill-opacity='0.64'/%3E%3Ccircle cx='36' cy='690' r='2.8' fill='%23ff9a3c' fill-opacity='0.68'/%3E%3C/g%3E%3C/svg%3E");
+        --screen-vines-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 800'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M80 12C54 88 68 182 42 268C22 334 62 422 46 520C32 606 64 684 52 798' stroke='%232e8555' stroke-opacity='0.52' stroke-width='2'/%3E%3Cpath d='M62 152C36 178 24 218 32 262' stroke='%234ad688' stroke-opacity='0.4' stroke-width='1.35'/%3E%3Cpath d='M52 390C28 418 20 462 36 512' stroke='%23ff9a3c' stroke-opacity='0.34' stroke-width='1.3'/%3E%3Cpath d='M58 615C34 638 28 682 44 736' stroke='%234ad688' stroke-opacity='0.4' stroke-width='1.3'/%3E%3C/g%3E%3Cg%3E%3Cpath d='M80 64Q56 72 60 98Q74 102 80 88Z' fill='%232e8555' fill-opacity='0.34'/%3E%3Cpath d='M80 318Q54 328 58 354Q72 358 80 342Z' fill='%231e5c3e' fill-opacity='0.34'/%3E%3Cpath d='M80 572Q56 584 60 610Q74 614 80 598Z' fill='%232e8555' fill-opacity='0.32'/%3E%3Cpath d='M64 114Q44 102 40 118Q56 128 64 114Z' fill='%234ad688' fill-opacity='0.44'/%3E%3Cpath d='M34 210Q14 202 16 218Q32 226 34 210Z' fill='%23ff9a3c' fill-opacity='0.34'/%3E%3Cpath d='M48 296Q28 286 26 302Q44 310 48 296Z' fill='%234ad688' fill-opacity='0.4'/%3E%3Cpath d='M36 446Q16 438 18 456Q34 462 36 446Z' fill='%232e8555' fill-opacity='0.42'/%3E%3Cpath d='M52 508Q32 500 32 516Q48 524 52 508Z' fill='%234ad688' fill-opacity='0.4'/%3E%3Cpath d='M44 654Q24 646 24 662Q40 670 44 654Z' fill='%23ff9a3c' fill-opacity='0.32'/%3E%3Cpath d='M52 740Q32 732 34 748Q48 756 52 740Z' fill='%234ad688' fill-opacity='0.38'/%3E%3Ccircle cx='32' cy='262' r='2.8' fill='%234ad688' fill-opacity='0.66'/%3E%3Ccircle cx='36' cy='512' r='3' fill='%23ff9a3c' fill-opacity='0.72'/%3E%3Ccircle cx='44' cy='736' r='2.6' fill='%23ff9a3c' fill-opacity='0.66'/%3E%3C/g%3E%3C/svg%3E");
+        --card-moss-sprig: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 10C44 18 58 14 72 28C84 40 80 58 88 78' stroke='%234ad688' stroke-opacity='0.42' stroke-width='1.5'/%3E%3Cpath d='M48 16C64 20 74 30 78 48' stroke='%23ff9a3c' stroke-opacity='0.36' stroke-width='1.1'/%3E%3C/g%3E%3Cg%3E%3Cpath d='M58 6Q76 4 86 14Q92 26 88 38Q76 28 66 20Q58 14 58 6Z' fill='%232e8555' fill-opacity='0.28'/%3E%3Cpath d='M36 14Q44 5 52 11Q46 20 36 14Z' fill='%234ad688' fill-opacity='0.38'/%3E%3Cpath d='M60 22Q72 15 76 24Q66 30 60 22Z' fill='%234ad688' fill-opacity='0.36'/%3E%3Cpath d='M74 42Q88 38 89 48Q78 52 74 42Z' fill='%23ff9a3c' fill-opacity='0.34'/%3E%3Cpath d='M78 60Q90 60 89 70Q78 70 78 60Z' fill='%234ad688' fill-opacity='0.34'/%3E%3Ccircle cx='72' cy='28' r='2.5' fill='%23ff9a3c' fill-opacity='0.68'/%3E%3Ccircle cx='88' cy='78' r='2.1' fill='%234ad688' fill-opacity='0.58'/%3E%3C/g%3E%3C/svg%3E");
+
+        --biotech-card-bg:
+            radial-gradient(circle at top right, var(--lantern-glow), transparent 55%),
+            linear-gradient(155deg, rgba(16, 36, 36, 0.96), rgba(9, 22, 26, 0.95));
+        --biotech-panel-bg:
+            radial-gradient(circle at top right, var(--lantern-glow), transparent 55%),
+            linear-gradient(160deg, rgba(16, 37, 38, 0.98), rgba(10, 25, 27, 0.96));
+    }
+}
+
+@layer base {
+    body {
+        margin: 0;
+        background-color: var(--sky-mid);
+        background-image: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 48%, var(--sky-low) 100%);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: var(--font-sans);
+        color: var(--text-primary);
+        overflow-x: hidden;
+        line-height: 1.65;
+    }
+
+    body::before,
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: clamp(38px, 4.5vw, 72px);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        pointer-events: none;
+        z-index: 4;
+    }
+
+    body::before {
+        left: 0;
+        background-image: var(--screen-vines-left);
+    }
+
+    body::after {
+        right: 0;
+        background-image: var(--screen-vines-right);
+    }
+
+    @media (max-width: 767px) {
+        body::before,
+        body::after {
+            width: 20px;
+            opacity: 0.55;
+        }
+    }
+
+    html[data-theme="night"] img.tech-diagram {
+        filter: invert(0.88) hue-rotate(180deg) contrast(1.15);
+    }
+
+    /* Fixed background and cursor canvases only */
+    #circuitCanvas,
+    #cursorCanvas {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        pointer-events: none;
+    }
+
+    #circuitCanvas {
+        background-color: transparent;
+        z-index: var(--z-bg);
+    }
+
+    #cursorCanvas {
+        background-color: transparent;
+        z-index: var(--z-cursor);
+    }
+
+    em {
+        font-style: italic;
+        color: var(--forest-green-deep);
+        font-weight: 500;
+    }
+
+    .math_word,
+    .math-inline {
+        font-family: var(--font-math);
+        font-style: normal;
+        font-variant-numeric: lining-nums;
+    }
+
+    .math_word {
+        color: var(--water-blue-deep);
+        font-weight: 600;
+    }
+
+    .math-inline var {
+        font-family: var(--font-math);
+        font-style: italic;
+        font-weight: 400;
+    }
+
+    .math-vec {
+        font-family: var(--font-math);
+        font-style: italic;
+        font-weight: 700;
+    }
+
+    .math-rm {
+        font-family: var(--font-math);
+        font-style: normal;
+        font-weight: 400;
+    }
+
+    .math-hat {
+        position: relative;
+        display: inline-block;
+    }
+
+    .math-hat::before {
+        content: '\02C6';
+        position: absolute;
+        top: -0.44em;
+        left: 50%;
+        transform: translateX(-45%) scaleX(1.15);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1;
+        pointer-events: none;
+    }
+
+    .math-inline sub,
+    .math-inline sup {
+        font-size: 0.72em;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    .math-inline sub {
+        bottom: -0.25em;
+    }
+
+    .math-inline sup {
+        top: -0.42em;
+    }
+
+    .inline-link {
+        color: var(--water-blue-deep);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        transition: opacity var(--duration-fast) ease;
+    }
+
+    .inline-link:hover {
+        opacity: 0.78;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+        outline: 2px solid var(--forest-green);
+        outline-offset: 3px;
+    }
+
+    html[data-theme="night"] a:focus-visible,
+    html[data-theme="night"] button:focus-visible,
+    html[data-theme="night"] summary:focus-visible,
+    html[data-theme="night"] input:focus-visible,
+    html[data-theme="night"] textarea:focus-visible {
+        outline-color: var(--lantern-orange);
+    }
+}
+
+@layer layout {
+    .header-sentinel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        height: 1px;
+        pointer-events: none;
     }
 
     .hero-about-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        justify-content: center;
+        width: 100%;
+        min-height: 85vh;
+        padding-top: 104px;
+        max-width: 1440px;
+        margin: 0 auto;
+    }
+
+    .hero {
+        flex: 1 1 420px;
+        min-width: 300px;
+        padding: 2rem 2.5rem;
+        display: flex;
         flex-direction: column;
+        justify-content: flex-start;
+        text-align: center;
+        position: relative;
+    }
+
+    .hero-content {
+        position: sticky;
+        top: 22vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .sobremi {
+        flex: 1.15 1 460px;
+        min-width: 300px;
+    }
+
+    .hero h1,
+    .hero h2 {
+        z-index: var(--z-base);
+    }
+
+    .hero .tagline {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--wood-warm);
+        letter-spacing: 1px;
+    }
+
+    .hero h1 {
+        font-family: var(--font-display);
+        font-size: clamp(2.1rem, 3.6vw, 3.35rem);
+        line-height: 1.12;
+        margin: 0.25rem 0 0.5rem;
+        background: linear-gradient(135deg, var(--forest-green-deep), var(--water-blue-deep));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    html[data-theme="night"] .hero h1 {
+        background: linear-gradient(135deg, var(--lantern-amber), var(--forest-green));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 18px rgba(255, 154, 60, 0.2));
+    }
+
+    .hero-lead {
+        margin: 0;
+        max-width: 560px;
+        color: var(--text-secondary);
+        font-size: 1.06rem;
+        line-height: 1.68;
+    }
+
+    .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.85rem;
+        margin-top: 0.75rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.35rem;
+        border-radius: var(--radius-sm);
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: linear-gradient(135deg, var(--forest-green), var(--water-blue));
+        color: var(--text-on-filled);
+        border: 1px solid var(--border-accent);
+        box-shadow: 0 6px 18px rgba(29, 120, 152, 0.18);
+        transition: transform var(--duration-fast) var(--ease-out), opacity var(--duration-fast) ease;
+    }
+
+    html[data-theme="night"] .btn-primary,
+    html[data-theme="night"] .btn-secondary {
+        box-shadow: 0 6px 20px rgba(255, 154, 60, 0.22);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        transform: translateY(-2px);
+        opacity: 0.92;
+    }
+
+    @media (max-width: 900px) {
+        .hero-about-container {
+            flex-direction: column;
+            padding-top: 96px;
+        }
+
+        .hero-content {
+            position: static;
+        }
+
+        .hero {
+            padding: 1.5rem 1.25rem;
+        }
     }
 }
 
-.math_word {
-    font-family: 'Times New Roman', Times, serif;
-    font-style: italic;
+@layer utilities {
+    .hp-field {
+        display: none !important;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .reveal {
+        transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+    }
+
+    .js-enabled .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .js-enabled .reveal.is-visible,
+    .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Hide canvas cursor and pointer toggle on touch/small screens while keeping theme toggle visible */
+    @media (hover: none), (pointer: coarse), (max-width: 767px) {
+        #cursorCanvas,
+        .cursor-toggle-btn {
+            display: none !important;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        .reveal,
+        .btn-primary,
+        .btn-secondary {
+            transition: opacity 0.01ms linear, transform 0.01ms linear;
+        }
+
+        .js-enabled .reveal {
+            opacity: 1;
+            transform: none;
+        }
+    }
 }
